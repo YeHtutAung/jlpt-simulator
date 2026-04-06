@@ -1,12 +1,12 @@
 # Currently In Progress
 
-_Last updated: Session 4_
+_Last updated: Session 4 (docs sync)_
 
 ---
 
 ## 🔨 Active Task
 
-Nothing in progress. Session 4 complete.
+Nothing in progress. Sessions 1–4 complete. Project is feature-complete.
 
 ---
 

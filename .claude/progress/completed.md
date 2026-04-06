@@ -4,6 +4,17 @@ _Last updated: Session 4_
 
 ---
 
+## ✅ Session 4 — UI Polish, Admin Auth, Tests, Toasts
+
+- [x] `packages/web/src/store/uiStore.ts` — theme persisted via `zustand/middleware persist`, sidebar open/close, toast queue with auto-dismiss timers
+- [x] `packages/web/src/components/ui/Card.tsx` — 4 variants (default/elevated/bordered/flat), header/footer slots, padding sizes (sm/md/lg), clickable hover state
+- [x] `packages/web/src/pages/ExamSession.tsx` — keyboard nav: 1-4 select option, N/→ next, P/← prev (practice only), F flag; hint bar in footer; toasts on submit/error
+- [x] `packages/web/src/components/ui/Toast.tsx` + `useToast` hook — success/error/info, bottom-right, 3s auto-dismiss; wired into App.tsx root
+- [x] `packages/admin/src/store/adminStore.ts` + `AuthGuard.tsx` — 4 auth states (loading → inline login form → access denied → app), checks `profiles.role = 'admin'`
+- [x] `tools/converter/src/__tests__/` — 30 test cases across answerParser (10), jsonValidator (12), vocabularyParser (8) using vitest
+
+---
+
 ## ✅ Project Foundation
 
 - [x] Monorepo structure created (Turborepo + npm workspaces)

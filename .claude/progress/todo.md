@@ -1,10 +1,15 @@
 # Todo
 
-_Last updated: Session 4_
+_Last updated: Session 4 (docs sync)_
 
 ---
 
 ## 🔴 High Priority
+
+### ⚠️ Fix: Toast animation (broken until resolved)
+- [ ] `Toast.tsx` uses `animate-in slide-in-from-right-4` — requires `tailwindcss-animate` plugin
+- [ ] **Option A:** `npm install -D tailwindcss-animate` in `packages/web`, add `require('tailwindcss-animate')` to `tailwind.config.ts` plugins
+- [ ] **Option B:** Replace those classes with a custom `@keyframes slide-in` in `globals.css` and use `animate-[slide-in_0.2s_ease]`
 
 ### Dev Environment
 - [ ] `npm install` — picks up vitest (converter) + zustand (admin)
@@ -14,10 +19,6 @@ _Last updated: Session 4_
 
 ### Tests
 - [ ] `cd tools/converter && npx vitest run` — verify all 30 test cases pass
-
-### Toast animation fix
-- [ ] Add `tailwindcss-animate` to packages/web devDeps, or replace `animate-in` classes
-  with custom `@keyframes` in globals.css (Toast.tsx uses Tailwind v3 animate plugin)
 
 ---
 
