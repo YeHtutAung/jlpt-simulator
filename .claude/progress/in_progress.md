@@ -1,6 +1,6 @@
 # Currently In Progress
 
-_Last updated: Session 6_
+_Last updated: Session 6 (docs sync)_
 
 ---
 
@@ -10,41 +10,35 @@ Nothing in progress. Sessions 1–6 complete.
 
 ---
 
-## 📍 Exact State
+## 📍 Project State
 
-### Just completed (Session 6):
-- `DEPLOYMENT.md` — full production deployment guide at project root
-- `tools/verify-seed.ts` + `npm run db:verify` — seed verification script
-- `ErrorBoundary.tsx` — wraps entire app and ExamSession independently
-- `NotFound.tsx` — replaces the `*` → `/` redirect in the router
-- `Skeleton.tsx` — `ExamCardSkeleton` and `DashboardSkeleton` wired into Home + Dashboard
-- `npm run type-check` passes clean (4/4 packages)
-- `npm run lint` passes clean
+The project is **deployment-ready**:
+- Feature-complete (exam flow, admin panel, converter CLI, seed data)
+- Type-clean (`npm run type-check` passes 4/4 packages)
+- Lint-clean (`npm run lint` passes)
+- Full deployment documentation in `DEPLOYMENT.md`
+- Seed verification script at `npm run db:verify`
+- Error boundaries on app root and ExamSession
+- 404 page with bilingual message
+- Skeleton loading states on Home and Dashboard
 
-### Project state:
-- Code is feature-complete, type-clean, lint-clean
-- All deployment docs and scripts are ready
-- Blocked only on: Supabase project credentials, Vercel accounts, real audio/image assets
+### Blocked only on:
+- Live Supabase project credentials
+- Vercel account / project setup
+- Real N5 listening audio MP3 files
+- Real listening scene images
 
-### Next immediate steps:
-1. Create Supabase project and fill in `.env`
-2. `npm run db:migrate` → `npm run db:types` → `npm run db:seed`
-3. `npm run db:verify` — verify seed is correct
+### When credentials are available:
+1. Fill in `.env` from `.env.example`
+2. `npm run db:migrate` → `npm run db:types` → `npm run db:seed -- --file=n5_2017_december.json`
+3. `npm run db:verify` — confirm seed pass
 4. Deploy web to Vercel (root: `packages/web`)
-5. Deploy admin to Vercel (root: `packages/admin`)
-
----
-
-## 🚧 Blocked By
-
-- Need Supabase project credentials for live deployment
-- Need real N5 listening audio MP3 files for Storage upload
-- Need real listening scene images for Storage upload
+5. Deploy admin to Vercel (root: `packages/admin`, separate project)
+6. Run smoke test checklist from `DEPLOYMENT.md`
 
 ---
 
 ## ⚠️ Known Issues
 
-- `supabase/types.ts` not generated yet — run `npm run db:types` after db:migrate
-- N5 2019 July listening groups have no `audio_url` — placeholder only
-- verify-seed will report audio_url FAIL until real files are uploaded
+- `supabase/types.ts` not generated yet — run `npm run db:types` after first migration
+- N5 2019 July listening groups have no `audio_url` — placeholder only; `db:verify` will report audio_url FAIL until real files are uploaded and seed JSON is updated

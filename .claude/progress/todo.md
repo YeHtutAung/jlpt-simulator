@@ -1,77 +1,89 @@
 # Todo
 
-_Last updated: Session 6_
+_Last updated: Session 6 (docs sync)_
 
 ---
 
-## 🔴 High Priority
+## 🔴 High Priority — Live Deployment (requires real credentials)
 
-### Deploy to Production
-
-1. **Supabase** — create real project, run migrations, generate types, seed
-   - [ ] Create Supabase project at supabase.com
-   - [ ] Copy project URL + anon key + service role key into `.env`
-   - [ ] `npm run db:migrate` against the live project
-   - [ ] `npm run db:types` — regenerate `supabase/types.ts` and commit
+1. **Supabase project setup**
+   - [ ] Create project at supabase.com, copy URL + keys into `.env`
+   - [ ] `npm run db:migrate` → `npm run db:types` → commit `supabase/types.ts`
    - [ ] `npm run db:seed -- --file=n5_2017_december.json`
    - [ ] `npm run db:verify` — confirm all checks pass
 
-2. **Web app** — deploy to Vercel and verify SPA routing works
-   - [ ] Create Vercel project, set root directory to `packages/web`
-   - [ ] Add env vars: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
-   - [ ] Deploy and test that `/exam/:id` routes load correctly (SPA rewrite)
-   - [ ] Test 404 page: navigate to `/nonexistent` — should show NotFound, not blank
+2. **Vercel web deployment**
+   - [ ] Create Vercel project, root directory `packages/web`
+   - [ ] Add `VITE_SUPABASE_URL` + `VITE_SUPABASE_ANON_KEY`
+   - [ ] Verify SPA routing: `/exam/:id` and `/nonexistent` (→ NotFound)
 
-3. **Admin panel** — deploy as separate Vercel project
+3. **Vercel admin deployment**
    - [ ] Create separate Vercel project, root directory `packages/admin`
-   - [ ] Add env vars: `VITE_SUPABASE_URL`, `VITE_SUPABASE_SERVICE_ROLE_KEY`
-   - [ ] Promote a user to admin: `UPDATE profiles SET role = 'admin' WHERE id = '...'`
-   - [ ] Verify AuthGuard works: non-admin sees "Access Denied"
+   - [ ] Add `VITE_SUPABASE_URL` + `VITE_SUPABASE_SERVICE_ROLE_KEY`
+   - [ ] Promote a user: `UPDATE profiles SET role = 'admin' WHERE id = '...'`
+   - [ ] Verify AuthGuard: non-admin sees "Access Denied"
 
-4. **Audio files** — upload to Supabase Storage
-   - [ ] Upload real N5 listening audio (q1.mp3–q4.mp3) to `audio/n5/2017/december/`
-   - [ ] Update seed JSON `audio_url` fields with Supabase Storage public URLs
-   - [ ] Re-run seed, then `npm run db:verify` — audio_url check should pass
+4. **Upload N5 audio files to Supabase Storage**
+   - [ ] Upload `q1.mp3`–`q4.mp3` to `audio/n5/2017/december/`
+   - [ ] Update seed JSON `audio_url` fields with public Storage URLs
+   - [ ] Re-run seed + `npm run db:verify`
 
-5. **Images** — upload listening scene images
+5. **Upload listening scene images to Supabase Storage**
    - [ ] Upload scene images to `images/n5/2017/december/`
    - [ ] Update seed JSON with Storage URLs
+
+---
+
+## 🟡 Medium Priority
+
+### Mobile Responsiveness Audit
+- [ ] Test all pages at 375px viewport width (iPhone SE)
+- [ ] ExamSession: question card + option buttons stack cleanly
+- [ ] QuestionNav: scrollable on small screens
+- [ ] Dashboard: stats grid → single column on mobile
+- [ ] Fix any overflow or cramped layouts found
+
+### Dark Mode Implementation
+- [ ] `uiStore.theme` toggle is already wired — just needs CSS
+- [ ] Add `dark:` Tailwind class variants to all components
+- [ ] Persist preference via `zustand/middleware persist` (already set up)
+- [ ] Test: toggle in Navbar → all pages update immediately
+
+### N4 Exam Papers
+- [ ] Create `supabase/seed/n4_2017_december.json` placeholder (status: draft)
+  - Vocabulary: 32 questions, Grammar/Reading: 43 questions, Listening: 30 questions
+- [ ] Once real PDFs available: run converter CLI and replace placeholder
+
+### Performance Audit
+- [ ] Run Lighthouse on deployed web app, target score 90+
+- [ ] Code-split heavy pages (ExamSession, Review) with `React.lazy`
+- [ ] Set React Query `staleTime` on exam queries (data rarely changes)
+- [ ] Check bundle size: `vite build --report`
 
 ### Tests
 - [ ] `cd tools/converter && npx vitest run` — verify all 30 tests pass
 
 ---
 
-## 🟡 Medium Priority
+## 🟢 Low Priority
 
 ### End-to-End Testing
-- [ ] Full smoke test from DEPLOYMENT.md (register → exam → results)
-- [ ] Test exam session keyboard shortcuts (1-4, N, P, F)
-- [ ] Test admin auth guard: non-admin user sees "Access Denied"
-- [ ] Test toast notifications: success on submit, error on network fail
+- [ ] Full smoke test from `DEPLOYMENT.md` (register → exam → results)
 - [ ] Test ErrorBoundary: force a render error in dev, confirm fallback shows
+- [ ] Test toast notifications: success on submit, error on network fail
 
 ### More Exam Content
 - [ ] N5 2018 seed JSON
-- [ ] N4 papers
+- [ ] N3 and N2 papers (longer-term)
 
 ### Converter CLI
 - [ ] Get real N5 PDF files and test full pipeline end-to-end
-- [ ] Verify SVG output renders correctly in SvgRenderer.tsx
-
----
-
-## 🟢 Low Priority
-
-### Polish
-- [ ] Mobile optimization (exam session layout on small screens)
-- [ ] Dark mode (uiStore theme toggle already wired, needs Tailwind dark: class variants)
-- [ ] Analytics dashboard in admin
-- [ ] Performance tuning (React Query staleTime, bundle splitting)
+- [ ] Verify SVG output renders in SvgRenderer.tsx
 
 ### Infrastructure
-- [ ] Supabase Storage CORS for audio
-- [ ] Supabase Edge Functions deployment via `supabase functions deploy`
+- [ ] Supabase Storage CORS for audio (add web app origin)
+- [ ] Supabase Edge Functions: `supabase functions deploy`
+- [ ] Analytics dashboard in admin panel
 
 ---
 
