@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 type OptionState = 'default' | 'selected' | 'correct' | 'incorrect'
 
 interface OptionButtonProps {
@@ -17,7 +19,7 @@ const stateClasses: Record<OptionState, string> = {
 
 const numberLabels = ['①', '②', '③', '④'] as const
 
-export function OptionButton({
+export const OptionButton = memo(function OptionButton({
   number,
   text,
   state,
@@ -39,9 +41,9 @@ export function OptionButton({
         'shrink-0 w-7 h-7 rounded-full flex items-center justify-center',
         'text-sm font-semibold border-2 transition-colors',
         state === 'default'   ? 'border-border text-text-muted' : '',
-        state === 'selected'  ? 'border-accent text-accent bg-blue-100' : '',
-        state === 'correct'   ? 'border-success text-success bg-green-100' : '',
-        state === 'incorrect' ? 'border-error text-error bg-red-100' : '',
+        state === 'selected'  ? 'border-accent text-accent bg-blue-100 dark:bg-accent/20' : '',
+        state === 'correct'   ? 'border-success text-success bg-green-100 dark:bg-success/20' : '',
+        state === 'incorrect' ? 'border-error text-error bg-red-100 dark:bg-error/20' : '',
       ].join(' ')}>
         {numberLabels[number - 1]}
       </span>
@@ -50,4 +52,4 @@ export function OptionButton({
       <span className="text-ja leading-relaxed">{text}</span>
     </button>
   )
-}
+})

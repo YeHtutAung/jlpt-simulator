@@ -58,7 +58,7 @@ export function Dashboard() {
         ) : (
           <>
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h1 className="font-serif text-3xl font-bold text-text">
               Welcome back, {user?.display_name}
@@ -73,7 +73,7 @@ export function Dashboard() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
             { label: 'Attempts',   value: totalAttempts, suffix: '' },
             { label: 'Avg Score',  value: avgScore,      suffix: '%' },
@@ -116,7 +116,7 @@ export function Dashboard() {
                 return (
                   <div key={attempt.id}
                     className="bg-surface rounded-xl border border-border p-4
-                               flex items-center justify-between gap-4
+                               flex flex-col sm:flex-row sm:items-center justify-between gap-4
                                hover:border-accent transition-colors">
                     <div className="flex items-center gap-4">
                       <span className="text-xs font-bold px-2 py-0.5 rounded-full

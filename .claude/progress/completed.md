@@ -1,6 +1,38 @@
 # Completed Work
 
-_Last updated: Session 7 (deployment)_
+_Last updated: Session 8 (mobile/dark/perf)_
+
+---
+
+## ✅ Session 8 — Mobile responsiveness, Dark mode, Performance
+
+- [x] `packages/web/tailwind.config.ts` — added `darkMode: 'class'`
+- [x] `packages/web/src/styles/globals.css` — `.dark` CSS variable block with all dark tokens; `dark:` variants on `.option-btn-*` component classes
+- [x] `packages/web/src/components/layout/Navbar.tsx` — hamburger mobile menu (hidden behind `md:hidden`); `ThemeToggle` component with sun/moon SVG; mobile dropdown nav
+- [x] `packages/web/src/components/ui/Button.tsx` — `focus:ring-offset-bg` for dark-mode ring offset
+- [x] `packages/web/src/components/ui/Timer.tsx` — `dark:bg-error/10` on warning state
+- [x] `packages/web/src/components/ui/Toast.tsx` — dark: variants on all 3 type colors (bg, border, text)
+- [x] `packages/web/src/components/ui/Skeleton.tsx` — `DashboardSkeleton` stats grid: `grid-cols-1 sm:grid-cols-3`
+- [x] `packages/web/src/components/ui/ErrorBoundary.tsx` — dark: variants on error details box
+- [x] `packages/web/src/components/ui/ProgressBar.tsx` — wrapped with `React.memo`
+- [x] `packages/web/src/components/exam/QuestionCard.tsx` — dark: flag button bg, explanation box; `React.memo`
+- [x] `packages/web/src/components/exam/OptionButton.tsx` — dark: number badge bg for selected/correct/incorrect states; `React.memo`
+- [x] `packages/web/src/components/exam/QuestionNav.tsx` — dark: legend color squares; nav buttons `flex-col sm:flex-row` for mobile; `React.memo`
+- [x] `packages/web/src/components/exam/AudioPlayer.tsx` — `React.memo`
+- [x] `packages/web/src/components/results/ReviewCard.tsx` — dark: card backgrounds (success/error)
+- [x] `packages/web/src/pages/Home.tsx` — LEVEL_COLORS dark variants; filter bar `flex-col sm:flex-row`; `staleTime: Infinity`
+- [x] `packages/web/src/pages/Dashboard.tsx` — stats grid `grid-cols-1 sm:grid-cols-3`; header `flex-col sm:flex-row`; attempt rows `flex-col sm:flex-row`
+- [x] `packages/web/src/pages/Results.tsx` — pass/fail badge dark: variants; `staleTime: Infinity`
+- [x] `packages/web/src/pages/Review.tsx` — `staleTime: Infinity`
+- [x] `packages/web/src/pages/ExamSelect.tsx` — `staleTime: Infinity`
+- [x] `packages/web/src/pages/Login.tsx` — error bg `dark:bg-error/10`
+- [x] `packages/web/src/pages/Register.tsx` — error bg `dark:bg-error/10`
+- [x] `packages/web/src/router/index.tsx` — all pages `React.lazy` + `Suspense` with `PageLoader` fallback
+- [x] `packages/web/package.json` — added `"analyze": "vite build --mode analyze"` script
+
+---
+
+## ✅ Session 7 — Live deployment to Supabase + Vercel
 
 ---
 

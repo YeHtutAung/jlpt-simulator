@@ -31,6 +31,7 @@ export function Review() {
 
   const { data, isLoading } = useQuery({
     queryKey: ['attempt-review', attemptId],
+    staleTime: Infinity,
     queryFn: async () => {
       // Fetch user_answers joined with question data
       const { data, error } = await supabase

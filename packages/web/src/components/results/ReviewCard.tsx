@@ -10,7 +10,7 @@ export function ReviewCard({ question, index }: ReviewCardProps) {
     <div
       className={[
         'rounded-xl border-2 p-5 space-y-3 animate-fade-in',
-        question.is_correct ? 'border-success bg-green-50/40' : 'border-error bg-red-50/40',
+        question.is_correct ? 'border-success bg-green-50/40 dark:bg-success/10' : 'border-error bg-red-50/40 dark:bg-error/10',
       ].join(' ')}
       style={{ animationDelay: `${index * 50}ms` }}
     >

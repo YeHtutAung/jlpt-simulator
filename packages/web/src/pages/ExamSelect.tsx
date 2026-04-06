@@ -22,6 +22,7 @@ export function ExamSelect() {
 
   const { data: examMeta, isLoading } = useQuery({
     queryKey: ['exam-meta', examId],
+    staleTime: Infinity,
     queryFn: async () => {
       const { data, error } = await supabase
         .from('exams')

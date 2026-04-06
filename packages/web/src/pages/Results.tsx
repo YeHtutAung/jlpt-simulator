@@ -12,6 +12,7 @@ export function Results() {
 
   const { data, isLoading } = useQuery({
     queryKey: ['attempt-results', attemptId],
+    staleTime: Infinity,
     queryFn: async () => {
       const { data, error } = await supabase
         .from('attempts')
@@ -79,8 +80,8 @@ export function Results() {
                     'inline-flex items-center gap-2 px-4 py-2 rounded-full',
                     'text-sm font-semibold font-sans',
                     isPassing
-                      ? 'bg-green-100 text-success'
-                      : 'bg-red-100 text-error',
+                      ? 'bg-green-100 dark:bg-success/20 text-success'
+                      : 'bg-red-100 dark:bg-error/20 text-error',
                   ].join(' ')}>
                     {isPassing ? '🎉 Passing Score' : '📚 Keep Studying'}
                   </div>

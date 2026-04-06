@@ -82,7 +82,7 @@ export function Register() {
             ))}
 
             {error && (
-              <p className="text-sm text-error font-sans bg-red-50 px-3 py-2 rounded-lg">
+              <p className="text-sm text-error font-sans bg-red-50 dark:bg-error/10 px-3 py-2 rounded-lg">
                 {error}
               </p>
             )}

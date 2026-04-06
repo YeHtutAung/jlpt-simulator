@@ -16,11 +16,11 @@ interface ExamRow {
 }
 
 const LEVEL_COLORS: Record<string, string> = {
-  N1: 'bg-red-100 text-red-700 border-red-200',
-  N2: 'bg-orange-100 text-orange-700 border-orange-200',
-  N3: 'bg-yellow-100 text-yellow-700 border-yellow-200',
-  N4: 'bg-green-100 text-green-700 border-green-200',
-  N5: 'bg-blue-100 text-blue-700 border-blue-200',
+  N1: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 border-red-200 dark:border-red-800',
+  N2: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 border-orange-200 dark:border-orange-800',
+  N3: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 border-yellow-200 dark:border-yellow-800',
+  N4: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800',
+  N5: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-800',
 }
 
 export function Home() {
@@ -28,6 +28,7 @@ export function Home() {
 
   const { data: exams = [], isLoading } = useQuery({
     queryKey: ['exams', selectedLevel],
+    staleTime: Infinity,
     queryFn: async () => {
       let query = supabase
         .from('exams')
@@ -75,11 +76,11 @@ export function Home() {
 
       {/* Level filter */}
       <section className="max-w-5xl mx-auto px-4 pb-16">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
           <h2 className="font-serif text-2xl font-semibold text-text">
             Available Papers
           </h2>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setSelectedLevel('all')}
               className={[

@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import type { ExamQuestion, ExamQuestionGroup } from '@jlpt/shared'
 import { OptionButton } from './OptionButton'
 import { AudioPlayer } from './AudioPlayer'
@@ -21,7 +22,7 @@ interface QuestionCardProps {
   review?: ReviewMode
 }
 
-export function QuestionCard({
+export const QuestionCard = memo(function QuestionCard({
   group,
   question,
   selectedOption,
@@ -110,8 +111,8 @@ export function QuestionCard({
             className={[
               'shrink-0 p-1.5 rounded-lg transition-colors',
               isFlagged
-                ? 'text-warning bg-yellow-50'
-                : 'text-text-muted hover:text-warning hover:bg-yellow-50',
+                ? 'text-warning bg-yellow-50 dark:bg-yellow-900/30'
+                : 'text-text-muted hover:text-warning hover:bg-yellow-50 dark:hover:bg-yellow-900/30',
             ].join(' ')}
             aria-label={isFlagged ? 'Remove flag' : 'Flag for review'}
             title={isFlagged ? 'Remove flag' : 'Flag for review'}
@@ -142,11 +143,11 @@ export function QuestionCard({
 
       {/* Explanation (review mode only) */}
       {isReview && question.explanation && (
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+        <div className="bg-blue-50 dark:bg-accent/15 border border-blue-200 dark:border-accent/30 rounded-xl p-4">
           <p className="text-sm font-semibold text-accent mb-1">Explanation</p>
           <p className="text-sm text-text leading-relaxed">{question.explanation}</p>
         </div>
       )}
     </div>
   )
-}
+})

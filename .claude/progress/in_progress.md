@@ -1,12 +1,12 @@
 # Currently In Progress
 
-_Last updated: Session 7 (deployment)_
+_Last updated: Session 8 (mobile/dark/perf)_
 
 ---
 
 ## 🔨 Active Task
 
-Nothing in progress. Sessions 1–7 complete.
+Nothing in progress. Session 8 complete.
 
 ---
 
@@ -16,7 +16,12 @@ The project is **live**:
 - Web app: https://jlpt-simulator-theta.vercel.app
 - Admin panel: https://jlpt-simulator-admin.vercel.app
 - Database: Supabase project `cmlxfddegfzwisuaiokh` — 2 exams seeded, 12/13 verify checks pass
-- Tailwind CSS now fully processed in both packages (`postcss.config.cjs` added)
+
+### Completed in Session 8:
+- **Dark mode fully implemented** — `darkMode: 'class'` in tailwind.config.ts, `.dark` CSS variable block in globals.css, `dark:` variants on all components and pages
+- **Mobile responsive** — 375px compatible: single-column grids, filter bar wraps, nav buttons stack on mobile
+- **Performance** — React.lazy + Suspense on all page routes, `staleTime: Infinity` on exam/result queries, `React.memo` on QuestionCard, OptionButton, QuestionNav, AudioPlayer, ProgressBar
+- **Bundle analyser** — `npm run analyze` in packages/web/package.json
 
 ### Still needed:
 - Promote a user to admin: `UPDATE profiles SET role = 'admin' WHERE id = '...'`

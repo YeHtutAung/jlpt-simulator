@@ -7,15 +7,15 @@ import { useUiStore, type Toast, type ToastType } from '@/store/uiStore'
 // ================================
 
 const typeStyles: Record<ToastType, { bg: string; border: string; icon: string }> = {
-  success: { bg: 'bg-green-50', border: 'border-green-200', icon: '✓' },
-  error:   { bg: 'bg-red-50',   border: 'border-red-200',   icon: '✕' },
-  info:    { bg: 'bg-blue-50',  border: 'border-blue-200',  icon: 'ℹ' },
+  success: { bg: 'bg-green-50 dark:bg-green-950/40', border: 'border-green-200 dark:border-green-800', icon: '✓' },
+  error:   { bg: 'bg-red-50 dark:bg-red-950/40',     border: 'border-red-200 dark:border-red-800',     icon: '✕' },
+  info:    { bg: 'bg-blue-50 dark:bg-blue-950/40',   border: 'border-blue-200 dark:border-blue-800',   icon: 'ℹ' },
 }
 
 const typeTextColor: Record<ToastType, string> = {
-  success: 'text-green-800',
-  error:   'text-red-800',
-  info:    'text-blue-800',
+  success: 'text-green-800 dark:text-green-300',
+  error:   'text-red-800 dark:text-red-300',
+  info:    'text-blue-800 dark:text-blue-300',
 }
 
 // ── Individual toast ──────────────────────────────────────

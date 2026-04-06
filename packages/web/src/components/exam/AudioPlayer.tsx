@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { memo, useRef, useState } from 'react'
 
 interface AudioPlayerProps {
   audioUrl: string
@@ -6,7 +6,7 @@ interface AudioPlayerProps {
   onPlay?: () => void
 }
 
-export function AudioPlayer({ audioUrl, restrictReplay = false, onPlay }: AudioPlayerProps) {
+export const AudioPlayer = memo(function AudioPlayer({ audioUrl, restrictReplay = false, onPlay }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [hasPlayed, setHasPlayed] = useState(false)
@@ -101,4 +101,4 @@ export function AudioPlayer({ audioUrl, restrictReplay = false, onPlay }: AudioP
       )}
     </div>
   )
-}
+})

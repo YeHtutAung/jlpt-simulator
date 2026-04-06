@@ -81,11 +81,11 @@ function DefaultFallback({ error, onReset }: { error: Error | null; onReset: () 
 
         {/* Error details (dev only) */}
         {import.meta.env.DEV && error && (
-          <details className="text-left bg-red-50 border border-red-200 rounded-lg p-4">
-            <summary className="text-sm font-sans font-medium text-red-700 cursor-pointer">
+          <details className="text-left bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg p-4">
+            <summary className="text-sm font-sans font-medium text-red-700 dark:text-red-400 cursor-pointer">
               Error details
             </summary>
-            <pre className="mt-2 text-xs text-red-600 overflow-auto whitespace-pre-wrap">
+            <pre className="mt-2 text-xs text-red-600 dark:text-red-400 overflow-auto whitespace-pre-wrap">
               {error.message}
             </pre>
           </details>

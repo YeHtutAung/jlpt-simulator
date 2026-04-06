@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 interface ProgressBarProps {
   current: number
   total: number
@@ -5,7 +7,7 @@ interface ProgressBarProps {
   flagged: number
 }
 
-export function ProgressBar({ current, total, answered, flagged }: ProgressBarProps) {
+export const ProgressBar = memo(function ProgressBar({ current, total, answered, flagged }: ProgressBarProps) {
   const progress = Math.round((current / total) * 100)
 
   return (
@@ -35,4 +37,4 @@ export function ProgressBar({ current, total, answered, flagged }: ProgressBarPr
       </div>
     </div>
   )
-}
+})

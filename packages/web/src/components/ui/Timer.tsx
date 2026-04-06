@@ -39,7 +39,7 @@ export function Timer({ mode }: TimerProps) {
         'flex items-center gap-2 font-sans font-semibold tabular-nums',
         'px-4 py-2 rounded-full border-2 transition-colors duration-300',
         isWarning
-          ? 'border-error text-error bg-red-50 animate-pulse'
+          ? 'border-error text-error bg-red-50 dark:bg-error/10 animate-pulse'
           : 'border-border text-text bg-surface',
       ].join(' ')}
       role="timer"
