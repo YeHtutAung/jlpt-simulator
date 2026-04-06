@@ -76,4 +76,20 @@
            bg-surface text-text text-xs font-mono
            min-w-[1.4rem];
   }
+
+  /* Toast slide-in animation */
+  .toast-enter {
+    animation: toast-slide-in 0.2s ease forwards;
+  }
+}
+
+@keyframes toast-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }

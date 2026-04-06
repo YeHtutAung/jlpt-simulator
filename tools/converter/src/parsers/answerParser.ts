@@ -22,7 +22,7 @@ export type AnswerMap = Record<number, 1 | 2 | 3 | 4>
  */
 export function parseAnswers(rawText: string): AnswerMap {
   const normalized = normalizeText(rawText)
-  const map: AnswerMap = {}
+  let map: AnswerMap = {}
 
   // Strategy 1: Look for lines with number + answer pairs
   // Matches: "1  2", "12 3", "（1） 2" etc.

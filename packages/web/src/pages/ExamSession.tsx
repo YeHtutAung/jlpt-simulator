@@ -29,6 +29,8 @@ export function ExamSession() {
   const isSubmitting = useExamStore(s => s.isSubmitting)
   const selectAnswer = useExamStore(s => s.selectAnswer)
   const toggleFlag   = useExamStore(s => s.toggleFlag)
+  const nextQuestion = useExamStore(s => s.nextQuestion)
+  const prevQuestion = useExamStore(s => s.prevQuestion)
   const submitExam   = useExamStore(s => s.submitExam)
   const resetExam    = useExamStore(s => s.resetExam)
 
@@ -71,7 +73,7 @@ export function ExamSession() {
         break
       }
     }
-  }, [showSubmitModal, exam, position, mode, selectAnswer, nextQuestion, prevQuestion, toggleFlag])
+  }, [showSubmitModal, exam, position, mode, selectAnswer, nextQuestion, prevQuestion, toggleFlag, toast])
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown)

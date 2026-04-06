@@ -28,7 +28,7 @@ export function Results() {
   })
 
   const score  = data?.score_json as AttemptScoreJson | null
-  const exam   = data?.exams as { level: string; year: number; month: string } | null
+  const exam   = data?.exams as unknown as { level: string; year: number; month: string } | null
   const isPassing = (score?.total_percentage ?? 0) >= 60
 
   return (

@@ -112,7 +112,7 @@ function parseQuestionsFromSection(
   text:      string,
   answerMap: AnswerMap,
   startQNum: number,
-  groupType: ExamQuestionGroupSchemaType['type']
+  _groupType: ExamQuestionGroupSchemaType['type']
 ): ExamQuestionGroupSchemaType['questions'] {
   const lines    = text.split('\n').map((l) => l.trim()).filter(Boolean)
   const questions: ExamQuestionGroupSchemaType['questions'] = []

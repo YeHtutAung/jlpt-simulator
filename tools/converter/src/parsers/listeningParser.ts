@@ -156,7 +156,7 @@ function buildListeningQuestion(
   text:      string,
   options:   { number: 1 | 2 | 3 | 4; text: string }[],
   answerMap: AnswerMap,
-  groupType: ExamQuestionGroupSchemaType['type']
+  _groupType: ExamQuestionGroupSchemaType['type']
 ): ExamQuestionGroupSchemaType['questions'][number] {
   // Ensure exactly 4 options
   const paddedOptions = padOptions(options)

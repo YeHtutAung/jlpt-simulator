@@ -16,7 +16,6 @@ import { generateGroupId } from '../generators/jsonGenerator'
 // ================================
 
 const VOCAB_SECTION_MARKER = 'もんだい'
-const OPTION_PATTERN        = /^[1-4１-４]\s+(.+)/
 
 /**
  * Parses the vocabulary PDF text into question groups.

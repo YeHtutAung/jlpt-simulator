@@ -111,7 +111,7 @@ export function Dashboard() {
             <div className="space-y-3">
               {attempts.map(attempt => {
                 const score = attempt.score_json as AttemptScoreJson | null
-                const exam  = attempt.exams as { level: string; year: number; month: string } | null
+                const exam  = attempt.exams as unknown as { level: string; year: number; month: string } | null
                 const pct   = score?.total_percentage ?? 0
                 const color = pct >= 80 ? 'text-success' : pct >= 60 ? 'text-accent' : 'text-error'
 

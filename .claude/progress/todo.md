@@ -1,18 +1,12 @@
 # Todo
 
-_Last updated: Session 4 (docs sync)_
+_Last updated: Session 5_
 
 ---
 
 ## 🔴 High Priority
 
-### ⚠️ Fix: Toast animation (broken until resolved)
-- [ ] `Toast.tsx` uses `animate-in slide-in-from-right-4` — requires `tailwindcss-animate` plugin
-- [ ] **Option A:** `npm install -D tailwindcss-animate` in `packages/web`, add `require('tailwindcss-animate')` to `tailwind.config.ts` plugins
-- [ ] **Option B:** Replace those classes with a custom `@keyframes slide-in` in `globals.css` and use `animate-[slide-in_0.2s_ease]`
-
 ### Dev Environment
-- [ ] `npm install` — picks up vitest (converter) + zustand (admin)
 - [ ] Copy `.env.example` → `.env` and fill in Supabase credentials
 - [ ] `npm run db:start` → `npm run db:migrate` → `npm run db:types` → `npm run db:seed`
 - [ ] `npm run dev` — verify web (5173) and admin (5174) start without errors
@@ -32,7 +26,6 @@ _Last updated: Session 4 (docs sync)_
 
 ### More Exam Content
 - [ ] N5 2018 seed JSON
-- [ ] N5 2019 seed JSON
 - [ ] N4 papers
 
 ### Converter CLI
@@ -50,7 +43,7 @@ _Last updated: Session 4 (docs sync)_
 - [ ] Performance tuning (React Query staleTime, bundle splitting)
 
 ### Infrastructure
-- [ ] Vercel deployments (web + admin)
+- [ ] Create Vercel projects and link to GitHub repo
 - [ ] Supabase Storage CORS for audio
 - [ ] Supabase Edge Functions deployment via `supabase functions deploy`
 

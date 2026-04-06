@@ -15,7 +15,7 @@ export async function extractPdf(filePath: string): Promise<string> {
   const data   = await pdfParse(buffer, {
     // Preserve page breaks as double newlines
     pagerender: (pageData) => {
-      return pageData.getTextContent({ normalizeWhitespace: false }).then((textContent) => {
+      return pageData.getTextContent({ normalizeWhitespace: false }).then((textContent: { items: unknown[] }) => {
         let text = ''
         let lastY: number | null = null
 

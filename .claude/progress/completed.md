@@ -1,6 +1,32 @@
 # Completed Work
 
-_Last updated: Session 4_
+_Last updated: Session 5_
+
+---
+
+## ✅ Session 5 — Toast fix, type errors, N5 2019 seed, Vercel config, README
+
+- [x] `packages/web/src/components/ui/Toast.tsx` — removed unused `useEffect` import, replaced `animate-in slide-in-from-right-4` with custom `toast-enter` CSS class
+- [x] `packages/web/src/styles/globals.css` — added `@keyframes toast-slide-in` and `.toast-enter` class (Option B: no plugin needed)
+- [x] `turbo.json` — renamed `pipeline` → `tasks` (Turborepo v2 breaking change)
+- [x] `packages/shared/tsconfig.json` — created; was missing, causing tsc to crawl up and compile all packages
+- [x] `tools/converter/tsconfig.json` — created; same root-crawl issue
+- [x] `packages/web/tsconfig.json` + `packages/admin/tsconfig.json` — added `"types": ["vite/client"]` to fix `import.meta.env` errors
+- [x] `packages/shared/src/utils/scoring.ts` — removed unused `UserAnswer` import
+- [x] `packages/web/src/pages/ExamSession.tsx` — added `nextQuestion`/`prevQuestion` from store (were used but not destructured); added `toast` to `useCallback` deps
+- [x] `packages/web/src/store/examStore.ts` — removed unused `mode` from `submitExam` destructure
+- [x] `packages/web/src/pages/Dashboard.tsx` + `Results.tsx` — fixed Supabase join type assertions (cast through `unknown`)
+- [x] `packages/web/src/pages/Review.tsx` — replaced `as any` with typed `RawQuestionRow` interface
+- [x] `packages/web/package.json` + `.eslintrc.cjs` — added ESLint with `@typescript-eslint` + `react-hooks` plugins
+- [x] `tools/converter/src/parsers/answerParser.ts` — `const map` → `let map` (was reassigned)
+- [x] `tools/converter/src/extractors/pdfExtractor.ts` — added type annotation for `textContent` parameter
+- [x] `tools/converter/src/parsers/grammarParser.ts` + `listeningParser.ts` — prefixed unused `groupType` param with `_`
+- [x] `tools/converter/src/parsers/vocabularyParser.ts` — removed unused `OPTION_PATTERN` constant
+- [x] `tools/converter/src/__tests__/vocabularyParser.test.ts` — removed unused `makeSectionText` helper
+- [x] `supabase/seed/n5_2019_july.json` — N5 2019 July placeholder (33+32+25 questions, status: draft)
+- [x] `vercel.json` (root) — project pointers for both deployments
+- [x] `packages/web/vercel.json` + `packages/admin/vercel.json` — SPA rewrite + env var config
+- [x] `README.md` — project overview, tech stack, getting started, converter workflow, deploy, scripts
 
 ---
 

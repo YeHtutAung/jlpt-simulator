@@ -9,6 +9,15 @@ import type { ReviewQuestion } from '@jlpt/shared'
 
 type FilterType = 'all' | 'wrong' | 'flagged'
 
+interface RawQuestionRow {
+  question_groups?: { sections?: { type?: string } }
+  options?: { number: number; text: string }[]
+  question_number?: number
+  question_text?: string
+  correct_answer?: number
+  explanation?: string
+}
+
 const SECTION_LABELS: Record<string, string> = {
   vocabulary:      'Vocabulary (文字・語彙)',
   grammar_reading: 'Grammar & Reading (文法・読解)',
@@ -47,7 +56,7 @@ export function Review() {
 
   // Group by section type
   const grouped = (data ?? []).reduce<Record<string, ReviewQuestion[]>>((acc, row) => {
-    const q    = row.questions as any
+    const q    = row.questions as RawQuestionRow
     const sec  = q?.question_groups?.sections?.type ?? 'unknown'
     const opts = (q?.options ?? []) as { number: number; text: string }[]
 

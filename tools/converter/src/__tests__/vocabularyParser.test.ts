@@ -15,11 +15,6 @@ function makeAnswerMap(answers: Record<number, 1 | 2 | 3 | 4> = {}): AnswerMap {
   return { ...defaults, ...answers }
 }
 
-// Build a minimal vocabulary PDF text with one もんだい section
-function makeSectionText(questions: string[]): string {
-  const qs = questions.join('\n')
-  return `もんだい1　＿のことばはひらがなでどうかきますか。\n${qs}\n`
-}
 
 describe('parseVocabulary — empty input', () => {
   it('returns empty array for empty text', () => {

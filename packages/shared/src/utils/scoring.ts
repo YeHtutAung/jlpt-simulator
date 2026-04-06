@@ -1,4 +1,3 @@
-import type { UserAnswer } from '../types/attempt.types'
 import type { SectionType } from '../types/exam.types'
 
 // ================================

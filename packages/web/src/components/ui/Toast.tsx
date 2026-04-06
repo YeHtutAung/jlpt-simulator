@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useUiStore, type Toast, type ToastType } from '@/store/uiStore'
 
 // ================================
@@ -30,7 +29,7 @@ function ToastItem({ toast }: { toast: Toast }) {
     <div
       className={[
         'flex items-start gap-3 w-80 px-4 py-3 rounded-xl shadow-lg border',
-        'animate-in slide-in-from-right-4 fade-in duration-200',
+        'toast-enter',
         styles.bg,
         styles.border,
       ].join(' ')}

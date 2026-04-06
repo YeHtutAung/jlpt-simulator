@@ -246,7 +246,7 @@ export const useExamStore = create<ExamStore>((set, get) => ({
   },
 
   submitExam: async () => {
-    const { exam, answers, flagged, timeSpent, attemptId, mode } = get()
+    const { exam, answers, flagged, timeSpent, attemptId } = get()
     if (!exam || !attemptId) return
 
     set({ isSubmitting: true })
