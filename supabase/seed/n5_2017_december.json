@@ -1,0 +1,708 @@
+{
+  "meta": {
+    "level": "N5",
+    "year": 2017,
+    "month": "december",
+    "status": "published"
+  },
+  "sections": [
+    {
+      "type": "vocabulary",
+      "time_limit": 25,
+      "order_index": 0,
+      "instructions": "げんごちしき（もじ・ごい）",
+      "question_groups": [
+        {
+          "id": "n5-2017-v-g1",
+          "type": "text_only",
+          "order_index": 0,
+          "instructions": "＿のことばはひらがなでどうかきますか。１・２・３・４からいちばんいいものをひとつえらんでください。",
+          "questions": [
+            {
+              "number": 1, "text": "先週 デパートに かいものに いきました。",
+              "underline_word": "先週",
+              "options": [{"number":1,"text":"せんしゅ"},{"number":2,"text":"せんしゅう"},{"number":3,"text":"ぜんしゅ"},{"number":4,"text":"ぜんしゅう"}],
+              "correct_answer": 2, "order_index": 0
+            },
+            {
+              "number": 2, "text": "ごはんの 後で さんぽします。",
+              "underline_word": "後",
+              "options": [{"number":1,"text":"つぎ"},{"number":2,"text":"うしろ"},{"number":3,"text":"まえ"},{"number":4,"text":"あと"}],
+              "correct_answer": 4, "order_index": 1
+            },
+            {
+              "number": 3, "text": "もう いちど 言って ください。",
+              "underline_word": "言って",
+              "options": [{"number":1,"text":"いって"},{"number":2,"text":"きって"},{"number":3,"text":"まって"},{"number":4,"text":"たって"}],
+              "correct_answer": 1, "order_index": 2
+            },
+            {
+              "number": 4, "text": "ちかくに 山が あります。",
+              "underline_word": "山",
+              "options": [{"number":1,"text":"かわ"},{"number":2,"text":"やま"},{"number":3,"text":"いけ"},{"number":4,"text":"うみ"}],
+              "correct_answer": 2, "order_index": 3
+            },
+            {
+              "number": 5, "text": "この ホテルは へやが 多いです。",
+              "underline_word": "多い",
+              "options": [{"number":1,"text":"すくない"},{"number":2,"text":"おおい"},{"number":3,"text":"せまい"},{"number":4,"text":"ひろい"}],
+              "correct_answer": 2, "order_index": 4
+            },
+            {
+              "number": 6, "text": "ともだちと いっしょに 学校に いきます。",
+              "underline_word": "学校",
+              "options": [{"number":1,"text":"がこう"},{"number":2,"text":"がこお"},{"number":3,"text":"がっこう"},{"number":4,"text":"がっこお"}],
+              "correct_answer": 3, "order_index": 5
+            },
+            {
+              "number": 7, "text": "えんぴつが 六本 あります。",
+              "underline_word": "六本",
+              "options": [{"number":1,"text":"ろくぼん"},{"number":2,"text":"ろくほん"},{"number":3,"text":"ろっぼん"},{"number":4,"text":"ろっぽん"}],
+              "correct_answer": 4, "order_index": 6
+            },
+            {
+              "number": 8, "text": "この 新聞は いくらですか。",
+              "underline_word": "新聞",
+              "options": [{"number":1,"text":"しんむん"},{"number":2,"text":"しんぶん"},{"number":3,"text":"しむん"},{"number":4,"text":"しぶん"}],
+              "correct_answer": 2, "order_index": 7
+            },
+            {
+              "number": 9, "text": "この カメラは 安いです。",
+              "underline_word": "安い",
+              "options": [{"number":1,"text":"たかい"},{"number":2,"text":"やすい"},{"number":3,"text":"おもい"},{"number":4,"text":"かるい"}],
+              "correct_answer": 2, "order_index": 8
+            },
+            {
+              "number": 10, "text": "かさは 外に あります。",
+              "underline_word": "外",
+              "options": [{"number":1,"text":"いえ"},{"number":2,"text":"なか"},{"number":3,"text":"そと"},{"number":4,"text":"にわ"}],
+              "correct_answer": 3, "order_index": 9
+            }
+          ]
+        },
+        {
+          "id": "n5-2017-v-g2",
+          "type": "text_only",
+          "order_index": 1,
+          "instructions": "＿のことばはどうかきますか。１・２・３・４からいちばんいいものをひとつえらんでください。",
+          "questions": [
+            {
+              "number": 11, "text": "けさ しゃわーを あびました。",
+              "underline_word": "しゃわー",
+              "options": [{"number":1,"text":"シャワー"},{"number":2,"text":"シャウー"},{"number":3,"text":"ツャワー"},{"number":4,"text":"ツャウー"}],
+              "correct_answer": 1, "order_index": 0
+            },
+            {
+              "number": 12, "text": "コーヒーを のみました。",
+              "underline_word": "のみました",
+              "options": [{"number":1,"text":"飯みました"},{"number":2,"text":"飲みました"},{"number":3,"text":"餃みました"},{"number":4,"text":"飲みました"}],
+              "correct_answer": 2, "order_index": 1
+            },
+            {
+              "number": 13, "text": "あたらしい くるまを かいました。",
+              "underline_word": "くるま",
+              "options": [{"number":1,"text":"卓"},{"number":2,"text":"車"},{"number":3,"text":"車"},{"number":4,"text":"車"}],
+              "correct_answer": 3, "order_index": 2
+            },
+            {
+              "number": 14, "text": "この ぼうしは 1000えんです。",
+              "underline_word": "えん",
+              "options": [{"number":1,"text":"1000内"},{"number":2,"text":"1000用"},{"number":3,"text":"1000冊"},{"number":4,"text":"1000円"}],
+              "correct_answer": 4, "order_index": 3
+            },
+            {
+              "number": 15, "text": "しゅくだいが はんぶん おわりました。",
+              "underline_word": "はんぶん",
+              "options": [{"number":1,"text":"羊分"},{"number":2,"text":"半分"},{"number":3,"text":"半分"},{"number":4,"text":"半分"}],
+              "correct_answer": 2, "order_index": 4
+            },
+            {
+              "number": 16, "text": "わたしの うちに きませんか。",
+              "underline_word": "きません",
+              "options": [{"number":1,"text":"来ませんか"},{"number":2,"text":"采ませんか"},{"number":3,"text":"木ませんか"},{"number":4,"text":"未ませんか"}],
+              "correct_answer": 1, "order_index": 5
+            },
+            {
+              "number": 17, "text": "きのう たなかさんと あいました。",
+              "underline_word": "あいました",
+              "options": [{"number":1,"text":"見いました"},{"number":2,"text":"書いました"},{"number":3,"text":"会いました"},{"number":4,"text":"話いました"}],
+              "correct_answer": 3, "order_index": 6
+            },
+            {
+              "number": 18, "text": "いもうとと おなじ ふくを かいました。",
+              "underline_word": "おなじ",
+              "options": [{"number":1,"text":"同じ"},{"number":2,"text":"回じ"},{"number":3,"text":"同じ"},{"number":4,"text":"回じ"}],
+              "correct_answer": 1, "order_index": 7
+            }
+          ]
+        },
+        {
+          "id": "n5-2017-v-g3",
+          "type": "text_only",
+          "order_index": 2,
+          "instructions": "（　）になにをいれますか。１・２・３・４からいちばんいいものをひとつえらんでください。",
+          "questions": [
+            {
+              "number": 19, "text": "わたしの へやは この（　）の２かいです。",
+              "options": [{"number":1,"text":"エレベーター"},{"number":2,"text":"プール"},{"number":3,"text":"エアコン"},{"number":4,"text":"アパート"}],
+              "correct_answer": 4, "order_index": 0
+            },
+            {
+              "number": 20, "text": "さとうさんは ギターを じょうずに（　）。",
+              "options": [{"number":1,"text":"うたいます"},{"number":2,"text":"ききます"},{"number":3,"text":"ひきます"},{"number":4,"text":"あそびます"}],
+              "correct_answer": 3, "order_index": 1
+            },
+            {
+              "number": 21, "text": "テーブルに おさらと はしを（　）ください。",
+              "options": [{"number":1,"text":"ならべて"},{"number":2,"text":"とって"},{"number":3,"text":"たべて"},{"number":4,"text":"あらって"}],
+              "correct_answer": 1, "order_index": 2
+            },
+            {
+              "number": 22, "text": "けさ そうじを したから へやは（　）です。",
+              "options": [{"number":1,"text":"きれい"},{"number":2,"text":"きたない"},{"number":3,"text":"あかるい"},{"number":4,"text":"くらい"}],
+              "correct_answer": 1, "order_index": 3
+            },
+            {
+              "number": 23, "text": "きょうは 500（　）およぎました。",
+              "options": [{"number":1,"text":"ど"},{"number":2,"text":"ばん"},{"number":3,"text":"メートル"},{"number":4,"text":"グラム"}],
+              "correct_answer": 3, "order_index": 4
+            },
+            {
+              "number": 24, "text": "えきから たいしかんまでの（　）を かいて ください。",
+              "options": [{"number":1,"text":"しゃしん"},{"number":2,"text":"ちず"},{"number":3,"text":"てがみ"},{"number":4,"text":"きっぷ"}],
+              "correct_answer": 2, "order_index": 5
+            },
+            {
+              "number": 25, "text": "うるさいから テレビを（　）ください。",
+              "options": [{"number":1,"text":"けして"},{"number":2,"text":"つけて"},{"number":3,"text":"しめて"},{"number":4,"text":"あけて"}],
+              "correct_answer": 1, "order_index": 6
+            },
+            {
+              "number": 26, "text": "きょうは（　）が ふって います。",
+              "options": [{"number":1,"text":"くもり"},{"number":2,"text":"はれ"},{"number":3,"text":"かぜ"},{"number":4,"text":"ゆき"}],
+              "correct_answer": 4, "order_index": 7
+            },
+            {
+              "number": 27,
+              "text": "はこに りんごが（　）あります。",
+              "options": [{"number":1,"text":"よっつ"},{"number":2,"text":"いつつ"},{"number":3,"text":"むっつ"},{"number":4,"text":"ななつ"}],
+              "correct_answer": 2,
+              "order_index": 8
+            },
+            {
+              "number": 28,
+              "text": "めがねは つくえの（　）に あります。",
+              "options": [{"number":1,"text":"そば"},{"number":2,"text":"よこ"},{"number":3,"text":"した"},{"number":4,"text":"うえ"}],
+              "correct_answer": 4,
+              "order_index": 9
+            }
+          ]
+        },
+        {
+          "id": "n5-2017-v-g4",
+          "type": "text_only",
+          "order_index": 3,
+          "instructions": "＿のぶんとだいたいおなじいみのぶんがあります。１・２・３・４からいちばんいいものをひとつえらんでください。",
+          "questions": [
+            {
+              "number": 29, "text": "まいばん くにの かぞくに でんわします。",
+              "options": [
+                {"number":1,"text":"よるは ときどき くにの かぞくに でんわします。"},
+                {"number":2,"text":"あさは ときどき くにの かぞくに でんわします。"},
+                {"number":3,"text":"よるは いつも くにの かぞくに でんわします。"},
+                {"number":4,"text":"あさは いつも くにの かぞくに でんわします。"}
+              ],
+              "correct_answer": 3, "order_index": 0
+            },
+            {
+              "number": 30, "text": "この まちには ゆうめいな たてものが あります。",
+              "options": [
+                {"number":1,"text":"この まちには ゆうめいな ビルが あります。"},
+                {"number":2,"text":"この まちには ゆうめいな おちゃが あります。"},
+                {"number":3,"text":"この まちには ゆうめいな ケーキが あります。"},
+                {"number":4,"text":"この まちには ゆうめいな こうえんが あります。"}
+              ],
+              "correct_answer": 1, "order_index": 1
+            },
+            {
+              "number": 31, "text": "その えいがは おもしろくなかったです。",
+              "options": [
+                {"number":1,"text":"その えいがは たのしかったです。"},
+                {"number":2,"text":"その えいがは つまらなかったです。"},
+                {"number":3,"text":"その えいがは みじかかったです。"},
+                {"number":4,"text":"その えいがは ながかったです。"}
+              ],
+              "correct_answer": 2, "order_index": 2
+            },
+            {
+              "number": 32, "text": "たんじょうびは ６がつ15にちです。",
+              "options": [
+                {"number":1,"text":"６がつ15にちに けっこんしました。"},
+                {"number":2,"text":"６がつ15にちに テストが はじまりました。"},
+                {"number":3,"text":"６がつ15にちに うまれました。"},
+                {"number":4,"text":"６がつ15にちに くにへ かえりました。"}
+              ],
+              "correct_answer": 3, "order_index": 3
+            },
+            {
+              "number": 33, "text": "にねんまえに きょうとへ いきました。",
+              "options": [
+                {"number":1,"text":"きのう きょうとへ いきました。"},
+                {"number":2,"text":"おととい きょうとへ いきました。"},
+                {"number":3,"text":"きょねん きょうとへ いきました。"},
+                {"number":4,"text":"おととし きょうとへ いきました。"}
+              ],
+              "correct_answer": 4, "order_index": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "grammar_reading",
+      "time_limit": 50,
+      "order_index": 1,
+      "instructions": "げんごちしき（ぶんぽう）・どっかい",
+      "question_groups": [
+        {
+          "id": "n5-2017-gr-g1",
+          "type": "text_only",
+          "order_index": 0,
+          "instructions": "（　）になにをいれますか。１・２・３・４からいちばんいいものをひとつえらんでください。",
+          "questions": [
+            {
+              "number": 1, "text": "日本（　）ラーメンは おいしいです。",
+              "options": [{"number":1,"text":"に"},{"number":2,"text":"の"},{"number":3,"text":"を"},{"number":4,"text":"へ"}],
+              "correct_answer": 2, "order_index": 0
+            },
+            {
+              "number": 2, "text": "わたしには きょうだいが 二人 います。弟（　）妹です。",
+              "options": [{"number":1,"text":"は"},{"number":2,"text":"も"},{"number":3,"text":"と"},{"number":4,"text":"か"}],
+              "correct_answer": 3, "order_index": 1
+            },
+            {
+              "number": 3, "text": "山下「田中さん（　）きのう どこかに 出かけましたか。」田中「いいえ、いえに いました。」",
+              "options": [{"number":1,"text":"で"},{"number":2,"text":"は"},{"number":3,"text":"を"},{"number":4,"text":"に"}],
+              "correct_answer": 2, "order_index": 2
+            },
+            {
+              "number": 4, "text": "（タクシーで）A「つぎの かどを 右（　）まがって ください。」B「わかりました。」",
+              "options": [{"number":1,"text":"が"},{"number":2,"text":"や"},{"number":3,"text":"か"},{"number":4,"text":"に"}],
+              "correct_answer": 4, "order_index": 3
+            },
+            {
+              "number": 5, "text": "きのう、わたしは ひとり（　）えいがを 見に 行きました。",
+              "options": [{"number":1,"text":"が"},{"number":2,"text":"を"},{"number":3,"text":"で"},{"number":4,"text":"は"}],
+              "correct_answer": 3, "order_index": 4
+            },
+            {
+              "number": 6, "text": "山下「今日 パーティーが ありますから、田中さん（　）来て ください。」田中「ありがとうございます。」",
+              "options": [{"number":1,"text":"に"},{"number":2,"text":"も"},{"number":3,"text":"や"},{"number":4,"text":"で"}],
+              "correct_answer": 2, "order_index": 5
+            },
+            {
+              "number": 7, "text": "田中「この ぼうしは 山田さん（　）ですか。」山田「はい。」",
+              "options": [{"number":1,"text":"や"},{"number":2,"text":"は"},{"number":3,"text":"の"},{"number":4,"text":"か"}],
+              "correct_answer": 3, "order_index": 6
+            },
+            {
+              "number": 8, "text": "駅まで タクシーで 1000円（　）です。",
+              "options": [{"number":1,"text":"ぐらい"},{"number":2,"text":"など"},{"number":3,"text":"ごろ"},{"number":4,"text":"も"}],
+              "correct_answer": 1, "order_index": 7
+            },
+            {
+              "number": 9, "text": "A「さようなら。」B「さようなら。また（　）。」",
+              "options": [{"number":1,"text":"おととい"},{"number":2,"text":"今日"},{"number":3,"text":"来週"},{"number":4,"text":"今月"}],
+              "correct_answer": 3, "order_index": 8
+            },
+            {
+              "number": 10, "text": "わたしの 母は 50さいです。父は 55さいです。母は 父（　）5さい わかいです。",
+              "options": [{"number":1,"text":"から"},{"number":2,"text":"まで"},{"number":3,"text":"より"},{"number":4,"text":"のほうが"}],
+              "correct_answer": 3, "order_index": 9
+            },
+            {
+              "number": 11, "text": "子ども「いただきます。」母「あ、食べる（　）手を あらいましょう。」",
+              "options": [{"number":1,"text":"まえに"},{"number":2,"text":"のまえに"},{"number":3,"text":"あとに"},{"number":4,"text":"のあとに"}],
+              "correct_answer": 1, "order_index": 10
+            },
+            {
+              "number": 12, "text": "A「東京でも 雪が ふりますか。」B「ええ、ふりますよ。でも、きょねんは あまり（　）。」",
+              "options": [{"number":1,"text":"ふりませんでした"},{"number":2,"text":"ふりません"},{"number":3,"text":"ふりました"},{"number":4,"text":"ふります"}],
+              "correct_answer": 1, "order_index": 11
+            },
+            {
+              "number": 13, "text": "（川で）A「見て ください。小さな 魚が たくさん（　）よ。」B「ほんとうですね。30ぴきくらい いますね。」",
+              "options": [{"number":1,"text":"およぎます"},{"number":2,"text":"およぎません"},{"number":3,"text":"およぎました"},{"number":4,"text":"およいで います"}],
+              "correct_answer": 4, "order_index": 12
+            },
+            {
+              "number": 14, "text": "中川「山田さんの その カメラは いいですね。どこで かいましたか。」山田「いえ、これは 兄に（　）。」",
+              "options": [{"number":1,"text":"あげました"},{"number":2,"text":"もらいました"},{"number":3,"text":"うりました"},{"number":4,"text":"かいました"}],
+              "correct_answer": 2, "order_index": 13
+            },
+            {
+              "number": 15, "text": "たまごりょうりの じょうずな 作りかたを（　）読みました。",
+              "options": [{"number":1,"text":"何に"},{"number":2,"text":"何も"},{"number":3,"text":"何かへ"},{"number":4,"text":"何かで"}],
+              "correct_answer": 4, "order_index": 14
+            },
+            {
+              "number": 16, "text": "（電話で）本田「はい、本田です。」北山「あ、北山花子です。すみません、（　）。」本田「はい。ちょっと まって くださいね。」",
+              "options": [
+                {"number":1,"text":"ひろこさんを おねがいします"},
+                {"number":2,"text":"ひろこさんを ください"},
+                {"number":3,"text":"ひろこさんと 話しますか"},
+                {"number":4,"text":"ひろこさんと 話しませんか"}
+              ],
+              "correct_answer": 1, "order_index": 15
+            }
+          ]
+        },
+        {
+          "id": "n5-2017-gr-g2",
+          "type": "sentence_order",
+          "order_index": 1,
+          "instructions": "★に はいる ものは どれですか。１・２・３・４からいちばんいいものをひとつえらんでください。",
+          "questions": [
+            {
+              "number": 17, "text": "（店で）田中「すみません。くだもの ＿＿ ＿＿ ★ ＿＿ か。」店の人「こちらです。」",
+              "options": [{"number":1,"text":"どこ"},{"number":2,"text":"あります"},{"number":3,"text":"は"},{"number":4,"text":"に"}],
+              "correct_answer": 4, "order_index": 0
+            },
+            {
+              "number": 18, "text": "A「山下さんは？」B「となりの へやで ＿＿ ＿＿ ★ ＿＿ して います。」",
+              "options": [{"number":1,"text":"れんしゅう"},{"number":2,"text":"の"},{"number":3,"text":"ギター"},{"number":4,"text":"を"}],
+              "correct_answer": 1, "order_index": 1
+            },
+            {
+              "number": 19, "text": "A「会社 ＿＿ ＿＿ ★ ＿＿ 行って いますか。」B「わたしは あるいて 行って います。」",
+              "options": [{"number":1,"text":"で"},{"number":2,"text":"は"},{"number":3,"text":"へ"},{"number":4,"text":"何"}],
+              "correct_answer": 4, "order_index": 2
+            },
+            {
+              "number": 20, "text": "山田「ジョンさん、しゅくだいは ぜんぶ おわりましたか。」ジョン「いいえ、まだです。ここ ＿＿ ＿＿ ★ ＿＿、さいごの もんだいが むずかしいです。」",
+              "options": [{"number":1,"text":"は"},{"number":2,"text":"かんたんでした"},{"number":3,"text":"が"},{"number":4,"text":"まで"}],
+              "correct_answer": 2, "order_index": 3
+            },
+            {
+              "number": 21, "text": "（本屋で）ヤン「わたしは この 本を 買います。アンナさんは どんな 本が いいですか。」アンナ「わたしは もう 少し ＿＿ ＿＿ ★ ＿＿ が いいです。」",
+              "options": [{"number":1,"text":"本"},{"number":2,"text":"かんたんな"},{"number":3,"text":"が"},{"number":4,"text":"日本語"}],
+              "correct_answer": 2, "order_index": 4
+            }
+          ]
+        },
+        {
+          "id": "n5-2017-gr-g3",
+          "type": "text_with_passage",
+          "order_index": 2,
+          "instructions": "22から26になにをいれますか。ぶんしょうのいみをかんがえて、１・２・３・４からいちばんいいものをひとつえらんでください。",
+          "passage_text": "日本で べんきょうして いる 学生が 「すきな 店」の ぶんしょうを 書いて、クラスの みんなの 前で 読みました。\n\n(1) ケンさんの ぶんしょう\nわたしは すしが すきです。日本には たくさん すし屋が ありますね。わたしの 国には すし屋が ありませんから、今 とても うれしいです。日本に 22、いろいろな 店で 食べました。学校の 前の 店は、安くて おいしいです。すしが すきな 人は、いっしょに 23。\n\n(2) ミンジさんの ぶんしょう\nわたしは えきの ちかくの 本屋が すきです。えきの ちかくの 本屋 24 大きい お店です。外国の 本も 売って います。わたしの 国のも 25。そして、わたしが すきな りょうりの 本も 多いです。26、本は いつも えきの ちかくの 本屋で 買います。みなさんは すきな 本屋が ありますか。",
+          "questions": [
+            {
+              "number": 22,
+              "text": "22",
+              "options": [{"number":1,"text":"行くから"},{"number":2,"text":"行ってから"},{"number":3,"text":"来るから"},{"number":4,"text":"来てから"}],
+              "correct_answer": 4, "order_index": 0
+            },
+            {
+              "number": 23,
+              "text": "23",
+              "options": [{"number":1,"text":"行きましたか"},{"number":2,"text":"行きませんか"},{"number":3,"text":"行って いましたか"},{"number":4,"text":"行って いませんか"}],
+              "correct_answer": 2, "order_index": 1
+            },
+            {
+              "number": 24,
+              "text": "24",
+              "options": [{"number":1,"text":"か"},{"number":2,"text":"と"},{"number":3,"text":"の"},{"number":4,"text":"は"}],
+              "correct_answer": 3, "order_index": 2
+            },
+            {
+              "number": 25,
+              "text": "25",
+              "options": [{"number":1,"text":"います"},{"number":2,"text":"読みます"},{"number":3,"text":"あります"},{"number":4,"text":"します"}],
+              "correct_answer": 3, "order_index": 3
+            },
+            {
+              "number": 26,
+              "text": "26",
+              "options": [{"number":1,"text":"だから"},{"number":2,"text":"では"},{"number":3,"text":"それから"},{"number":4,"text":"でも"}],
+              "correct_answer": 1, "order_index": 4
+            }
+          ]
+        },
+        {
+          "id": "n5-2017-gr-g4",
+          "type": "text_with_passage",
+          "order_index": 3,
+          "instructions": "つぎの(1)から(3)のぶんしょうをよんで、しつもんにこたえてください。こたえは、１・２・３・４からいちばんいいものをひとつえらんでください。",
+          "passage_text": "(1) わたしは 今日、友だちと 買い物に 行きました。3か月前に 見た えいがの DVDが ほしかったからです。買った DVDは、友だちや 姉と いっしょに 見ます。",
+          "questions": [
+            {
+              "number": 27,
+              "text": "「わたし」は 今日、何を しましたか。",
+              "options": [
+                {"number":1,"text":"友だちと えいがを 見に 行きました。"},
+                {"number":2,"text":"友だちと DVDを 買いに 行きました。"},
+                {"number":3,"text":"姉と えいがを 見に 行きました。"},
+                {"number":4,"text":"姉と DVDを 買いに 行きました。"}
+              ],
+              "correct_answer": 2, "order_index": 0
+            }
+          ]
+        },
+        {
+          "id": "n5-2017-gr-g5",
+          "type": "text_with_passage",
+          "order_index": 4,
+          "passage_text": "(2) わたしの へやには、テーブルが 一つと いすが 二つと 本だなが 一つ あります。本が たくさん ありますから、もっと 大きい 本だなが ほしいです。",
+          "questions": [
+            {
+              "number": 28,
+              "text": "今の へやは どれですか。",
+              "options": [
+                {"number":1,"text":"本だながある、いすが２つ"},
+                {"number":2,"text":"本が床にある、いすが２つ"},
+                {"number":3,"text":"本が床にある、いすが１つ"},
+                {"number":4,"text":"本だながある、いすが１つ"}
+              ],
+              "correct_answer": 3, "order_index": 0
+            }
+          ]
+        },
+        {
+          "id": "n5-2017-gr-g6",
+          "type": "text_with_passage",
+          "order_index": 5,
+          "passage_text": "(3) 森さんの つくえの 上に、山口先生の メモと 本が あります。\n\n森さん\nクラスで 使う 本を 中川先生に かりました。5ページを 25枚 コピーして ください。コピーは 南さんに わたして ください。本は、わたしが あした かえしますから、わたしの 机の 上に おいて ください。\n山口",
+          "questions": [
+            {
+              "number": 29,
+              "text": "森さんは コピーを した あとで、本を どうしますか。",
+              "options": [
+                {"number":1,"text":"クラスで 使います。"},
+                {"number":2,"text":"南さんに わたします。"},
+                {"number":3,"text":"中川先生に かえします。"},
+                {"number":4,"text":"山口先生の 机の 上に おきます。"}
+              ],
+              "correct_answer": 4, "order_index": 0
+            }
+          ]
+        },
+        {
+          "id": "n5-2017-gr-g7",
+          "type": "text_with_passage",
+          "order_index": 6,
+          "instructions": "つぎの ぶんしょうを よんで、しつもんに こたえてください。",
+          "passage_text": "きのうの 夜は おそくまで しごとを しました。とても つかれました。しごとの あと、電車で 帰りました。家の 近くの 駅で 電車を おりました。外は 雨でしたが、わたしは かさが ありませんでした。とても こまりました。駅の 人が わたしを 見て、「あの はこの 中の かさを 使って ください。」と 言いました。はこの 中には かさが 3本 ありました。わたしは 「えっ、いいんですか。」と 聞きました。駅の 人は 「あれは 『みんなの かさ』です。お金は いりません。あした、あの はこに かえして ください。」と 言いました。わたしは 「わかりました。ありがとうございます。」と 言って、かさを かりて 帰りました。",
+          "questions": [
+            {
+              "number": 30,
+              "text": "どうして こまりましたか。",
+              "options": [
+                {"number":1,"text":"おそい 時間に 駅に 着いたから"},
+                {"number":2,"text":"しごとが たくさん あったから"},
+                {"number":3,"text":"とても つかれたから"},
+                {"number":4,"text":"かさが なかったから"}
+              ],
+              "correct_answer": 1, "order_index": 0
+            },
+            {
+              "number": 31,
+              "text": "「わたし」は、あした どうしますか。",
+              "options": [
+                {"number":1,"text":"かさを はこの 中に 入れます。"},
+                {"number":2,"text":"かさを 駅の 人に わたします。"},
+                {"number":3,"text":"お金を はこの 中に 入れます。"},
+                {"number":4,"text":"お金を 駅の 人に わたします。"}
+              ],
+              "correct_answer": 2, "order_index": 1
+            }
+          ]
+        },
+        {
+          "id": "n5-2017-gr-g8",
+          "type": "text_with_passage",
+          "order_index": 7,
+          "instructions": "みぎの ページを みて、したの しつもんに こたえて ください。",
+          "passage_text": "あらきや — 朝8:00〜夜9:00 (電話: 012-34-5678)\n\n安い！ 6月11日(月)〜14日(木)\nさとう 128円　トイレットペーパー 490円\n\n安い！ 6月15日(金)〜18日(月)\nしょうゆ 198円　ティッシュペーパー 290円\n\n毎週安い！\n月・火: くだもの、魚、ジュース\n水・木: とうふ、にく、やさい\n金・土: パン、ぎゅうにゅう、魚、やさい",
+          "questions": [
+            {
+              "number": 32,
+              "text": "あらきやで トイレットペーパーと にくと やさいを 同じ 日に 買いたいです。いつが 安いですか。",
+              "options": [
+                {"number":1,"text":"6月11日(月)と 12日(火)"},
+                {"number":2,"text":"6月13日(水)と 14日(木)"},
+                {"number":3,"text":"6月15日(金)と 16日(土)"},
+                {"number":4,"text":"6月17日(日)と 18日(月)"}
+              ],
+              "correct_answer": 2, "order_index": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "listening",
+      "time_limit": 30,
+      "order_index": 2,
+      "instructions": "ちょうかい",
+      "question_groups": [
+        {
+          "id": "n5-2017-l-g1",
+          "type": "audio_with_image",
+          "order_index": 0,
+          "instructions": "もんだい１では、はじめに しつもんを きいて ください。それから はなしを きいて、もんだいようしの １から４の なかから、いちばん いい ものを ひとつ えらんで ください。",
+          "audio_url": "audio/n5/2017/december/q1.mp3",
+          "questions": [
+            {
+              "number": 1, "text": "女の人は、どの靴下を買いますか。",
+              "options": [{"number":1,"text":"1"},{"number":2,"text":"2"},{"number":3,"text":"3"},{"number":4,"text":"4"}],
+              "correct_answer": 2, "order_index": 0
+            },
+            {
+              "number": 2, "text": "女の人は、一日に何回薬を飲みますか。",
+              "options": [{"number":1,"text":"1かい"},{"number":2,"text":"2かい"},{"number":3,"text":"3かい"},{"number":4,"text":"4かい"}],
+              "correct_answer": 2, "order_index": 1
+            },
+            {
+              "number": 3, "text": "店の人は、どのかばんを取りますか。",
+              "options": [{"number":1,"text":"1"},{"number":2,"text":"2"},{"number":3,"text":"3"},{"number":4,"text":"4"}],
+              "correct_answer": 3, "order_index": 2
+            },
+            {
+              "number": 4, "text": "学生は、机の上に何を置きますか。",
+              "options": [{"number":1,"text":"1"},{"number":2,"text":"2"},{"number":3,"text":"3"},{"number":4,"text":"4"}],
+              "correct_answer": 3, "order_index": 3
+            },
+            {
+              "number": 5, "text": "学生は、始めに何をしますか。",
+              "options": [{"number":1,"text":"1"},{"number":2,"text":"2"},{"number":3,"text":"3"},{"number":4,"text":"4"}],
+              "correct_answer": 1, "order_index": 4
+            },
+            {
+              "number": 6, "text": "男の人は、何を持っていきますか。",
+              "options": [{"number":1,"text":"1"},{"number":2,"text":"2"},{"number":3,"text":"3"},{"number":4,"text":"4"}],
+              "correct_answer": 4, "order_index": 5
+            },
+            {
+              "number": 7, "text": "女の人は、何番のバスに乗りますか。",
+              "options": [{"number":1,"text":"1ばん"},{"number":2,"text":"3ばん"},{"number":3,"text":"5ばん"},{"number":4,"text":"7ばん"}],
+              "correct_answer": 4, "order_index": 6
+            }
+          ]
+        },
+        {
+          "id": "n5-2017-l-g2",
+          "type": "audio_with_text",
+          "order_index": 1,
+          "instructions": "もんだい２では、はじめに しつもんを きいて ください。それから はなしを きいて、もんだいようしの １から４の なかから、いちばん いい ものを ひとつ えらんで ください。",
+          "audio_url": "audio/n5/2017/december/q2.mp3",
+          "questions": [
+            {
+              "number": 1, "text": "女の学生は、今日、何時間勉強しますか。",
+              "options": [{"number":1,"text":"1じかん"},{"number":2,"text":"2じかん"},{"number":3,"text":"3じかん"},{"number":4,"text":"4じかん"}],
+              "correct_answer": 4, "order_index": 0
+            },
+            {
+              "number": 2, "text": "女の人の電話番号は何番ですか。",
+              "options": [{"number":1,"text":"512-7733"},{"number":2,"text":"512-7734"},{"number":3,"text":"512-7743"},{"number":4,"text":"512-7744"}],
+              "correct_answer": 3, "order_index": 1
+            },
+            {
+              "number": 3, "text": "男の学生は、だれと住んでいますか。",
+              "options": [{"number":1,"text":"りょうしん"},{"number":2,"text":"あね"},{"number":3,"text":"いもうと"},{"number":4,"text":"おとうと"}],
+              "correct_answer": 2, "order_index": 2
+            },
+            {
+              "number": 4, "text": "二人はどこで昼ご飯を食べますか。",
+              "options": [{"number":1,"text":"しょくどう"},{"number":2,"text":"きっさてん"},{"number":3,"text":"パンや"},{"number":4,"text":"きょうしつ"}],
+              "correct_answer": 4, "order_index": 3
+            },
+            {
+              "number": 5, "text": "学生は何で名前を書きますか。",
+              "options": [{"number":1,"text":"くろい ボールペン"},{"number":2,"text":"あかい ボールペン"},{"number":3,"text":"くろい えんぴつ"},{"number":4,"text":"あかい えんぴつ"}],
+              "correct_answer": 1, "order_index": 4
+            },
+            {
+              "number": 6, "text": "二人は明日どこで会いますか。",
+              "options": [{"number":1,"text":"こうえん"},{"number":2,"text":"えき"},{"number":3,"text":"きっさてん"},{"number":4,"text":"レストラン"}],
+              "correct_answer": 3, "order_index": 5
+            }
+          ]
+        },
+        {
+          "id": "n5-2017-l-g3",
+          "type": "audio_with_image",
+          "order_index": 2,
+          "instructions": "もんだい３では、えを みながら しつもんを きいて ください。→（やじるし）の ひとは なんと いいますか。１から３の なかから、いちばん いい ものを ひとつ えらんで ください。",
+          "audio_url": "audio/n5/2017/december/q3.mp3",
+          "questions": [
+            {
+              "number": 1, "text": "ご飯を食べました。何と言いますか。",
+              "options": [{"number":1,"text":"ごちそうさまでした。"},{"number":2,"text":"いただきます。"},{"number":3,"text":"どういたしまして。"}],
+              "correct_answer": 1, "order_index": 0
+            },
+            {
+              "number": 2, "text": "電車の中です。女の人が来ました。何と言いますか。",
+              "options": [{"number":1,"text":"どうもありがとう。"},{"number":2,"text":"初めまして。"},{"number":3,"text":"ここ、どうぞ。"}],
+              "correct_answer": 3, "order_index": 1
+            },
+            {
+              "number": 3, "text": "家へ帰ります。友達に何と言いますか。",
+              "options": [{"number":1,"text":"いってきます。"},{"number":2,"text":"じゃ、また。"},{"number":3,"text":"ただいま。"}],
+              "correct_answer": 2, "order_index": 2
+            },
+            {
+              "number": 4, "text": "郵便局で切手を買います。何と言いますか。",
+              "options": [{"number":1,"text":"切手を買いませんか。"},{"number":2,"text":"切手をどうぞ。"},{"number":3,"text":"切手を下さい。"}],
+              "correct_answer": 3, "order_index": 3
+            },
+            {
+              "number": 5, "text": "友達は鉛筆がありません。友達に何と言いますか。",
+              "options": [{"number":1,"text":"鉛筆、借りましょうか。"},{"number":2,"text":"鉛筆、使いますか。"},{"number":3,"text":"鉛筆、貸してください。"}],
+              "correct_answer": 2, "order_index": 4
+            }
+          ]
+        },
+        {
+          "id": "n5-2017-l-g4",
+          "type": "audio_only",
+          "order_index": 3,
+          "instructions": "もんだい４は、えなどが ありません。ぶんを きいて、１から３の なかから、いちばん いい ものを ひとつ えらんで ください。",
+          "audio_url": "audio/n5/2017/december/q4.mp3",
+          "questions": [
+            {
+              "number": 1, "text": "今日は何日ですか。",
+              "options": [{"number":1,"text":"三日です。"},{"number":2,"text":"3週間です。"},{"number":3,"text":"3時です。"}],
+              "correct_answer": 1, "order_index": 0
+            },
+            {
+              "number": 2, "text": "すみません、図書館はどこですか。",
+              "options": [{"number":1,"text":"あそこです。"},{"number":2,"text":"6時までです。"},{"number":3,"text":"本を借ります。"}],
+              "correct_answer": 1, "order_index": 1
+            },
+            {
+              "number": 3, "text": "明日、何時に学校に来ますか。",
+              "options": [{"number":1,"text":"バスで来ます。"},{"number":2,"text":"9時半です。"},{"number":3,"text":"6人です。"}],
+              "correct_answer": 2, "order_index": 2
+            },
+            {
+              "number": 4, "text": "田中さん、その荷物を持ちましょうか。",
+              "options": [{"number":1,"text":"どういたしまして。"},{"number":2,"text":"持ちませんでした。"},{"number":3,"text":"ありがとうございます。"}],
+              "correct_answer": 3, "order_index": 3
+            },
+            {
+              "number": 5, "text": "ちょっと休みませんか。",
+              "options": [{"number":1,"text":"日曜日です。"},{"number":2,"text":"お元気ですか。"},{"number":3,"text":"そうしましょう。"}],
+              "correct_answer": 3, "order_index": 4
+            },
+            {
+              "number": 6, "text": "それは、何の本ですか。",
+              "options": [{"number":1,"text":"料理の本です。"},{"number":2,"text":"私の本です。"},{"number":3,"text":"はい、そうです。"}],
+              "correct_answer": 1, "order_index": 5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

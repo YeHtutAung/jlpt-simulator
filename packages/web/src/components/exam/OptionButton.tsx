@@ -1,0 +1,53 @@
+type OptionState = 'default' | 'selected' | 'correct' | 'incorrect'
+
+interface OptionButtonProps {
+  number: 1 | 2 | 3 | 4
+  text: string
+  state: OptionState
+  disabled?: boolean
+  onClick: () => void
+}
+
+const stateClasses: Record<OptionState, string> = {
+  default:   'option-btn-default',
+  selected:  'option-btn-selected',
+  correct:   'option-btn-correct',
+  incorrect: 'option-btn-incorrect',
+}
+
+const numberLabels = ['①', '②', '③', '④'] as const
+
+export function OptionButton({
+  number,
+  text,
+  state,
+  disabled = false,
+  onClick,
+}: OptionButtonProps) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={[
+        stateClasses[state],
+        'flex items-start gap-3',
+        disabled && state === 'default' ? 'opacity-50 cursor-not-allowed' : '',
+      ].join(' ')}
+    >
+      {/* Number badge */}
+      <span className={[
+        'shrink-0 w-7 h-7 rounded-full flex items-center justify-center',
+        'text-sm font-semibold border-2 transition-colors',
+        state === 'default'   ? 'border-border text-text-muted' : '',
+        state === 'selected'  ? 'border-accent text-accent bg-blue-100' : '',
+        state === 'correct'   ? 'border-success text-success bg-green-100' : '',
+        state === 'incorrect' ? 'border-error text-error bg-red-100' : '',
+      ].join(' ')}>
+        {numberLabels[number - 1]}
+      </span>
+
+      {/* Option text */}
+      <span className="text-ja leading-relaxed">{text}</span>
+    </button>
+  )
+}
