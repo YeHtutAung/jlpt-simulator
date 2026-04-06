@@ -1,42 +1,33 @@
 # Completed Work
 
-_Last updated: Session 8 (mobile/dark/perf)_
+_Last updated: Session 7 (CSS fix, dark mode, mobile, performance)_
 
 ---
 
-## ✅ Session 8 — Mobile responsiveness, Dark mode, Performance
+## ✅ Session 7 — CSS fix, dark mode, mobile responsiveness, performance
 
-- [x] `packages/web/tailwind.config.ts` — added `darkMode: 'class'`
-- [x] `packages/web/src/styles/globals.css` — `.dark` CSS variable block with all dark tokens; `dark:` variants on `.option-btn-*` component classes
-- [x] `packages/web/src/components/layout/Navbar.tsx` — hamburger mobile menu (hidden behind `md:hidden`); `ThemeToggle` component with sun/moon SVG; mobile dropdown nav
-- [x] `packages/web/src/components/ui/Button.tsx` — `focus:ring-offset-bg` for dark-mode ring offset
-- [x] `packages/web/src/components/ui/Timer.tsx` — `dark:bg-error/10` on warning state
-- [x] `packages/web/src/components/ui/Toast.tsx` — dark: variants on all 3 type colors (bg, border, text)
-- [x] `packages/web/src/components/ui/Skeleton.tsx` — `DashboardSkeleton` stats grid: `grid-cols-1 sm:grid-cols-3`
-- [x] `packages/web/src/components/ui/ErrorBoundary.tsx` — dark: variants on error details box
-- [x] `packages/web/src/components/ui/ProgressBar.tsx` — wrapped with `React.memo`
-- [x] `packages/web/src/components/exam/QuestionCard.tsx` — dark: flag button bg, explanation box; `React.memo`
-- [x] `packages/web/src/components/exam/OptionButton.tsx` — dark: number badge bg for selected/correct/incorrect states; `React.memo`
-- [x] `packages/web/src/components/exam/QuestionNav.tsx` — dark: legend color squares; nav buttons `flex-col sm:flex-row` for mobile; `React.memo`
-- [x] `packages/web/src/components/exam/AudioPlayer.tsx` — `React.memo`
-- [x] `packages/web/src/components/results/ReviewCard.tsx` — dark: card backgrounds (success/error)
-- [x] `packages/web/src/pages/Home.tsx` — LEVEL_COLORS dark variants; filter bar `flex-col sm:flex-row`; `staleTime: Infinity`
-- [x] `packages/web/src/pages/Dashboard.tsx` — stats grid `grid-cols-1 sm:grid-cols-3`; header `flex-col sm:flex-row`; attempt rows `flex-col sm:flex-row`
-- [x] `packages/web/src/pages/Results.tsx` — pass/fail badge dark: variants; `staleTime: Infinity`
-- [x] `packages/web/src/pages/Review.tsx` — `staleTime: Infinity`
-- [x] `packages/web/src/pages/ExamSelect.tsx` — `staleTime: Infinity`
-- [x] `packages/web/src/pages/Login.tsx` — error bg `dark:bg-error/10`
-- [x] `packages/web/src/pages/Register.tsx` — error bg `dark:bg-error/10`
-- [x] `packages/web/src/router/index.tsx` — all pages `React.lazy` + `Suspense` with `PageLoader` fallback
+- [x] **CSS fix (both apps)** — `packages/web/postcss.config.cjs` + `packages/admin/postcss.config.cjs` created; Tailwind now processed in production on Vercel (CSS grew from ~1 kB → 14–26 kB)
+- [x] **Dark mode** — `tailwind.config.ts`: `darkMode: 'class'`; `globals.css`: `.dark` CSS variable block; `dark:` variants added to:
+  - `Toast.tsx` — type bg/border/text colors
+  - `ErrorBoundary.tsx` — error details box
+  - `QuestionCard.tsx` — flag button, explanation box
+  - `OptionButton.tsx` — number badge fills (selected/correct/incorrect)
+  - `QuestionNav.tsx` — legend color swatches
+  - `ReviewCard.tsx` — card backgrounds
+  - `Home.tsx` — LEVEL_COLORS badge variants
+  - `Dashboard.tsx` — (uses semantic tokens, adapts automatically)
+  - `Results.tsx` — pass/fail badge
+  - `Login.tsx` + `Register.tsx` — error message background
+  - `Timer.tsx` — warning state background
+  - `Button.tsx` — focus ring offset color
+- [x] **Dark mode toggle in Navbar** — `ThemeToggle` component added with sun/moon SVG icons; wired to `uiStore.toggleTheme`; visible in desktop nav and mobile dropdown ✅
+- [x] **Mobile 375px** — Home filter bar `flex-col sm:flex-row`; Dashboard + DashboardSkeleton stats grid `grid-cols-1 sm:grid-cols-3`; Dashboard header + attempt rows `flex-col sm:flex-row`; QuestionNav nav buttons `flex-col sm:flex-row`; Navbar hamburger menu with mobile dropdown
+- [x] **Performance** — all 9 page routes use `React.lazy` + `Suspense` with shared `PageLoader` fallback; `staleTime: Infinity` on 4 queries (exams, exam-meta, attempt-results, attempt-review); `React.memo` on QuestionCard, OptionButton, QuestionNav, AudioPlayer, ProgressBar
 - [x] `packages/web/package.json` — added `"analyze": "vite build --mode analyze"` script
 
 ---
 
-## ✅ Session 7 — Live deployment to Supabase + Vercel
-
----
-
-## ✅ Session 7 — Live deployment to Supabase + Vercel
+## ✅ Session 6 — Live deployment to Supabase + Vercel
 
 - [x] `.env` — filled with real Supabase URL, anon key, service role key
 - [x] `package.json` — fixed `db:types` to use `--project-id` (not `--local`); fixed `db:seed` + `db:verify` to use `ts-node -P tsconfig.seed.json`
@@ -46,15 +37,14 @@ _Last updated: Session 8 (mobile/dark/perf)_
 - [x] Both exam seeds inserted: N5 2017 December (89q) + N5 2019 July (90q); `db:verify` 12/13 pass (1 known audio placeholder)
 - [x] `supabase/migrations/00008_fix_profiles_insert.sql` — added `profiles_insert_own` RLS policy
 - [x] `supabase/migrations/00009_fix_trigger_search_path.sql` — recreated `handle_new_user()` with `SET search_path = public`
-- [x] `vercel.json` (root) — configured `installCommand`, `buildCommand`, `outputDirectory` for monorepo deployment; later simplified to rewrites-only (build settings moved to Vercel project API)
+- [x] `vercel.json` (root) — simplified to rewrites-only; build settings moved to Vercel project API
 - [x] `packages/web/vercel.json` + `packages/admin/vercel.json` — removed `@secret` env references
 - [x] Vercel `jlpt-simulator` project — deployed web app; build settings set via API (`turbo run build --filter=@jlpt/web`, output `packages/web/dist`)
 - [x] Vercel `jlpt-simulator-admin` project — deployed admin panel; build settings set via API (`turbo run build --filter=@jlpt/admin`, output `packages/admin/dist`)
-- [x] `packages/admin/postcss.config.cjs` + `packages/web/postcss.config.cjs` — created to enable Tailwind CSS processing (both packages use `"type": "module"` so `.cjs` extension required); CSS output grew from ~1 kB → 14–26 kB confirming Tailwind now active
 
 ---
 
-## ✅ Session 6 — Deployment docs, seed verify, error boundary, 404, skeletons
+## ✅ Session 5 — Deployment docs, seed verify, error boundary, 404, skeletons
 
 - [x] `DEPLOYMENT.md` — full deployment guide: Supabase setup, Vercel web + admin, Storage, smoke tests, rollback
 - [x] `tools/verify-seed.ts` — connects to Supabase, checks table counts, exam statuses, correct_answer validity, empty options, listening audio_url; prints pass/fail report
@@ -69,7 +59,7 @@ _Last updated: Session 8 (mobile/dark/perf)_
 
 ---
 
-## ✅ Session 5 — Toast fix, type errors, N5 2019 seed, Vercel config, README
+## ✅ Session 4 — Toast fix, type errors, N5 2019 seed, Vercel config, README
 
 - [x] `packages/web/src/components/ui/Toast.tsx` — removed unused `useEffect` import, replaced `animate-in slide-in-from-right-4` with custom `toast-enter` CSS class
 - [x] `packages/web/src/styles/globals.css` — added `@keyframes toast-slide-in` and `.toast-enter` class (Option B: no plugin needed)
@@ -95,7 +85,7 @@ _Last updated: Session 8 (mobile/dark/perf)_
 
 ---
 
-## ✅ Session 4 — UI Polish, Admin Auth, Tests, Toasts
+## ✅ Session 3 — UI Polish, Admin Auth, Tests, Toasts
 
 - [x] `packages/web/src/store/uiStore.ts` — theme persisted via `zustand/middleware persist`, sidebar open/close, toast queue with auto-dismiss timers
 - [x] `packages/web/src/components/ui/Card.tsx` — 4 variants (default/elevated/bordered/flat), header/footer slots, padding sizes (sm/md/lg), clickable hover state
