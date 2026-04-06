@@ -3,7 +3,7 @@
 -- ================================
 
 create table if not exists sections (
-  id           uuid primary key default uuid_generate_v4(),
+  id           uuid primary key default gen_random_uuid(),
   exam_id      uuid not null references exams(id) on delete cascade,
   type         text not null check (type in ('vocabulary','grammar_reading','listening')),
   time_limit   integer not null check (time_limit > 0),

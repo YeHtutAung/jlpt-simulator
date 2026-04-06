@@ -1,6 +1,24 @@
 # Completed Work
 
-_Last updated: Session 6 (docs sync)_
+_Last updated: Session 7 (deployment)_
+
+---
+
+## ✅ Session 7 — Live deployment to Supabase + Vercel
+
+- [x] `.env` — filled with real Supabase URL, anon key, service role key
+- [x] `package.json` — fixed `db:types` to use `--project-id` (not `--local`); fixed `db:seed` + `db:verify` to use `ts-node -P tsconfig.seed.json`
+- [x] `tsconfig.seed.json` — created at repo root with `module: CommonJS` to fix ts-node ESM resolution for seed/verify scripts
+- [x] `supabase/migrations/` — replaced all `uuid_generate_v4()` → `gen_random_uuid()` across 5 migration files (PostgreSQL 15 compatibility)
+- [x] `supabase/types.ts` — generated from remote schema via `npm run db:types`
+- [x] Both exam seeds inserted: N5 2017 December (89q) + N5 2019 July (90q); `db:verify` 12/13 pass (1 known audio placeholder)
+- [x] `supabase/migrations/00008_fix_profiles_insert.sql` — added `profiles_insert_own` RLS policy
+- [x] `supabase/migrations/00009_fix_trigger_search_path.sql` — recreated `handle_new_user()` with `SET search_path = public`
+- [x] `vercel.json` (root) — configured `installCommand`, `buildCommand`, `outputDirectory` for monorepo deployment; later simplified to rewrites-only (build settings moved to Vercel project API)
+- [x] `packages/web/vercel.json` + `packages/admin/vercel.json` — removed `@secret` env references
+- [x] Vercel `jlpt-simulator` project — deployed web app; build settings set via API (`turbo run build --filter=@jlpt/web`, output `packages/web/dist`)
+- [x] Vercel `jlpt-simulator-admin` project — deployed admin panel; build settings set via API (`turbo run build --filter=@jlpt/admin`, output `packages/admin/dist`)
+- [x] `packages/admin/postcss.config.cjs` + `packages/web/postcss.config.cjs` — created to enable Tailwind CSS processing (both packages use `"type": "module"` so `.cjs` extension required); CSS output grew from ~1 kB → 14–26 kB confirming Tailwind now active
 
 ---
 

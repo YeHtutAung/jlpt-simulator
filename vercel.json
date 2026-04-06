@@ -1,12 +1,5 @@
 {
-  "projects": [
-    {
-      "name": "jlpt-simulator-web",
-      "rootDirectory": "packages/web"
-    },
-    {
-      "name": "jlpt-simulator-admin",
-      "rootDirectory": "packages/admin"
-    }
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

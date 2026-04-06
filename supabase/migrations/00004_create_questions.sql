@@ -3,7 +3,7 @@
 -- ================================
 
 create table if not exists questions (
-  id              uuid primary key default uuid_generate_v4(),
+  id              uuid primary key default gen_random_uuid(),
   group_id        uuid not null references question_groups(id) on delete cascade,
   question_number integer not null,
   question_text   text not null,

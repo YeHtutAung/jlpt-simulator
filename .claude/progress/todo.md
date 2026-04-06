@@ -6,22 +6,22 @@ _Last updated: Session 6 (docs sync)_
 
 ## 🔴 High Priority — Live Deployment (requires real credentials)
 
-1. **Supabase project setup**
-   - [ ] Create project at supabase.com, copy URL + keys into `.env`
-   - [ ] `npm run db:migrate` → `npm run db:types` → commit `supabase/types.ts`
-   - [ ] `npm run db:seed -- --file=n5_2017_december.json`
-   - [ ] `npm run db:verify` — confirm all checks pass
+1. **Supabase project setup** ✅
+   - [x] Project live at `cmlxfddegfzwisuaiokh.supabase.co`
+   - [x] All 9 migrations applied; `supabase/types.ts` generated
+   - [x] Both exam seeds loaded; `db:verify` 12/13 pass
 
-2. **Vercel web deployment**
-   - [ ] Create Vercel project, root directory `packages/web`
-   - [ ] Add `VITE_SUPABASE_URL` + `VITE_SUPABASE_ANON_KEY`
-   - [ ] Verify SPA routing: `/exam/:id` and `/nonexistent` (→ NotFound)
+2. **Vercel web deployment** ✅
+   - [x] Live at https://jlpt-simulator-theta.vercel.app
+   - [x] Tailwind CSS fixed (postcss.config.cjs)
 
-3. **Vercel admin deployment**
-   - [ ] Create separate Vercel project, root directory `packages/admin`
-   - [ ] Add `VITE_SUPABASE_URL` + `VITE_SUPABASE_SERVICE_ROLE_KEY`
+3. **Vercel admin deployment** ✅
+   - [x] Live at https://jlpt-simulator-admin.vercel.app
+   - [x] Tailwind CSS fixed (postcss.config.cjs)
    - [ ] Promote a user: `UPDATE profiles SET role = 'admin' WHERE id = '...'`
+   - [ ] Update `VITE_ADMIN_SECRET` to real value in Vercel dashboard
    - [ ] Verify AuthGuard: non-admin sees "Access Denied"
+   - [ ] Retest signup — "Database error saving new user" (migration 00009 applied)
 
 4. **Upload N5 audio files to Supabase Storage**
    - [ ] Upload `q1.mp3`–`q4.mp3` to `audio/n5/2017/december/`

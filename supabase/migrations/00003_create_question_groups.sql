@@ -3,7 +3,7 @@
 -- ================================
 
 create table if not exists question_groups (
-  id           uuid primary key default uuid_generate_v4(),
+  id           uuid primary key default gen_random_uuid(),
   section_id   uuid not null references sections(id) on delete cascade,
   group_key    text not null,  -- e.g. "n5-2017-v-g1" for lookups
   group_type   text not null check (group_type in (

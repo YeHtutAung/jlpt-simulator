@@ -5,7 +5,7 @@
 create extension if not exists "uuid-ossp";
 
 create table if not exists exams (
-  id          uuid primary key default uuid_generate_v4(),
+  id          uuid primary key default gen_random_uuid(),
   level       text not null check (level in ('N1','N2','N3','N4','N5')),
   year        integer not null check (year >= 2010 and year <= 2030),
   month       text not null check (month in ('july','december')),

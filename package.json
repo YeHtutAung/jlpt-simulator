@@ -14,15 +14,16 @@
     "db:stop": "supabase stop",
     "db:migrate": "supabase db push",
     "db:reset": "supabase db reset",
-    "db:seed": "ts-node supabase/seed/seed.ts",
-    "db:types": "supabase gen types typescript --local > supabase/types.ts",
-    "db:verify": "ts-node tools/verify-seed.ts",
+    "db:seed": "ts-node -P tsconfig.seed.json supabase/seed/seed.ts",
+    "db:types": "supabase gen types typescript --project-id cmlxfddegfzwisuaiokh > supabase/types.ts",
+    "db:verify": "ts-node -P tsconfig.seed.json tools/verify-seed.ts",
     "convert": "ts-node tools/converter/src/index.ts"
   },
   "devDependencies": {
+    "dotenv": "^17.4.1",
+    "ts-node": "^10.9.0",
     "turbo": "^2.0.0",
-    "typescript": "^5.4.0",
-    "ts-node": "^10.9.0"
+    "typescript": "^5.4.0"
   },
   "engines": {
     "node": ">=18.0.0",

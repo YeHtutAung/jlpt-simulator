@@ -30,7 +30,7 @@ create trigger on_auth_user_created
 
 -- Exam attempts
 create table if not exists attempts (
-  id           uuid primary key default uuid_generate_v4(),
+  id           uuid primary key default gen_random_uuid(),
   user_id      uuid not null references profiles(id) on delete cascade,
   exam_id      uuid not null references exams(id) on delete cascade,
   mode         text not null check (mode in ('full_exam','practice')),
@@ -48,7 +48,7 @@ create index idx_attempts_status on attempts(status);
 
 -- User answers
 create table if not exists user_answers (
-  id              uuid primary key default uuid_generate_v4(),
+  id              uuid primary key default gen_random_uuid(),
   attempt_id      uuid not null references attempts(id) on delete cascade,
   question_id     uuid not null references questions(id) on delete cascade,
   selected_option integer check (selected_option between 1 and 4),

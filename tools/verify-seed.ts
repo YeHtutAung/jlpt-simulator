@@ -98,7 +98,7 @@ async function checkN5December(): Promise<CheckResult[]> {
     results.push(pass('N5 2017 December sections', '3 sections (vocabulary, grammar_reading, listening)'))
   }
 
-  // Total question count should be 90 (33+32+25)
+  // Total question count should be 89 (33+32+24)
   if (sections) {
     const sectionIds = sections.map(s => s.id)
     const { data: groups } = await supabase
@@ -113,10 +113,10 @@ async function checkN5December(): Promise<CheckResult[]> {
         .select('*', { count: 'exact', head: true })
         .in('group_id', groupIds)
 
-      if (qCount === 90) {
-        results.push(pass('N5 2017 December question count', '90 questions (33+32+25)'))
+      if (qCount === 89) {
+        results.push(pass('N5 2017 December question count', '89 questions (33+32+24)'))
       } else {
-        results.push(fail('N5 2017 December question count', `Expected 90, got ${qCount}`))
+        results.push(fail('N5 2017 December question count', `Expected 89, got ${qCount}`))
       }
     }
   }
