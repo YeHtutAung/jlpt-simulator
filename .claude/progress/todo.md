@@ -1,15 +1,37 @@
 # Todo
 
-_Last updated: Session 5_
+_Last updated: Session 5 (docs sync)_
 
 ---
 
 ## 🔴 High Priority
 
-### Dev Environment
-- [ ] Copy `.env.example` → `.env` and fill in Supabase credentials
-- [ ] `npm run db:start` → `npm run db:migrate` → `npm run db:types` → `npm run db:seed`
-- [ ] `npm run dev` — verify web (5173) and admin (5174) start without errors
+### Deploy to Production
+
+1. **Supabase** — create real project, run migrations, generate types, seed
+   - [ ] Create Supabase project at supabase.com
+   - [ ] Copy project URL + anon key + service role key into `.env`
+   - [ ] `npm run db:migrate` against the live project
+   - [ ] `npm run db:types` — regenerate `supabase/types.ts`
+   - [ ] `npm run db:seed` — load N5 2017 December + N5 2019 July
+
+2. **Web app** — deploy to Vercel and verify SPA routing works
+   - [ ] Create Vercel project, set root directory to `packages/web`
+   - [ ] Add env vars: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
+   - [ ] Deploy and test that `/exam/:id` routes load correctly (SPA rewrite)
+
+3. **Admin panel** — deploy as separate Vercel project
+   - [ ] Create separate Vercel project, root directory `packages/admin`
+   - [ ] Add env vars: `VITE_SUPABASE_URL`, `VITE_SUPABASE_SERVICE_ROLE_KEY`
+   - [ ] Verify AuthGuard works: non-admin user sees "Access Denied"
+
+4. **Audio files** — upload to Supabase Storage
+   - [ ] Upload real N5 listening audio files (N5Q1-Q4.mp3 etc.) to the `audio` bucket
+   - [ ] Update seed JSON with correct Supabase Storage URLs
+
+5. **Images** — upload listening scene images
+   - [ ] Upload real images for Listening もんだい5/6 picture scenes to the `images` bucket
+   - [ ] Update seed JSON with correct Supabase Storage URLs
 
 ### Tests
 - [ ] `cd tools/converter && npx vitest run` — verify all 30 test cases pass
@@ -43,7 +65,6 @@ _Last updated: Session 5_
 - [ ] Performance tuning (React Query staleTime, bundle splitting)
 
 ### Infrastructure
-- [ ] Create Vercel projects and link to GitHub repo
 - [ ] Supabase Storage CORS for audio
 - [ ] Supabase Edge Functions deployment via `supabase functions deploy`
 
