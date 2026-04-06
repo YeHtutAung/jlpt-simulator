@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import { Navbar } from '@/components/layout/Navbar'
 import { Button } from '@/components/ui/Button'
+import { DashboardSkeleton } from '@/components/ui/Skeleton'
 import { supabase } from '@/lib/supabase'
 import { useAuthStore } from '@/store/authStore'
 import type { AttemptScoreJson } from '@jlpt/shared'
@@ -52,6 +53,10 @@ export function Dashboard() {
 
       <main className="max-w-4xl mx-auto px-4 py-12 space-y-10">
 
+        {isLoading ? (
+          <DashboardSkeleton />
+        ) : (
+          <>
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
@@ -90,14 +95,7 @@ export function Dashboard() {
             Recent Attempts
           </h2>
 
-          {isLoading ? (
-            <div className="space-y-3">
-              {[...Array(5)].map((_, i) => (
-                <div key={i} className="h-20 bg-surface rounded-xl border
-                                         border-border animate-pulse" />
-              ))}
-            </div>
-          ) : attempts.length === 0 ? (
+          {attempts.length === 0 ? (
             <div className="text-center py-16 space-y-4">
               <p className="text-4xl">📝</p>
               <p className="text-text-muted font-sans">
@@ -157,6 +155,8 @@ export function Dashboard() {
             </div>
           )}
         </div>
+          </>
+        )}
       </main>
     </div>
   )

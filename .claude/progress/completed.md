@@ -1,6 +1,21 @@
 # Completed Work
 
-_Last updated: Session 5 (docs sync)_
+_Last updated: Session 6_
+
+---
+
+## ✅ Session 6 — Deployment docs, seed verify, error boundary, 404, skeletons
+
+- [x] `DEPLOYMENT.md` — full deployment guide: Supabase setup, Vercel web + admin, Storage, smoke tests, rollback
+- [x] `tools/verify-seed.ts` — connects to Supabase, checks table counts, exam statuses, correct_answer validity, empty options, listening audio_url; prints pass/fail report
+- [x] `package.json` — added `"db:verify": "ts-node tools/verify-seed.ts"` script
+- [x] `packages/web/src/components/ui/ErrorBoundary.tsx` — React class error boundary, default fallback (エラー heading, Go home + Try again buttons), dev-only error details disclosure
+- [x] `packages/web/src/App.tsx` — wrapped RouterProvider + ToastContainer with ErrorBoundary
+- [x] `packages/web/src/router/index.tsx` — ExamSession wrapped in its own ErrorBoundary; `*` catch-all now renders NotFound instead of Navigate
+- [x] `packages/web/src/pages/NotFound.tsx` — 四百四 decorative kanji, bilingual message, Back to home link
+- [x] `packages/web/src/components/ui/Skeleton.tsx` — `Skeleton` base (animated pulse, rounded variants), `ExamCardSkeleton`, `DashboardSkeleton`, `AttemptRowSkeleton`
+- [x] `packages/web/src/pages/Home.tsx` — loading state uses `ExamCardSkeleton` grid
+- [x] `packages/web/src/pages/Dashboard.tsx` — loading state uses `DashboardSkeleton` (full-page skeleton replacing per-section pulse divs)
 
 ---
 

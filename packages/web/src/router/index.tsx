@@ -7,6 +7,8 @@ import { ExamSession } from '@/pages/ExamSession'
 import { Results } from '@/pages/Results'
 import { Review } from '@/pages/Review'
 import { Dashboard } from '@/pages/Dashboard'
+import { NotFound } from '@/pages/NotFound'
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
 import { useAuthStore } from '@/store/authStore'
 
 // Guard for protected routes
@@ -42,7 +44,13 @@ export const router = createBrowserRouter([
   },
   {
     path: '/exam/:examId/session',
-    element: <RequireAuth><ExamSession /></RequireAuth>,
+    element: (
+      <RequireAuth>
+        <ErrorBoundary>
+          <ExamSession />
+        </ErrorBoundary>
+      </RequireAuth>
+    ),
   },
   {
     path: '/results/:attemptId',
@@ -58,6 +66,6 @@ export const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: <Navigate to="/" replace />,
+    element: <NotFound />,
   },
 ])

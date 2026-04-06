@@ -1,6 +1,6 @@
 # Todo
 
-_Last updated: Session 5 (docs sync)_
+_Last updated: Session 6_
 
 ---
 
@@ -12,39 +12,44 @@ _Last updated: Session 5 (docs sync)_
    - [ ] Create Supabase project at supabase.com
    - [ ] Copy project URL + anon key + service role key into `.env`
    - [ ] `npm run db:migrate` against the live project
-   - [ ] `npm run db:types` — regenerate `supabase/types.ts`
-   - [ ] `npm run db:seed` — load N5 2017 December + N5 2019 July
+   - [ ] `npm run db:types` — regenerate `supabase/types.ts` and commit
+   - [ ] `npm run db:seed -- --file=n5_2017_december.json`
+   - [ ] `npm run db:verify` — confirm all checks pass
 
 2. **Web app** — deploy to Vercel and verify SPA routing works
    - [ ] Create Vercel project, set root directory to `packages/web`
    - [ ] Add env vars: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
    - [ ] Deploy and test that `/exam/:id` routes load correctly (SPA rewrite)
+   - [ ] Test 404 page: navigate to `/nonexistent` — should show NotFound, not blank
 
 3. **Admin panel** — deploy as separate Vercel project
    - [ ] Create separate Vercel project, root directory `packages/admin`
    - [ ] Add env vars: `VITE_SUPABASE_URL`, `VITE_SUPABASE_SERVICE_ROLE_KEY`
-   - [ ] Verify AuthGuard works: non-admin user sees "Access Denied"
+   - [ ] Promote a user to admin: `UPDATE profiles SET role = 'admin' WHERE id = '...'`
+   - [ ] Verify AuthGuard works: non-admin sees "Access Denied"
 
 4. **Audio files** — upload to Supabase Storage
-   - [ ] Upload real N5 listening audio files (N5Q1-Q4.mp3 etc.) to the `audio` bucket
-   - [ ] Update seed JSON with correct Supabase Storage URLs
+   - [ ] Upload real N5 listening audio (q1.mp3–q4.mp3) to `audio/n5/2017/december/`
+   - [ ] Update seed JSON `audio_url` fields with Supabase Storage public URLs
+   - [ ] Re-run seed, then `npm run db:verify` — audio_url check should pass
 
 5. **Images** — upload listening scene images
-   - [ ] Upload real images for Listening もんだい5/6 picture scenes to the `images` bucket
-   - [ ] Update seed JSON with correct Supabase Storage URLs
+   - [ ] Upload scene images to `images/n5/2017/december/`
+   - [ ] Update seed JSON with Storage URLs
 
 ### Tests
-- [ ] `cd tools/converter && npx vitest run` — verify all 30 test cases pass
+- [ ] `cd tools/converter && npx vitest run` — verify all 30 tests pass
 
 ---
 
 ## 🟡 Medium Priority
 
 ### End-to-End Testing
-- [ ] Test exam session keyboard shortcuts work (1-4, N, P, F)
+- [ ] Full smoke test from DEPLOYMENT.md (register → exam → results)
+- [ ] Test exam session keyboard shortcuts (1-4, N, P, F)
 - [ ] Test admin auth guard: non-admin user sees "Access Denied"
-- [ ] Test admin login form rejects bad credentials gracefully
 - [ ] Test toast notifications: success on submit, error on network fail
+- [ ] Test ErrorBoundary: force a render error in dev, confirm fallback shows
 
 ### More Exam Content
 - [ ] N5 2018 seed JSON

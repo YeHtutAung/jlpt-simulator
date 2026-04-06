@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import { Navbar } from '@/components/layout/Navbar'
 import { Button } from '@/components/ui/Button'
+import { ExamCardSkeleton } from '@/components/ui/Skeleton'
 import { supabase } from '@/lib/supabase'
 import { JLPT_LEVELS } from '@jlpt/shared'
 import { useState } from 'react'
@@ -113,8 +114,7 @@ export function Home() {
         {isLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="h-32 bg-surface rounded-xl border border-border
-                                       animate-pulse" />
+              <ExamCardSkeleton key={i} />
             ))}
           </div>
         ) : exams.length === 0 ? (
