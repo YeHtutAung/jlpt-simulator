@@ -1,64 +1,64 @@
 # Todo
 
-_Last updated: Session 3_
+_Last updated: Session 4_
 
 ---
 
-## 🔴 High Priority (do next)
+## 🔴 High Priority
 
-### Dev Environment Setup
-- [ ] Run `npm install` in root
+### Dev Environment
+- [ ] `npm install` — picks up vitest (converter) + zustand (admin)
 - [ ] Copy `.env.example` → `.env` and fill in Supabase credentials
-- [ ] `npm run db:start` — start local Supabase
-- [ ] `npm run db:migrate` — apply all 7 migrations
-- [ ] `npm run db:types` — generate TypeScript types from DB
-- [ ] `npm run db:seed` — import N5 2017 seed data
-- [ ] `npm run dev` — test both web (5173) and admin (5174)
+- [ ] `npm run db:start` → `npm run db:migrate` → `npm run db:types` → `npm run db:seed`
+- [ ] `npm run dev` — verify web (5173) and admin (5174) start without errors
 
-### Missing packages/web Files
-- [ ] `src/store/uiStore.ts` — modal state, toast notifications, sidebar state
-- [ ] `src/components/ui/Card.tsx` — reusable card component
+### Tests
+- [ ] `cd tools/converter && npx vitest run` — verify all 30 test cases pass
+
+### Toast animation fix
+- [ ] Add `tailwindcss-animate` to packages/web devDeps, or replace `animate-in` classes
+  with custom `@keyframes` in globals.css (Toast.tsx uses Tailwind v3 animate plugin)
 
 ---
 
 ## 🟡 Medium Priority
 
 ### End-to-End Testing
-- [ ] Test exam session flow (select → session → results → review)
-- [ ] Test admin upload flow (upload JSON → preview → import → publish)
-- [ ] Test get-exam edge function returns no correct_answer
-- [ ] Test get-stats edge function calculates correctly
+- [ ] Test exam session keyboard shortcuts work (1-4, N, P, F)
+- [ ] Test admin auth guard: non-admin user sees "Access Denied"
+- [ ] Test admin login form rejects bad credentials gracefully
+- [ ] Test toast notifications: success on submit, error on network fail
 
-### Converter CLI Testing
-- [ ] Get real N5 PDF files
-- [ ] Test `npm run convert` against real PDFs
-- [ ] Verify output validates against schema
-
-### More Seed Data
-- [ ] N5 2018 conversion
-- [ ] N5 2019 conversion
+### More Exam Content
+- [ ] N5 2018 seed JSON
+- [ ] N5 2019 seed JSON
 - [ ] N4 papers
+
+### Converter CLI
+- [ ] Get real N5 PDF files and test full pipeline end-to-end
+- [ ] Verify SVG output renders correctly in SvgRenderer.tsx
 
 ---
 
 ## 🟢 Low Priority
 
 ### Polish
-- [ ] Mobile optimization for web app
-- [ ] Performance + caching (React Query staleTime tuning)
+- [ ] Mobile optimization (exam session layout on small screens)
+- [ ] Dark mode (uiStore theme toggle already wired, needs Tailwind dark: class variants)
 - [ ] Analytics dashboard in admin
-- [ ] Dark mode
+- [ ] Performance tuning (React Query staleTime, bundle splitting)
 
 ### Infrastructure
-- [ ] Set up Vercel deployments (web + admin)
-- [ ] Configure Supabase Storage CORS for audio/images
-- [ ] Set up Supabase Edge Functions deployment
+- [ ] Vercel deployments (web + admin)
+- [ ] Supabase Storage CORS for audio
+- [ ] Supabase Edge Functions deployment via `supabase functions deploy`
 
 ---
 
-## 💡 Ideas (not committed)
+## 💡 Ideas
 
 - AI-generated explanations for wrong answers
-- Spaced repetition for weak questions
-- Leaderboard / social features
-- Offline mode (PWA)
+- Spaced repetition for weak vocab
+- Score prediction before submitting
+- Flashcard mode from flagged questions
+- Study plan generator based on weak sections

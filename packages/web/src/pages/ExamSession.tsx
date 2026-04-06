@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useExamStore } from '@/store/examStore'
 import { QuestionCard } from '@/components/exam/QuestionCard'
@@ -7,6 +7,7 @@ import { Timer } from '@/components/ui/Timer'
 import { ProgressBar } from '@/components/ui/ProgressBar'
 import { Modal } from '@/components/ui/Modal'
 import { Button } from '@/components/ui/Button'
+import { useToast } from '@/components/ui/Toast'
 
 const SECTION_LABELS: Record<string, string> = {
   vocabulary:      '文字・語彙',
@@ -32,6 +33,50 @@ export function ExamSession() {
   const resetExam    = useExamStore(s => s.resetExam)
 
   const [showSubmitModal, setShowSubmitModal] = useState(false)
+  const toast = useToast()
+
+  // ── Keyboard navigation ──────────────────────────────────
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    // Don't fire when typing in an input or modal is open
+    if (showSubmitModal) return
+    if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return
+
+    switch (e.key) {
+      case '1': case '2': case '3': case '4': {
+        const option = parseInt(e.key, 10)
+        if (!exam) return
+        const s = exam.sections[position.sectionIndex]
+        const g = s.question_groups[position.groupIndex]
+        const q = g.questions[position.questionIndex]
+        const qId = `${position.sectionIndex}-${position.groupIndex}-${position.questionIndex}-${q.number}`
+        if (option <= q.options.length) {
+          selectAnswer(qId, option)
+          toast.info(`Answer ${option} selected`, 1200)
+        }
+        break
+      }
+      case 'n': case 'N': case 'ArrowRight':
+        nextQuestion()
+        break
+      case 'p': case 'P': case 'ArrowLeft':
+        if (mode === 'practice') prevQuestion()
+        break
+      case 'f': case 'F': {
+        if (!exam) return
+        const s = exam.sections[position.sectionIndex]
+        const g = s.question_groups[position.groupIndex]
+        const q = g.questions[position.questionIndex]
+        const qId = `${position.sectionIndex}-${position.groupIndex}-${position.questionIndex}-${q.number}`
+        toggleFlag(qId)
+        break
+      }
+    }
+  }, [showSubmitModal, exam, position, mode, selectAnswer, nextQuestion, prevQuestion, toggleFlag])
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [handleKeyDown])
 
   // Redirect if no exam loaded (e.g. page refresh)
   if (!exam) {
@@ -76,7 +121,12 @@ export function ExamSession() {
 
   async function handleConfirmSubmit() {
     setShowSubmitModal(false)
-    await submitExam()
+    try {
+      await submitExam()
+      toast.success('Exam submitted successfully!')
+    } catch {
+      toast.error('Failed to submit exam. Please try again.')
+    }
   }
 
   return (
@@ -127,6 +177,16 @@ export function ExamSession() {
           />
         </div>
       </footer>
+
+      {/* Keyboard hint bar */}
+      <div className="border-t border-border bg-bg py-1.5">
+        <div className="max-w-3xl mx-auto px-4 flex flex-wrap gap-x-5 gap-y-1 text-xs text-text-muted font-sans">
+          <span><kbd className="kbd">1</kbd>–<kbd className="kbd">4</kbd> Select</span>
+          <span><kbd className="kbd">N</kbd> / <kbd className="kbd">→</kbd> Next</span>
+          {mode === 'practice' && <span><kbd className="kbd">P</kbd> / <kbd className="kbd">←</kbd> Prev</span>}
+          <span><kbd className="kbd">F</kbd> Flag</span>
+        </div>
+      </div>
 
       {/* Submit confirmation modal */}
       <Modal

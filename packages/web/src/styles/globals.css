@@ -68,4 +68,12 @@
   .option-btn-incorrect {
     @apply option-btn border-error bg-red-50 text-error;
   }
+
+  /* Keyboard shortcut key hint */
+  .kbd {
+    @apply inline-flex items-center justify-center
+           px-1.5 py-0.5 rounded border border-border
+           bg-surface text-text text-xs font-mono
+           min-w-[1.4rem];
+  }
 }
