@@ -1,4 +1,5 @@
 import { memo } from 'react'
+import DOMPurify from 'dompurify'
 
 type OptionState = 'default' | 'selected' | 'correct' | 'incorrect'
 
@@ -8,6 +9,8 @@ interface OptionButtonProps {
   state: OptionState
   disabled?: boolean
   onClick: () => void
+  image_type?: string
+  image_data?: string
 }
 
 const stateClasses: Record<OptionState, string> = {
@@ -25,6 +28,8 @@ export const OptionButton = memo(function OptionButton({
   state,
   disabled = false,
   onClick,
+  image_type,
+  image_data,
 }: OptionButtonProps) {
   return (
     <button
@@ -48,8 +53,17 @@ export const OptionButton = memo(function OptionButton({
         {numberLabels[number - 1]}
       </span>
 
-      {/* Option text */}
-      <span className="text-ja leading-relaxed">{text}</span>
+      {/* Option content: image or text */}
+      {image_type === 'svg' && image_data ? (
+        <span
+          className="block w-24 h-24"
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(image_data) }}
+        />
+      ) : image_type === 'storage' && image_data ? (
+        <img src={image_data} alt={`Option ${number}`} className="w-24 h-24 object-contain" />
+      ) : (
+        <span className="text-ja leading-relaxed">{text}</span>
+      )}
     </button>
   )
 })

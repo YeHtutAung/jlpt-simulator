@@ -9,6 +9,9 @@
 ## 🔴 Verify
 - Test full exam: start → answer → section-complete modal → proceed → final submit → Results shows correct score
 - Verify Q27 apple-box SVG + Q28 desk SVG render above question text in vocab section
+- Verify もんだい4 passages show correctly in grammar section (Q27/Q28/Q29 each with their passage)
+- Verify Q28 grammar room layout SVG options render in OptionButton
+- Replace Q28 grammar SVG options with accurate diagrams when real exam images available
 
 ## 🟡 Medium
 - Lighthouse audit on live app (target: perf 90+, a11y 95+)

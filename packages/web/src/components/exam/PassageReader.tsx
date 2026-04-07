@@ -1,14 +1,14 @@
 interface PassageReaderProps {
   passage: string
-  instructions?: string
+  label?: string
 }
 
-export function PassageReader({ passage, instructions }: PassageReaderProps) {
+export function PassageReader({ passage, label }: PassageReaderProps) {
   return (
     <div className="bg-surface border border-border rounded-xl p-5 space-y-3">
-      {instructions && (
-        <p className="text-sm text-text-muted font-sans border-b border-border pb-2">
-          {instructions}
+      {label && (
+        <p className="text-sm font-semibold text-text-muted border-b border-border pb-2">
+          {label}
         </p>
       )}
       <div className="text-ja text-base leading-8 whitespace-pre-wrap">

@@ -11,8 +11,20 @@ interface QuestionRow {
   question_number: number
   question_text: string
   underline_word: string | null
-  options: Array<{ number: number; text: string }>
+  options: Array<{ number: number; text: string; image_type?: string; image_data?: string }>
   explanation: string | null
+  order_index: number
+  image_type: string | null
+  image_data: string | null
+  image_alt: string | null
+  image_position: string | null
+  passage_id: string | null
+}
+
+interface PassageRow {
+  id: string
+  label: string | null
+  passage_text: string
   order_index: number
 }
 
@@ -28,6 +40,7 @@ interface GroupRow {
   audio_url: string | null
   order_index: number
   questions: QuestionRow[]
+  group_passages: PassageRow[]
 }
 
 interface SectionRow {
@@ -134,6 +147,17 @@ Deno.serve(async (req) => {
               underline_word,
               options,
               explanation,
+              order_index,
+              image_type,
+              image_data,
+              image_alt,
+              image_position,
+              passage_id
+            ),
+            group_passages (
+              id,
+              label,
+              passage_text,
               order_index
             )
           )
@@ -160,11 +184,24 @@ Deno.serve(async (req) => {
           ...section,
           question_groups: [...section.question_groups]
             .sort((a, b) => a.order_index - b.order_index)
-            .map((group) => ({
-              ...group,
-              questions: [...group.questions]
-                .sort((a, b) => a.order_index - b.order_index),
-            })),
+            .map((group) => {
+              const passageMap = new Map(
+                (group.group_passages ?? []).map((p) => [p.id, p])
+              )
+              return {
+                ...group,
+                questions: [...group.questions]
+                  .sort((a, b) => a.order_index - b.order_index)
+                  .map((q) => {
+                    const passage = q.passage_id ? passageMap.get(q.passage_id) : undefined
+                    return {
+                      ...q,
+                      passage_text:  passage?.passage_text ?? null,
+                      passage_label: passage?.label ?? null,
+                    }
+                  }),
+              }
+            }),
         })),
     }
 

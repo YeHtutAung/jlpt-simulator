@@ -3,7 +3,9 @@
     "allow": [
       "Bash(git commit:*)",
       "Bash(git push:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(vercel link:*)",
+      "Bash(vercel --prod)"
     ]
   }
 }

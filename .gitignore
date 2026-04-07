@@ -41,3 +41,5 @@ coverage/
 tools/converter/output/*.json
 tools/converter/input/pdfs/*.pdf
 tools/converter/input/audio/*.mp3
+
+.vercel

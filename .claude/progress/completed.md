@@ -1,3 +1,20 @@
+# Completed Work — S12
+
+## ✅ S12 — Grammar/Reading multi_passage + image options
+- `QuestionGroupType` — added `multi_passage` variant
+- `ExamOption` — added `image_type?` + `image_data?` for image options (Option A)
+- `ExamQuestion` — added `passage_text?` + `passage_label?` (populated by edge fn join)
+- `GroupPassage` type + `GroupPassageSchema` — for seed JSON validation
+- Migration 00010 — `group_passages` table + `passage_id` FK on `questions`
+- Migration 00011 — added `multi_passage` to `group_type` check constraint
+- `seed.ts` — handles `multi_passage` type: inserts passage rows, links questions via `passage_id`
+- `n5_2017_december.json` — G4+G5+G6 → single `multi_passage` G4; G7→G5; G8→G6; Q28 grammar options → 4 SVG room layout diagrams
+- `get-exam` edge fn — added image columns + `passage_id` to questions select; joins passage data into questions
+- `PassageReader` — replaced `instructions` prop with `label?` (for multi_passage passage labels)
+- `QuestionCard` — shows `question.passage_text`+`question.passage_label` for multi_passage questions
+- `OptionButton` — renders SVG/img when `image_type`/`image_data` set on option
+- db:verify 11/13 ✅ (2 pre-existing: N5 2019 audio + status)
+
 # Completed Work — S11
 
 ## ✅ S11 — Section-by-section flow + question images

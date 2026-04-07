@@ -1,9 +1,9 @@
-# In Progress — S11 complete, nothing active
+# In Progress — S12 complete, nothing active
 
 ## Live URLs
 Web: https://jlpt-simulator-theta.vercel.app
 Admin: https://jlpt-simulator-admin.vercel.app
-DB: Supabase `cmlxfddegfzwisuaiokh` — 2 exams seeded, migrations 00001–00009+00008_questions_image ✅
+DB: Supabase `cmlxfddegfzwisuaiokh` — 2 exams seeded, migrations 00001–00011 ✅
 
 ## ✅ Working
 - Both apps live, CSS loading, dark mode, mobile 375px
@@ -12,6 +12,9 @@ DB: Supabase `cmlxfddegfzwisuaiokh` — 2 exams seeded, migrations 00001–00009
 - Exam submission: correct answer keys, CORS on all Edge Function responses, score calculated correctly
 - Results: 3-way render (score/calculating/not found)
 - Q27 apple-box SVG + Q28 desk SVG render in vocab section
+- Grammar/Reading もんだい4: `multi_passage` group (3 passages, 1 Q each, per-question passage shown)
+- Q28 grammar (room layout): 4 SVG image options rendered in OptionButton
+- Question-level images now fetched in get-exam edge function (was missing image_type/image_data columns)
 
 ## ⚠️ Blockers (manual actions — no code needed)
 - Configure Supabase Auth redirect URLs (Auth→URL Config→add `/reset-password` prod+localhost) — see DEPLOYMENT.md §1.5
@@ -21,4 +24,5 @@ DB: Supabase `cmlxfddegfzwisuaiokh` — 2 exams seeded, migrations 00001–00009
 
 ## ⚠️ Known gaps
 - N5 2019 Jul: no audio yet → db:verify audio_url FAIL expected
-- Multiple Q27/Q28 rows in DB from prior seed runs (pre-existing); `source_json` is authoritative ✅
+- N5 2019 Jul status shows "published" (should be "draft") — data inconsistency from prior seed
+- Q28 room layout SVGs are placeholder diagrams — replace with accurate layouts when real exam images available

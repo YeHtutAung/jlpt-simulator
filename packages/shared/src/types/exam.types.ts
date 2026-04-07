@@ -10,7 +10,8 @@ export type ExamStatus = 'draft' | 'published' | 'archived'
 
 export type QuestionGroupType =
   | 'text_only'          // Pure text question
-  | 'text_with_passage'  // Reading comprehension
+  | 'text_with_passage'  // Reading comprehension (single passage)
+  | 'multi_passage'      // Multiple short passages, one question each (もんだい4)
   | 'text_with_image'    // Image-based question
   | 'audio_only'         // Listen and answer (no image options)
   | 'audio_with_image'   // Listen and pick image
@@ -41,6 +42,8 @@ export interface ExamImage {
 export interface ExamOption {
   number: 1 | 2 | 3 | 4
   text: string
+  image_type?: ImageSourceType  // set when option is an image (e.g. room layout diagrams)
+  image_data?: string           // inline SVG string or storage URL
 }
 
 export interface ExamQuestion {
@@ -52,13 +55,23 @@ export interface ExamQuestion {
   explanation?: string      // for review mode
   image?: ExamImage
   image_position?: 'above' | 'below' | 'side_by_side'
+  passage_text?: string     // populated by edge fn for multi_passage groups
+  passage_label?: string    // e.g. "(1)", "(2)" for multi_passage
+}
+
+// Used in seed JSON for multi_passage groups
+export interface GroupPassage {
+  label?: string
+  text: string
+  questions: ExamQuestion[]
 }
 
 export interface ExamQuestionGroup {
   id: string                // e.g. "n5-2017-v-g1"
   type: QuestionGroupType
   instructions?: string
-  passage_text?: string     // for reading comprehension
+  passage_text?: string     // for text_with_passage groups
+  passages?: GroupPassage[] // for multi_passage groups (seed JSON only)
   image?: ExamImage
   audio_url?: string        // Supabase storage URL
   questions: ExamQuestion[]

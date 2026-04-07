@@ -1525,34 +1525,83 @@
         },
         {
           "id": "n5-2017-gr-g4",
-          "type": "text_with_passage",
+          "type": "multi_passage",
           "order_index": 3,
           "instructions": "つぎの(1)から(3)のぶんしょうをよんで、しつもんにこたえてください。こたえは、１・２・３・４からいちばんいいものをひとつえらんでください。",
-          "passage_text": "(1) わたしは 今日、友だちと 買い物に 行きました。3か月前に 見た えいがの DVDが ほしかったからです。買った DVDは、友だちや 姉と いっしょに 見ます。",
-          "questions": [
+          "passages": [
             {
-              "number": 27,
-              "text": "「わたし」は 今日、何を しましたか。",
-              "options": [
+              "label": "(1)",
+              "text": "わたしは 今日、友だちと 買い物に 行きました。3か月前に 見た えいがの DVDが ほしかったからです。買った DVDは、友だちや 姉と いっしょに 見ます。",
+              "questions": [
                 {
-                  "number": 1,
-                  "text": "友だちと えいがを 見に 行きました。"
-                },
-                {
-                  "number": 2,
-                  "text": "友だちと DVDを 買いに 行きました。"
-                },
-                {
-                  "number": 3,
-                  "text": "姉と えいがを 見に 行きました。"
-                },
-                {
-                  "number": 4,
-                  "text": "姉と DVDを 買いに 行きました。"
+                  "number": 27,
+                  "text": "「わたし」は 今日、何を しましたか。",
+                  "options": [
+                    { "number": 1, "text": "友だちと えいがを 見に 行きました。" },
+                    { "number": 2, "text": "友だちと DVDを 買いに 行きました。" },
+                    { "number": 3, "text": "姉と えいがを 見に 行きました。" },
+                    { "number": 4, "text": "姉と DVDを 買いに 行きました。" }
+                  ],
+                  "correct_answer": 2,
+                  "order_index": 0
                 }
-              ],
-              "correct_answer": 2,
-              "order_index": 0
+              ]
+            },
+            {
+              "label": "(2)",
+              "text": "わたしの へやには、テーブルが 一つと いすが 二つと 本だなが 一つ あります。本が たくさん ありますから、もっと 大きい 本だなが ほしいです。",
+              "questions": [
+                {
+                  "number": 28,
+                  "text": "今の へやは どれですか。",
+                  "options": [
+                    {
+                      "number": 1,
+                      "text": "",
+                      "image_type": "svg",
+                      "image_data": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><rect x=\"1\" y=\"1\" width=\"98\" height=\"98\" fill=\"#f9f7f4\" stroke=\"#555\" stroke-width=\"2\"/><rect x=\"15\" y=\"5\" width=\"50\" height=\"10\" fill=\"#c8a46e\" stroke=\"#555\" stroke-width=\"1.5\"/><line x1=\"30\" y1=\"5\" x2=\"30\" y2=\"15\" stroke=\"#555\" stroke-width=\"1\"/><line x1=\"45\" y1=\"5\" x2=\"45\" y2=\"15\" stroke=\"#555\" stroke-width=\"1\"/><rect x=\"17\" y=\"7\" width=\"11\" height=\"6\" fill=\"#e88\"/><rect x=\"32\" y=\"7\" width=\"11\" height=\"6\" fill=\"#88e\"/><rect x=\"47\" y=\"7\" width=\"11\" height=\"6\" fill=\"#8e8\"/><rect x=\"30\" y=\"40\" width=\"40\" height=\"25\" fill=\"#ddd\" stroke=\"#555\" stroke-width=\"1.5\"/><rect x=\"14\" y=\"44\" width=\"14\" height=\"14\" rx=\"2\" fill=\"#aaa\" stroke=\"#555\" stroke-width=\"1.5\"/><rect x=\"72\" y=\"44\" width=\"14\" height=\"14\" rx=\"2\" fill=\"#aaa\" stroke=\"#555\" stroke-width=\"1.5\"/></svg>"
+                    },
+                    {
+                      "number": 2,
+                      "text": "",
+                      "image_type": "svg",
+                      "image_data": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><rect x=\"1\" y=\"1\" width=\"98\" height=\"98\" fill=\"#f9f7f4\" stroke=\"#555\" stroke-width=\"2\"/><rect x=\"8\" y=\"5\" width=\"12\" height=\"5\" fill=\"#e88\" stroke=\"#555\" stroke-width=\"1\"/><rect x=\"23\" y=\"7\" width=\"10\" height=\"5\" fill=\"#88e\" stroke=\"#555\" stroke-width=\"1\"/><rect x=\"36\" y=\"4\" width=\"8\" height=\"5\" fill=\"#8e8\" stroke=\"#555\" stroke-width=\"1\"/><rect x=\"14\" y=\"13\" width=\"9\" height=\"5\" fill=\"#ee8\" stroke=\"#555\" stroke-width=\"1\"/><rect x=\"30\" y=\"40\" width=\"40\" height=\"25\" fill=\"#ddd\" stroke=\"#555\" stroke-width=\"1.5\"/><rect x=\"14\" y=\"44\" width=\"14\" height=\"14\" rx=\"2\" fill=\"#aaa\" stroke=\"#555\" stroke-width=\"1.5\"/><rect x=\"72\" y=\"44\" width=\"14\" height=\"14\" rx=\"2\" fill=\"#aaa\" stroke=\"#555\" stroke-width=\"1.5\"/></svg>"
+                    },
+                    {
+                      "number": 3,
+                      "text": "",
+                      "image_type": "svg",
+                      "image_data": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><rect x=\"1\" y=\"1\" width=\"98\" height=\"98\" fill=\"#f9f7f4\" stroke=\"#555\" stroke-width=\"2\"/><rect x=\"8\" y=\"5\" width=\"12\" height=\"5\" fill=\"#e88\" stroke=\"#555\" stroke-width=\"1\"/><rect x=\"23\" y=\"7\" width=\"10\" height=\"5\" fill=\"#88e\" stroke=\"#555\" stroke-width=\"1\"/><rect x=\"36\" y=\"4\" width=\"8\" height=\"5\" fill=\"#8e8\" stroke=\"#555\" stroke-width=\"1\"/><rect x=\"14\" y=\"13\" width=\"9\" height=\"5\" fill=\"#ee8\" stroke=\"#555\" stroke-width=\"1\"/><rect x=\"30\" y=\"40\" width=\"40\" height=\"25\" fill=\"#ddd\" stroke=\"#555\" stroke-width=\"1.5\"/><rect x=\"14\" y=\"44\" width=\"14\" height=\"14\" rx=\"2\" fill=\"#aaa\" stroke=\"#555\" stroke-width=\"1.5\"/></svg>"
+                    },
+                    {
+                      "number": 4,
+                      "text": "",
+                      "image_type": "svg",
+                      "image_data": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><rect x=\"1\" y=\"1\" width=\"98\" height=\"98\" fill=\"#f9f7f4\" stroke=\"#555\" stroke-width=\"2\"/><rect x=\"15\" y=\"5\" width=\"50\" height=\"10\" fill=\"#c8a46e\" stroke=\"#555\" stroke-width=\"1.5\"/><line x1=\"30\" y1=\"5\" x2=\"30\" y2=\"15\" stroke=\"#555\" stroke-width=\"1\"/><line x1=\"45\" y1=\"5\" x2=\"45\" y2=\"15\" stroke=\"#555\" stroke-width=\"1\"/><rect x=\"17\" y=\"7\" width=\"11\" height=\"6\" fill=\"#e88\"/><rect x=\"32\" y=\"7\" width=\"11\" height=\"6\" fill=\"#88e\"/><rect x=\"47\" y=\"7\" width=\"11\" height=\"6\" fill=\"#8e8\"/><rect x=\"30\" y=\"40\" width=\"40\" height=\"25\" fill=\"#ddd\" stroke=\"#555\" stroke-width=\"1.5\"/><rect x=\"14\" y=\"44\" width=\"14\" height=\"14\" rx=\"2\" fill=\"#aaa\" stroke=\"#555\" stroke-width=\"1.5\"/></svg>"
+                    }
+                  ],
+                  "correct_answer": 2,
+                  "order_index": 0
+                }
+              ]
+            },
+            {
+              "label": "(3)",
+              "text": "森さんの つくえの 上に、山口先生の メモと 本が あります。\n\n森さん\nクラスで 使う 本を 中川先生に かりました。5ページを 25枚 コピーして ください。コピーは 南さんに わたして ください。本は、わたしが あした かえしますから、わたしの 机の 上に おいて ください。\n山口",
+              "questions": [
+                {
+                  "number": 29,
+                  "text": "森さんは コピーを した あとで、本を どうしますか。",
+                  "options": [
+                    { "number": 1, "text": "クラスで 使います。" },
+                    { "number": 2, "text": "南さんに わたします。" },
+                    { "number": 3, "text": "中川先生に かえします。" },
+                    { "number": 4, "text": "山口先生の 机の 上に おきます。" }
+                  ],
+                  "correct_answer": 4,
+                  "order_index": 0
+                }
+              ]
             }
           ]
         },
@@ -1560,70 +1609,6 @@
           "id": "n5-2017-gr-g5",
           "type": "text_with_passage",
           "order_index": 4,
-          "passage_text": "(2) わたしの へやには、テーブルが 一つと いすが 二つと 本だなが 一つ あります。本が たくさん ありますから、もっと 大きい 本だなが ほしいです。",
-          "questions": [
-            {
-              "number": 28,
-              "text": "今の へやは どれですか。",
-              "options": [
-                {
-                  "number": 1,
-                  "text": "本だながある、いすが２つ"
-                },
-                {
-                  "number": 2,
-                  "text": "本が床にある、いすが２つ"
-                },
-                {
-                  "number": 3,
-                  "text": "本が床にある、いすが１つ"
-                },
-                {
-                  "number": 4,
-                  "text": "本だながある、いすが１つ"
-                }
-              ],
-              "correct_answer": 3,
-              "order_index": 0
-            }
-          ]
-        },
-        {
-          "id": "n5-2017-gr-g6",
-          "type": "text_with_passage",
-          "order_index": 5,
-          "passage_text": "(3) 森さんの つくえの 上に、山口先生の メモと 本が あります。\n\n森さん\nクラスで 使う 本を 中川先生に かりました。5ページを 25枚 コピーして ください。コピーは 南さんに わたして ください。本は、わたしが あした かえしますから、わたしの 机の 上に おいて ください。\n山口",
-          "questions": [
-            {
-              "number": 29,
-              "text": "森さんは コピーを した あとで、本を どうしますか。",
-              "options": [
-                {
-                  "number": 1,
-                  "text": "クラスで 使います。"
-                },
-                {
-                  "number": 2,
-                  "text": "南さんに わたします。"
-                },
-                {
-                  "number": 3,
-                  "text": "中川先生に かえします。"
-                },
-                {
-                  "number": 4,
-                  "text": "山口先生の 机の 上に おきます。"
-                }
-              ],
-              "correct_answer": 4,
-              "order_index": 0
-            }
-          ]
-        },
-        {
-          "id": "n5-2017-gr-g7",
-          "type": "text_with_passage",
-          "order_index": 6,
           "instructions": "つぎの ぶんしょうを よんで、しつもんに こたえてください。",
           "passage_text": "きのうの 夜は おそくまで しごとを しました。とても つかれました。しごとの あと、電車で 帰りました。家の 近くの 駅で 電車を おりました。外は 雨でしたが、わたしは かさが ありませんでした。とても こまりました。駅の 人が わたしを 見て、「あの はこの 中の かさを 使って ください。」と 言いました。はこの 中には かさが 3本 ありました。わたしは 「えっ、いいんですか。」と 聞きました。駅の 人は 「あれは 『みんなの かさ』です。お金は いりません。あした、あの はこに かえして ください。」と 言いました。わたしは 「わかりました。ありがとうございます。」と 言って、かさを かりて 帰りました。",
           "questions": [
@@ -1631,56 +1616,32 @@
               "number": 30,
               "text": "どうして こまりましたか。",
               "options": [
-                {
-                  "number": 1,
-                  "text": "おそい 時間に 駅に 着いたから"
-                },
-                {
-                  "number": 2,
-                  "text": "しごとが たくさん あったから"
-                },
-                {
-                  "number": 3,
-                  "text": "とても つかれたから"
-                },
-                {
-                  "number": 4,
-                  "text": "かさが なかったから"
-                }
+                { "number": 1, "text": "おそい 時間に 駅に 着いたから" },
+                { "number": 2, "text": "しごとが たくさん あったから" },
+                { "number": 3, "text": "とても つかれたから" },
+                { "number": 4, "text": "かさが なかったから" }
               ],
-              "correct_answer": 1,
+              "correct_answer": 4,
               "order_index": 0
             },
             {
               "number": 31,
               "text": "「わたし」は、あした どうしますか。",
               "options": [
-                {
-                  "number": 1,
-                  "text": "かさを はこの 中に 入れます。"
-                },
-                {
-                  "number": 2,
-                  "text": "かさを 駅の 人に わたします。"
-                },
-                {
-                  "number": 3,
-                  "text": "お金を はこの 中に 入れます。"
-                },
-                {
-                  "number": 4,
-                  "text": "お金を 駅の 人に わたします。"
-                }
+                { "number": 1, "text": "かさを はこの 中に 入れます。" },
+                { "number": 2, "text": "かさを 駅の 人に わたします。" },
+                { "number": 3, "text": "お金を はこの 中に 入れます。" },
+                { "number": 4, "text": "お金を 駅の 人に わたします。" }
               ],
-              "correct_answer": 2,
+              "correct_answer": 1,
               "order_index": 1
             }
           ]
         },
         {
-          "id": "n5-2017-gr-g8",
+          "id": "n5-2017-gr-g6",
           "type": "text_with_passage",
-          "order_index": 7,
+          "order_index": 5,
           "instructions": "みぎの ページを みて、したの しつもんに こたえて ください。",
           "passage_text": "あらきや — 朝8:00〜夜9:00 (電話: 012-34-5678)\n\n安い！ 6月11日(月)〜14日(木)\nさとう 128円　トイレットペーパー 490円\n\n安い！ 6月15日(金)〜18日(月)\nしょうゆ 198円　ティッシュペーパー 290円\n\n毎週安い！\n月・火: くだもの、魚、ジュース\n水・木: とうふ、にく、やさい\n金・土: パン、ぎゅうにゅう、魚、やさい",
           "questions": [
@@ -1688,22 +1649,10 @@
               "number": 32,
               "text": "あらきやで トイレットペーパーと にくと やさいを 同じ 日に 買いたいです。いつが 安いですか。",
               "options": [
-                {
-                  "number": 1,
-                  "text": "6月11日(月)と 12日(火)"
-                },
-                {
-                  "number": 2,
-                  "text": "6月13日(水)と 14日(木)"
-                },
-                {
-                  "number": 3,
-                  "text": "6月15日(金)と 16日(土)"
-                },
-                {
-                  "number": 4,
-                  "text": "6月17日(日)と 18日(月)"
-                }
+                { "number": 1, "text": "6月11日(月)と 12日(火)" },
+                { "number": 2, "text": "6月13日(水)と 14日(木)" },
+                { "number": 3, "text": "6月15日(金)と 16日(土)" },
+                { "number": 4, "text": "6月17日(日)と 18日(月)" }
               ],
               "correct_answer": 2,
               "order_index": 0

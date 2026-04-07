@@ -98,6 +98,41 @@ export type Database = {
         }
         Relationships: []
       }
+      group_passages: {
+        Row: {
+          created_at: string | null
+          group_id: string
+          id: string
+          label: string | null
+          order_index: number
+          passage_text: string
+        }
+        Insert: {
+          created_at?: string | null
+          group_id: string
+          id?: string
+          label?: string | null
+          order_index: number
+          passage_text: string
+        }
+        Update: {
+          created_at?: string | null
+          group_id?: string
+          id?: string
+          label?: string | null
+          order_index?: number
+          passage_text?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_passages_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "question_groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -182,8 +217,13 @@ export type Database = {
           explanation: string | null
           group_id: string
           id: string
+          image_alt: string | null
+          image_data: string | null
+          image_position: string | null
+          image_type: string | null
           options: Json
           order_index: number
+          passage_id: string | null
           question_number: number
           question_text: string
           underline_word: string | null
@@ -194,8 +234,13 @@ export type Database = {
           explanation?: string | null
           group_id: string
           id?: string
+          image_alt?: string | null
+          image_data?: string | null
+          image_position?: string | null
+          image_type?: string | null
           options: Json
           order_index?: number
+          passage_id?: string | null
           question_number: number
           question_text: string
           underline_word?: string | null
@@ -206,8 +251,13 @@ export type Database = {
           explanation?: string | null
           group_id?: string
           id?: string
+          image_alt?: string | null
+          image_data?: string | null
+          image_position?: string | null
+          image_type?: string | null
           options?: Json
           order_index?: number
+          passage_id?: string | null
           question_number?: number
           question_text?: string
           underline_word?: string | null
@@ -218,6 +268,13 @@ export type Database = {
             columns: ["group_id"]
             isOneToOne: false
             referencedRelation: "question_groups"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "questions_passage_id_fkey"
+            columns: ["passage_id"]
+            isOneToOne: false
+            referencedRelation: "group_passages"
             referencedColumns: ["id"]
           },
         ]

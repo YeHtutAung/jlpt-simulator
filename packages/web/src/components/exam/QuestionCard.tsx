@@ -118,6 +118,8 @@ export const QuestionCard = memo(function QuestionCard({
           key={option.number}
           number={option.number as 1 | 2 | 3 | 4}
           text={option.text}
+          image_type={option.image_type}
+          image_data={option.image_data}
           state={getOptionState(option.number)}
           disabled={isReview}
           onClick={() => !isReview && onSelect(option.number)}
@@ -136,11 +138,16 @@ export const QuestionCard = memo(function QuestionCard({
         </p>
       )}
 
-      {/* Group-level passage */}
+      {/* Group-level passage (text_with_passage) */}
       {group.passage_text && (
+        <PassageReader passage={group.passage_text} />
+      )}
+
+      {/* Per-question passage (multi_passage) */}
+      {question.passage_text && (
         <PassageReader
-          passage={group.passage_text}
-          instructions={group.instructions}
+          passage={question.passage_text}
+          label={question.passage_label ?? undefined}
         />
       )}
 

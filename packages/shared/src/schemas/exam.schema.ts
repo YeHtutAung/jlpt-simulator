@@ -14,6 +14,7 @@ export const ImageSourceTypeSchema = z.enum(['svg', 'storage', 'none'])
 export const QuestionGroupTypeSchema = z.enum([
   'text_only',
   'text_with_passage',
+  'multi_passage',
   'text_with_image',
   'audio_only',
   'audio_with_image',
@@ -38,7 +39,9 @@ export const ExamImageSchema = z.object({
 
 export const ExamOptionSchema = z.object({
   number: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4)]),
-  text: z.string().min(1),
+  text: z.string().default(''),
+  image_type: ImageSourceTypeSchema.optional(),
+  image_data: z.string().optional(),
 })
 
 export const ExamQuestionSchema = z.object({
@@ -50,6 +53,14 @@ export const ExamQuestionSchema = z.object({
   explanation: z.string().optional(),
   image: ExamImageSchema.optional(),
   image_position: z.enum(['above', 'below', 'side_by_side']).default('above').optional(),
+  passage_text: z.string().optional(),
+  passage_label: z.string().optional(),
+})
+
+export const GroupPassageSchema = z.object({
+  label: z.string().optional(),
+  text: z.string().min(1),
+  questions: z.array(ExamQuestionSchema).min(1),
 })
 
 export const ExamQuestionGroupSchema = z.object({
@@ -57,9 +68,10 @@ export const ExamQuestionGroupSchema = z.object({
   type: QuestionGroupTypeSchema,
   instructions: z.string().optional(),
   passage_text: z.string().optional(),
+  passages: z.array(GroupPassageSchema).optional(),
   image: ExamImageSchema.optional(),
   audio_url: z.string().optional(),
-  questions: z.array(ExamQuestionSchema).min(1),
+  questions: z.array(ExamQuestionSchema).default([]),
   order_index: z.number().min(0),
 })
 
@@ -83,3 +95,4 @@ export type ExamSchemaType = z.infer<typeof ExamSchema>
 export type ExamSectionSchemaType = z.infer<typeof ExamSectionSchema>
 export type ExamQuestionGroupSchemaType = z.infer<typeof ExamQuestionGroupSchema>
 export type ExamQuestionSchemaType = z.infer<typeof ExamQuestionSchema>
+export type GroupPassageSchemaType = z.infer<typeof GroupPassageSchema>

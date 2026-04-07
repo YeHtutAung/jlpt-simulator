@@ -98,30 +98,75 @@ async function seedExam(filePath: string) {
         process.exit(1)
       }
 
-      // ── 4. Insert questions (batched) ─────────────────────
-      const questionRows = group.questions.map((question, idx) => ({
-        group_id:        groupRow.id,
-        question_number: question.number,
-        question_text:   question.text,
-        underline_word:  question.underline_word ?? null,
-        options:         question.options,
-        correct_answer:  question.correct_answer,
-        explanation:     question.explanation ?? null,
-        order_index:     idx,   // use array position — schema strips the JSON field
-        // Question-level image (optional — see migration 00008)
-        image_type:      question.image?.source ?? null,
-        image_data:      question.image?.svg_data ?? question.image?.storage_url ?? null,
-        image_alt:       question.image?.alt_text ?? null,
-        image_position:  question.image_position ?? null,
-      }))
+      // ── 4. Insert questions ───────────────────────────────
+      if (group.type === 'multi_passage' && group.passages) {
+        // multi_passage: insert each passage row, then link its questions
+        let totalQ = 0
+        for (const [pIdx, passage] of group.passages.entries()) {
+          const { data: passageRow, error: passErr } = await supabase
+            .from('group_passages')
+            .insert({
+              group_id:     groupRow.id,
+              label:        passage.label ?? null,
+              passage_text: passage.text,
+              order_index:  pIdx,
+            })
+            .select()
+            .single()
 
-      const { error: qErr } = await supabase.from('questions').insert(questionRows)
-      if (qErr) {
-        console.error(`❌ Failed to insert questions for group ${group.id}:`, qErr.message)
-        process.exit(1)
+          if (passErr) {
+            console.error(`❌ Failed to insert passage ${pIdx} for group ${group.id}:`, passErr.message)
+            process.exit(1)
+          }
+
+          const questionRows = passage.questions.map((question, idx) => ({
+            group_id:        groupRow.id,
+            passage_id:      passageRow.id,
+            question_number: question.number,
+            question_text:   question.text,
+            underline_word:  question.underline_word ?? null,
+            options:         question.options,
+            correct_answer:  question.correct_answer,
+            explanation:     question.explanation ?? null,
+            order_index:     idx,
+            image_type:      question.image?.source ?? null,
+            image_data:      question.image?.svg_data ?? question.image?.storage_url ?? null,
+            image_alt:       question.image?.alt_text ?? null,
+            image_position:  question.image_position ?? null,
+          }))
+
+          const { error: qErr } = await supabase.from('questions').insert(questionRows)
+          if (qErr) {
+            console.error(`❌ Failed to insert questions for passage ${pIdx} in group ${group.id}:`, qErr.message)
+            process.exit(1)
+          }
+          totalQ += questionRows.length
+        }
+        console.log(`    ✓ Group ${group.id}: ${group.passages.length} passages, ${totalQ} questions`)
+      } else {
+        // standard groups: flat question list
+        const questionRows = group.questions.map((question, idx) => ({
+          group_id:        groupRow.id,
+          question_number: question.number,
+          question_text:   question.text,
+          underline_word:  question.underline_word ?? null,
+          options:         question.options,
+          correct_answer:  question.correct_answer,
+          explanation:     question.explanation ?? null,
+          order_index:     idx,
+          image_type:      question.image?.source ?? null,
+          image_data:      question.image?.svg_data ?? question.image?.storage_url ?? null,
+          image_alt:       question.image?.alt_text ?? null,
+          image_position:  question.image_position ?? null,
+        }))
+
+        const { error: qErr } = await supabase.from('questions').insert(questionRows)
+        if (qErr) {
+          console.error(`❌ Failed to insert questions for group ${group.id}:`, qErr.message)
+          process.exit(1)
+        }
+        console.log(`    ✓ Group ${group.id}: ${group.questions.length} questions`)
       }
-
-      console.log(`    ✓ Group ${group.id}: ${group.questions.length} questions`)
     }
   }
 
