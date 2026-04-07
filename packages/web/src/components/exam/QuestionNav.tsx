@@ -28,58 +28,61 @@ export const QuestionNav = memo(function QuestionNav({
   const section  = exam.sections[position.sectionIndex]
   const group    = section.question_groups[position.groupIndex]
   const question = group.questions[position.questionIndex]
-  const questionId = String(question.number)
-
-  // Flatten questions for current section only
-  const allQuestions = section.question_groups.flatMap((g, gIdx) =>
-    g.questions.map((q, qIdx) => ({
-      sectionIndex: position.sectionIndex,
-      groupIndex: gIdx,
-      questionIndex: qIdx,
-      questionId: String(q.number),
-      number: q.number,
-    }))
-  )
+  const questionId = `${group.id}:${question.number}`
 
   // Previous is disabled at the very start, or when crossing section boundary in full_exam
   const isAtSectionStart = position.questionIndex === 0 && position.groupIndex === 0
   const isFirstEver      = isAtSectionStart && position.sectionIndex === 0
   const isPrevDisabled   = isFirstEver || (mode === 'full_exam' && isAtSectionStart)
 
+  // Section number (1-indexed) for group labels
+  const sectionNumber = position.sectionIndex + 1
+
   return (
     <div className="space-y-4">
-      {/* Question grid */}
-      <div className="flex flex-wrap gap-2">
-        {allQuestions.map(q => {
-          const posKey     = `${q.sectionIndex}-${q.groupIndex}-${q.questionIndex}`
-          const isAnswered = q.questionId in answers
-          const isFlagged  = flagged.has(q.questionId)
-          const isVisited  = visited.has(posKey)
-          const isCurrent  = q.questionId === questionId
+      {/* Question grid — grouped by もんだい with labels */}
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-2">
+        {section.question_groups.map((g, gIdx) => (
+          <div key={g.id} className="contents">
+            {/* Group label */}
+            <span className="text-xs font-semibold text-accent font-sans tabular-nums w-7 text-right shrink-0">
+              {sectionNumber}.{gIdx + 1}
+            </span>
 
-          return (
-            <button
-              key={q.questionId}
-              onClick={() => jumpTo({
-                sectionIndex: q.sectionIndex,
-                groupIndex: q.groupIndex,
-                questionIndex: q.questionIndex,
-              })}
-              className={[
-                'w-8 h-8 rounded-lg text-xs font-semibold transition-all',
-                'border-2 focus:outline-none',
-                isCurrent  ? 'border-accent bg-accent text-white scale-110' :
-                isFlagged  ? 'border-warning bg-yellow-50 dark:bg-warning/15 text-warning' :
-                isAnswered ? 'border-success bg-green-50 dark:bg-success/15 text-success' :
-                isVisited  ? 'border-border bg-surface text-text-muted' :
-                             'border-border bg-bg text-text-muted',
-              ].join(' ')}
-              aria-label={`Question ${q.number}${isFlagged ? ' (flagged)' : ''}${isAnswered ? ' (answered)' : ''}`}
-            >
-              {q.number}
-            </button>
-          )
-        })}
+            {/* Questions in this group */}
+            {g.questions.map((q, qIdx) => {
+              const qId        = `${g.id}:${q.number}`
+              const posKey     = `${position.sectionIndex}-${gIdx}-${qIdx}`
+              const isAnswered = qId in answers
+              const isFlagged  = flagged.has(qId)
+              const isVisited  = visited.has(posKey)
+              const isCurrent  = qId === questionId
+
+              return (
+                <button
+                  key={qId}
+                  onClick={() => jumpTo({
+                    sectionIndex: position.sectionIndex,
+                    groupIndex: gIdx,
+                    questionIndex: qIdx,
+                  })}
+                  className={[
+                    'w-8 h-8 rounded-lg text-xs font-semibold transition-all',
+                    'border-2 focus:outline-none',
+                    isCurrent  ? 'border-accent bg-accent text-white scale-110' :
+                    isFlagged  ? 'border-warning bg-yellow-50 dark:bg-warning/15 text-warning' :
+                    isAnswered ? 'border-success bg-green-50 dark:bg-success/15 text-success' :
+                    isVisited  ? 'border-border bg-surface text-text-muted' :
+                                 'border-border bg-bg text-text-muted',
+                  ].join(' ')}
+                  aria-label={`Question ${q.number}${isFlagged ? ' (flagged)' : ''}${isAnswered ? ' (answered)' : ''}`}
+                >
+                  {q.number}
+                </button>
+              )
+            })}
+          </div>
+        ))}
       </div>
 
       {/* Legend */}

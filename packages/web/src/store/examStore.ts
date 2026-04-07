@@ -56,13 +56,14 @@ interface ExamStore {
 // Helpers
 // ================================
 
-// questionId = String(question.number) — globally unique per exam, matches Edge Function
+// questionId = "{group.id}:{question.number}" — globally unique per exam
+// Example: "n5-2017-l-g1:3"  (listening group 1, question 3)
 function getQuestionId(exam: Exam, pos: ExamPosition): string | null {
   try {
     const section = exam.sections[pos.sectionIndex]
     const group = section.question_groups[pos.groupIndex]
     const question = group.questions[pos.questionIndex]
-    return String(question.number)
+    return `${group.id}:${question.number}`
   } catch {
     return null
   }

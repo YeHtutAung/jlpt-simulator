@@ -53,7 +53,7 @@ export function ExamSession() {
         const s = exam.sections[position.sectionIndex]
         const g = s.question_groups[position.groupIndex]
         const q = g.questions[position.questionIndex]
-        const qId = String(q.number)
+        const qId = `${g.id}:${q.number}`
         if (option <= q.options.length) {
           selectAnswer(qId, option)
           toast.info(`Answer ${option} selected`, 1200)
@@ -71,7 +71,7 @@ export function ExamSession() {
         const s = exam.sections[position.sectionIndex]
         const g = s.question_groups[position.groupIndex]
         const q = g.questions[position.questionIndex]
-        toggleFlag(String(q.number))
+        toggleFlag(`${g.id}:${q.number}`)
         break
       }
     }
@@ -121,7 +121,7 @@ export function ExamSession() {
   const group    = section.question_groups[position.groupIndex]
   const question = group.questions[position.questionIndex]
 
-  const questionId = String(question.number)
+  const questionId = `${group.id}:${question.number}`
 
   const isLastSection = position.sectionIndex === exam.sections.length - 1
   const nextSection   = !isLastSection ? exam.sections[position.sectionIndex + 1] : null
@@ -139,7 +139,7 @@ export function ExamSession() {
 
   // Count answered questions in current section only
   const sectionQuestionNumbers = section.question_groups
-    .flatMap(g => g.questions.map(q => String(q.number)))
+    .flatMap(g => g.questions.map(q => `${g.id}:${q.number}`))
   const answeredInSection = sectionQuestionNumbers.filter(id => id in answers).length
   const flaggedInSection  = sectionQuestionNumbers.filter(id => flagged.has(id)).length
 

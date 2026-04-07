@@ -69,6 +69,7 @@ Deno.serve(async (req) => {
       .select(`
         type,
         question_groups (
+          group_key,
           questions ( id, question_number, correct_answer )
         )
       `)
@@ -89,10 +90,11 @@ Deno.serve(async (req) => {
       }
 
       for (const group of (section.question_groups as unknown[]) ?? []) {
-        for (const question of ((group as { questions: unknown[] }).questions) ?? []) {
+        const g = group as { group_key: string; questions: unknown[] }
+        for (const question of (g.questions) ?? []) {
           const q            = question as { id: string; question_number: number; correct_answer: number }
-          // Client keys answers by question_number (as string) — same as question.number on the frontend
-          const qKey         = String(q.question_number)
+          // Client keys answers by "{group_key}:{question_number}" — composite key for uniqueness
+          const qKey         = `${g.group_key}:${q.question_number}`
           const selectedOpt  = answers[qKey] ?? null
           const isCorrect    = selectedOpt === q.correct_answer
           const spent        = timeSpent[qKey] ?? 0
