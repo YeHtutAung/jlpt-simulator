@@ -1,12 +1,12 @@
 # Currently In Progress
 
-_Last updated: Session 10 (exam results blank, forgot password visibility)_
+_Last updated: Session 11 (section-by-section exam flow, question-level image support)_
 
 ---
 
 ## 🔨 Active Task
 
-Nothing in progress. Session 10 complete.
+Nothing in progress. Session 11 complete.
 
 ---
 
@@ -15,24 +15,23 @@ Nothing in progress. Session 10 complete.
 The project is **live** and fully styled:
 - Web app: https://jlpt-simulator-theta.vercel.app
 - Admin panel: https://jlpt-simulator-admin.vercel.app
-- Database: Supabase project `cmlxfddegfzwisuaiokh` — 2 exams seeded, 12/13 verify checks pass
+- Database: Supabase project `cmlxfddegfzwisuaiokh` — 2 exams seeded, migration 00008 applied
 
 ### What is working:
 - ✅ Both apps live on Vercel with CSS loading correctly
-- ✅ Dark mode toggle in Navbar (sun/moon icon), persisted to localStorage
-- ✅ Mobile responsive at 375px (single-column grids, stacked nav, wrapping filter bar)
-- ✅ React.lazy + Suspense on all routes, staleTime: Infinity on exam queries, React.memo on heavy components
-- ✅ Signup correctly detects email confirmation state and shows appropriate message
-- ✅ Login/Register redirect authenticated users away from auth forms
-- ✅ Forgot password flow on Login page
-- ✅ `/reset-password` page handles PASSWORD_RECOVERY token, form to set new password, success screen
-- ✅ Exam submission fixed: Authorization header sent, `isSubmitted` flag guards navigation, end-of-questions auto-prompts modal
-- ✅ Results page handles null `score_json` with "still calculating" + Refresh button
-- ✅ Forgot password link visible: right-aligned below password input + below Sign In button
+- ✅ Dark mode toggle in Navbar, persisted to localStorage
+- ✅ Mobile responsive at 375px
+- ✅ React.lazy + Suspense on all routes, performance optimised
+- ✅ Full auth flow: signup, login, forgot password, `/reset-password` page
+- ✅ Section-by-section exam flow (full_exam mode): timer resets per section, section-complete modal before advancing, cannot go back across sections
+- ✅ Exam submission fixed: correct answer keys, CORS headers on all Edge Function responses
+- ✅ Results page handles null `score_json`
+- ✅ Q27 and Q28 (apple box, desk scene) render inline SVG images with `image_position: above`
+- ✅ `QuestionCard` supports `above`, `below`, `side_by_side` image positions
 
-### Remaining blockers — all require manual action, no code needed:
+### Remaining blockers — manual actions required:
 - **Configure Supabase Auth redirect URLs** — add `/reset-password` to Auth → URL Configuration → Redirect URLs (see DEPLOYMENT.md §1.5)
-- **Upload N5 audio files** to Supabase Storage (`audio/n5/2017/december/`) — then update seed JSON URLs and re-run `npm run db:seed`
+- **Upload N5 audio files** to Supabase Storage (`audio/n5/2017/december/`) — then re-run `npm run db:seed`
 - **Upload listening scene images** to Supabase Storage (`images/n5/2017/december/`)
 - **Promote a user to admin** via SQL: `UPDATE profiles SET role = 'admin' WHERE id = '...'`
 
@@ -40,6 +39,6 @@ The project is **live** and fully styled:
 
 ## ⚠️ Known Issues / Gaps
 
-- N5 2019 July listening groups have no `audio_url` — placeholder only; `db:verify` will report audio_url FAIL until real files are uploaded
-- Signup trigger (`handle_new_user`) search_path fix is in migration 00009; if "Database error saving new user" still occurs, investigate RLS on profiles table in Supabase dashboard
-- **Supabase Auth redirect URLs not yet configured** — must add `https://jlpt-simulator-theta.vercel.app/reset-password` to Auth → URL Configuration → Redirect URLs in the Supabase dashboard (manual step, no code). See DEPLOYMENT.md §1.5.
+- N5 2019 July has no audio files yet — `db:verify` will report audio_url FAIL until uploaded
+- Multiple question rows exist in DB for Q27/Q28 from previous seed runs — pre-existing issue; `source_json` in `exams` table is authoritative and correct
+- **Supabase Auth redirect URLs not yet configured** — must add reset-password URL to Auth dashboard (manual step)

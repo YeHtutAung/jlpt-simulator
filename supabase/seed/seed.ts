@@ -108,6 +108,11 @@ async function seedExam(filePath: string) {
         correct_answer:  question.correct_answer,
         explanation:     question.explanation ?? null,
         order_index:     idx,   // use array position — schema strips the JSON field
+        // Question-level image (optional — see migration 00008)
+        image_type:      question.image?.source ?? null,
+        image_data:      question.image?.svg_data ?? question.image?.storage_url ?? null,
+        image_alt:       question.image?.alt_text ?? null,
+        image_position:  question.image_position ?? null,
       }))
 
       const { error: qErr } = await supabase.from('questions').insert(questionRows)

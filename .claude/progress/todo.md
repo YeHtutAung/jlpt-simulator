@@ -1,6 +1,6 @@
 # Todo
 
-_Last updated: Session 10 (exam results blank, forgot password visibility)_
+_Last updated: Session 11 (section-by-section exam flow, question-level image support)_
 
 ---
 
@@ -15,10 +15,10 @@ These require credentials or file uploads — no code changes needed.
    - Without this, password reset email links are blocked by Supabase
 
 2. **Test full exam flow end-to-end on live app**
-   - Start exam → answer questions → Submit → Results page shows score
-   - Navigate through all questions to end → submit modal auto-opens → Submit → Results
+   - Start exam → answer questions in section 1 → press Next on last question → section-complete modal → Proceed → section 2 starts with fresh timer
+   - Continue through all sections → Submit → Results page shows score with correct scoring
+   - Verify Q27 renders apple-box SVG, Q28 renders desk SVG (both in vocabulary section)
    - Forgot password → email → `/reset-password` → set new password → success
-   - Also requires: `supabase functions deploy submit-exam` if not already deployed
 
 3. **Upload N5 audio files to Supabase Storage**
    - Upload `q1.mp3`–`q4.mp3` to `audio/n5/2017/december/`
@@ -37,21 +37,21 @@ These require credentials or file uploads — no code changes needed.
 
 ## 🟡 Medium Priority
 
+### Verify Q27 Q28 render correctly on live app
+- Navigate to N5 2017 Dec vocab section, reach Q27 (はこに りんごが…) — should show apple-box SVG above question text
+- Reach Q28 (めがねは つくえの…) — should show desk SVG above question text
+
 ### Lighthouse Audit
-- Run Lighthouse on https://jlpt-simulator-theta.vercel.app now that CSS is fully loading
+- Run Lighthouse on https://jlpt-simulator-theta.vercel.app
 - Target: Performance 90+, Accessibility 95+
-- Use `npm run analyze` to check bundle size if needed
 
 ### E2E Tests with Playwright
-- Full smoke test: register → select exam → complete → view results → review answers
-- Test dark mode toggle persists across page navigation
-- Test mobile layout at 375px (Chrome DevTools device emulation)
-- Test ErrorBoundary: force a render error in dev, confirm fallback shows
+- Full smoke test: register → select exam → complete all sections → view results → review answers
+- Test section-by-section advance modal in full_exam mode
+- Test dark mode toggle, mobile layout at 375px, ErrorBoundary
 
 ### N4 Exam Papers
 - Create `supabase/seed/n4_2017_december.json` placeholder (status: draft)
-  - Vocabulary: 32 questions, Grammar/Reading: 43 questions, Listening: 30 questions
-- Once real PDFs available: run converter CLI and replace placeholder
 
 ---
 
@@ -63,22 +63,10 @@ These require credentials or file uploads — no code changes needed.
 
 ### Converter CLI
 - Get real N5 PDF files and test full pipeline end-to-end
-- Verify SVG output renders in SvgRenderer.tsx
 
 ### Infrastructure
 - Supabase Storage CORS for audio (add web app origin)
-- Supabase Edge Functions: `supabase functions deploy`
 - Analytics dashboard in admin panel
 
 ### Unit Tests
 - `cd tools/converter && npx vitest run` — verify all 30 tests still pass
-
----
-
-## 💡 Ideas
-
-- AI-generated explanations for wrong answers
-- Spaced repetition for weak vocab
-- Score prediction before submitting
-- Flashcard mode from flagged questions
-- Study plan generator based on weak sections

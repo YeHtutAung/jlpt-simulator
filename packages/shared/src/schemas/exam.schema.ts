@@ -48,6 +48,8 @@ export const ExamQuestionSchema = z.object({
   options: z.array(ExamOptionSchema).min(3).max(4),
   correct_answer: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4)]),
   explanation: z.string().optional(),
+  image: ExamImageSchema.optional(),
+  image_position: z.enum(['above', 'below', 'side_by_side']).default('above').optional(),
 })
 
 export const ExamQuestionGroupSchema = z.object({

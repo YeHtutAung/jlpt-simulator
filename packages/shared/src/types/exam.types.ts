@@ -50,6 +50,8 @@ export interface ExamQuestion {
   options: ExamOption[]
   correct_answer: 1 | 2 | 3 | 4
   explanation?: string      // for review mode
+  image?: ExamImage
+  image_position?: 'above' | 'below' | 'side_by_side'
 }
 
 export interface ExamQuestionGroup {

@@ -1,6 +1,26 @@
 # Completed Work
 
-_Last updated: Session 10 (exam results blank, forgot password visibility)_
+_Last updated: Session 11 (section-by-section exam flow, question-level image support)_
+
+---
+
+## ✅ Session 11 — Section-by-section exam flow + question-level images
+
+- [x] **`examStore.ts` — section-by-section flow** — added `isSectionComplete` flag and `advanceSection()` action; `nextQuestion()` now detects section boundary in full_exam mode and sets `isSectionComplete` (pauses for user confirmation) instead of silently crossing; timer resets to new section's `time_limit` on advance; `tickTimer()` auto-advances to next section (not submit) when non-last section timer hits 0
+- [x] **`examStore.ts` — previous button fix** — `prevQuestion()` now blocks cross-section navigation in full_exam mode; within-section back navigation always allowed
+- [x] **`examStore.ts` — answer key fix** — answer keys now use `String(question.number)` (globally unique per exam) instead of compound `sIdx-gIdx-qIdx-number` string; matches Edge Function lookup
+- [x] **`ExamSession.tsx` — section-complete modal** — shows answered/flagged count for current section; in full_exam mode no cancel (must proceed); in practice mode has "Keep reviewing" cancel
+- [x] **`QuestionNav.tsx` — section-aware buttons** — Previous disabled only at section start in full_exam (not globally); shows "Finish Section →" for non-last sections, "Submit Exam" only on last section
+- [x] **`submit-exam` Edge Function — CORS fix** — all error responses (401, 404, 400, 500) now include `Access-Control-Allow-Origin: *`; was causing browser CORS errors on any failure
+- [x] **`submit-exam` Edge Function — answer key fix** — answers now looked up by `String(question_number)` instead of UUID; was causing score to always be 0%
+- [x] **Decision 004** — documented question-level image position strategy in `.claude/decisions/004_question_image_position.md`
+- [x] **`@jlpt/shared` types** — `ExamQuestion` now has `image?: ExamImage` and `image_position?: 'above' | 'below' | 'side_by_side'`
+- [x] **`@jlpt/shared` schema** — `ExamQuestionSchema` validates `image` and `image_position` fields
+- [x] **Migration 00008** — `questions` table: added `image_type`, `image_data`, `image_alt`, `image_position` columns (applied via `supabase db query --linked`)
+- [x] **`QuestionCard.tsx` — question-level image rendering** — `QuestionImage` helper renders based on position; `above`: image before question text; `below`: image after text before options; `side_by_side`: flex row on md+ screens, stacks vertically on mobile
+- [x] **N5 2017 Dec seed JSON** — Q27 (apple box) and Q28 (desk scene) now have inline SVG images with `image_position: 'above'`
+- [x] **`seed.ts`** — question insert now includes `image_type`, `image_data`, `image_alt`, `image_position` fields
+- [x] **Reseeded** — N5 2017 December reseeded; Q27 and Q28 confirmed with SVG data in DB
 
 ---
 
