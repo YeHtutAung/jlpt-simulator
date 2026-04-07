@@ -8,7 +8,33 @@ import { supabase } from '@/lib/supabase'
 import { useExamStore } from '@/store/examStore'
 import { useAuthStore } from '@/store/authStore'
 import { LEVEL_CONFIGS } from '@jlpt/shared'
-import type { Exam, ExamMode } from '@jlpt/shared'
+import type { Exam, ExamMode, ExamQuestionGroup } from '@jlpt/shared'
+
+// Flatten multi_passage groups: hoist each passage's questions to group level
+// with passage_text/passage_label embedded. source_json stores nested passages;
+// the exam store and QuestionCard expect a flat group.questions array.
+function normalizeGroup(group: ExamQuestionGroup): ExamQuestionGroup {
+  if (group.type !== 'multi_passage' || !group.passages) return group
+  const questions = group.passages.flatMap(passage =>
+    (passage.questions ?? []).map(q => ({
+      ...q,
+      passage_text:  passage.text,
+      passage_label: passage.label,
+    }))
+  )
+  return { ...group, questions }
+}
+
+function normalizeExam(raw: unknown): Exam {
+  const exam = raw as Exam
+  return {
+    ...exam,
+    sections: exam.sections.map(section => ({
+      ...section,
+      question_groups: section.question_groups.map(normalizeGroup),
+    })),
+  }
+}
 
 export function ExamSelect() {
   const { examId }   = useParams<{ examId: string }>()
@@ -54,8 +80,8 @@ export function ExamSelect() {
 
       if (error) throw new Error(error.message)
 
-      // Init exam store with full JSON
-      const exam = examMeta.source_json as Exam
+      // Init exam store — normalize multi_passage groups before passing to store
+      const exam = normalizeExam(examMeta.source_json)
       initExam(exam, selectedMode, attempt.id)
 
       navigate(`/exam/${examId}/session`)
