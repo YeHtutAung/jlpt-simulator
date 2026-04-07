@@ -3,9 +3,10 @@ import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
 import { useAuthStore } from '@/store/authStore'
 
-const Home       = lazy(() => import('@/pages/Home').then(m => ({ default: m.Home })))
-const Login      = lazy(() => import('@/pages/Login').then(m => ({ default: m.Login })))
-const Register   = lazy(() => import('@/pages/Register').then(m => ({ default: m.Register })))
+const Home          = lazy(() => import('@/pages/Home').then(m => ({ default: m.Home })))
+const Login         = lazy(() => import('@/pages/Login').then(m => ({ default: m.Login })))
+const Register      = lazy(() => import('@/pages/Register').then(m => ({ default: m.Register })))
+const ResetPassword = lazy(() => import('@/pages/ResetPassword').then(m => ({ default: m.ResetPassword })))
 const ExamSelect = lazy(() => import('@/pages/ExamSelect').then(m => ({ default: m.ExamSelect })))
 const ExamSession = lazy(() => import('@/pages/ExamSession').then(m => ({ default: m.ExamSession })))
 const Results    = lazy(() => import('@/pages/Results').then(m => ({ default: m.Results })))
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
   {
     path: '/register',
     element: withSuspense(<Register />),
+  },
+  {
+    path: '/reset-password',
+    element: withSuspense(<ResetPassword />),
   },
   {
     path: '/exam/:examId',

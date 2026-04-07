@@ -66,7 +66,26 @@ This applies all 7 migrations in order:
 - `00006_rls_policies.sql`
 - `00007_storage_buckets.sql`
 
-### 1.5 Regenerate TypeScript types
+### 1.5 Configure Auth redirect URLs
+
+In the Supabase dashboard, go to **Authentication → URL Configuration** and set:
+
+| Field | Value |
+|---|---|
+| **Site URL** | `https://jlpt-simulator-theta.vercel.app` (your production domain) |
+| **Redirect URLs** | Add each of the following on its own line |
+
+Redirect URLs to add:
+```
+https://jlpt-simulator-theta.vercel.app/reset-password
+http://localhost:5173/reset-password
+```
+
+> Without these entries the password reset email will contain a link that Supabase blocks as an unauthorized redirect, and the user will never reach `/reset-password`.
+
+---
+
+### 1.6 Regenerate TypeScript types
 
 ```bash
 npm run db:types
@@ -75,7 +94,7 @@ npm run db:types
 
 > Always run this after any migration. Commit the updated `supabase/types.ts`.
 
-### 1.6 Seed exam data
+### 1.7 Seed exam data
 
 ```bash
 # Seed the published N5 2017 December paper
@@ -85,7 +104,7 @@ npm run db:seed -- --file=n5_2017_december.json
 npm run db:seed -- --file=n5_2019_july.json
 ```
 
-### 1.7 Verify the seed
+### 1.8 Verify the seed
 
 ```bash
 npm run db:verify
@@ -249,10 +268,12 @@ supabase secrets set SUPABASE_SERVICE_ROLE_KEY=<your-service-role-key>
 Run through this checklist after every production deploy:
 
 ### Auth
-- [ ] Register a new user → lands on home page
+- [ ] Register a new user → "Check your email" screen (if email confirmation on) or dashboard
 - [ ] Log out → lands on home page (not dashboard)
-- [ ] Log back in → lands on home page
+- [ ] Log back in → lands on dashboard
 - [ ] Navigate to `/dashboard` while logged out → redirected to `/login`
+- [ ] Click "Forgot password?" on login page → enter email → "Check your email" screen
+- [ ] Click the reset link in the email → lands on `/reset-password` → set new password → success screen
 
 ### Exam flow
 - [ ] Home page loads exam cards

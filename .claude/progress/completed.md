@@ -1,6 +1,14 @@
 # Completed Work
 
-_Last updated: Session 8 (signup fix, auth UX, VITE_ADMIN_SECRET cleanup)_
+_Last updated: Session 9 (password reset page)_
+
+---
+
+## ✅ Session 9 — Password reset page
+
+- [x] **`ResetPassword.tsx`** — new page at `/reset-password`; listens for Supabase `PASSWORD_RECOVERY` auth event (3-second timeout); shows a two-field form (new password + confirm); calls `supabase.auth.updateUser({ password })`; four states: `waiting` (spinner) → `expired` (invalid/expired link) / `ready` (form) → `success`; matches Login/Register visual style
+- [x] **Router** — `/reset-password` route added to `packages/web/src/router/index.tsx` with `React.lazy`, no auth guard
+- [x] **`DEPLOYMENT.md`** — new section 1.5 "Configure Auth redirect URLs": documents Supabase Auth → URL Configuration, Site URL, and required Redirect URL entries (`/reset-password` prod + localhost); smoke tests updated with forgot-password + reset flow
 
 ---
 
