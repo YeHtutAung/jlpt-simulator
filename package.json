@@ -17,6 +17,7 @@
     "db:seed": "ts-node -P tsconfig.seed.json supabase/seed/seed.ts",
     "db:types": "supabase gen types typescript --project-id cmlxfddegfzwisuaiokh > supabase/types.ts",
     "db:verify": "ts-node -P tsconfig.seed.json tools/verify-seed.ts",
+    "db:update-audio": "ts-node -P tsconfig.seed.json tools/update-audio-urls.ts",
     "convert": "ts-node tools/converter/src/index.ts"
   },
   "devDependencies": {

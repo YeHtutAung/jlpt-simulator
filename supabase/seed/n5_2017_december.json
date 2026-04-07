@@ -551,7 +551,7 @@
           "type": "audio_with_image",
           "order_index": 0,
           "instructions": "もんだい１では、はじめに しつもんを きいて ください。それから はなしを きいて、もんだいようしの １から４の なかから、いちばん いい ものを ひとつ えらんで ください。",
-          "audio_url": "audio/n5/2017/december/q1.mp3",
+          "audio_url": "https://cmlxfddegfzwisuaiokh.supabase.co/storage/v1/object/public/audio/n5/2017/december/q1.mp3",
           "questions": [
             {
               "number": 1, "text": "女の人は、どの靴下を買いますか。",
@@ -595,7 +595,7 @@
           "type": "audio_with_text",
           "order_index": 1,
           "instructions": "もんだい２では、はじめに しつもんを きいて ください。それから はなしを きいて、もんだいようしの １から４の なかから、いちばん いい ものを ひとつ えらんで ください。",
-          "audio_url": "audio/n5/2017/december/q2.mp3",
+          "audio_url": "https://cmlxfddegfzwisuaiokh.supabase.co/storage/v1/object/public/audio/n5/2017/december/q2.mp3",
           "questions": [
             {
               "number": 1, "text": "女の学生は、今日、何時間勉強しますか。",
@@ -634,7 +634,7 @@
           "type": "audio_with_image",
           "order_index": 2,
           "instructions": "もんだい３では、えを みながら しつもんを きいて ください。→（やじるし）の ひとは なんと いいますか。１から３の なかから、いちばん いい ものを ひとつ えらんで ください。",
-          "audio_url": "audio/n5/2017/december/q3.mp3",
+          "audio_url": "https://cmlxfddegfzwisuaiokh.supabase.co/storage/v1/object/public/audio/n5/2017/december/q3.mp3",
           "questions": [
             {
               "number": 1, "text": "ご飯を食べました。何と言いますか。",
@@ -668,7 +668,7 @@
           "type": "audio_only",
           "order_index": 3,
           "instructions": "もんだい４は、えなどが ありません。ぶんを きいて、１から３の なかから、いちばん いい ものを ひとつ えらんで ください。",
-          "audio_url": "audio/n5/2017/december/q4.mp3",
+          "audio_url": "https://cmlxfddegfzwisuaiokh.supabase.co/storage/v1/object/public/audio/n5/2017/december/q4.mp3",
           "questions": [
             {
               "number": 1, "text": "今日は何日ですか。",
