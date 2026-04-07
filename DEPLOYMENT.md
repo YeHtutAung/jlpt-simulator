@@ -202,7 +202,13 @@ Under **Settings → Environment Variables**:
 
 ### 3.4 Deploy
 
-Click **Deploy**. First deploy takes ~2 minutes.
+**Via Vercel dashboard:** Click **Deploy**. First deploy takes ~2 minutes.
+
+**Via Vercel CLI (re-deploys):** Run from the repo root — the root `.vercel/project.json` is already linked to `jlpt-simulator`:
+
+```bash
+vercel --prod --yes
+```
 
 ### 3.5 Verify SPA routing
 
@@ -222,8 +228,33 @@ The `packages/web/vercel.json` rewrite rule (`/* → /index.html`) makes this wo
 The admin panel **must be a separate Vercel project** — it uses the service role key and should be deployed at a different URL (ideally a non-public one).
 
 1. Vercel → Add New Project → same repository
-2. **Root Directory:** `packages/admin`
-3. Framework: Vite (auto-detected)
+2. **Root Directory:** leave as repo root (not `packages/admin`)
+3. **Build Command:** `turbo run build --filter=@jlpt/admin`
+4. **Output Directory:** `packages/admin/dist`
+5. **Install Command:** `npm install`
+6. Framework: Vite
+
+**CLI re-deploys:** The admin must also be deployed from the repo root (it depends on `@jlpt/shared` workspace package). The root `.vercel/project.json` normally points to the web app — swap it temporarily:
+
+```bash
+# From repo root:
+node -e "
+  const fs = require('fs');
+  const web = JSON.parse(fs.readFileSync('.vercel/project.json','utf8'));
+  fs.writeFileSync('.vercel/project.web.json', JSON.stringify(web, null, 2));
+  const admin = JSON.parse(fs.readFileSync('packages/admin/.vercel/project.json','utf8'));
+  admin.settings = { framework:'vite', installCommand:'npm install',
+    buildCommand:'turbo run build --filter=@jlpt/admin',
+    outputDirectory:'packages/admin/dist', rootDirectory:null, nodeVersion:'24.x' };
+  fs.writeFileSync('.vercel/project.json', JSON.stringify(admin, null, 2));
+"
+vercel --prod --yes
+node -e "
+  const fs = require('fs');
+  fs.copyFileSync('.vercel/project.web.json', '.vercel/project.json');
+  fs.unlinkSync('.vercel/project.web.json');
+"
+```
 
 ### 4.2 Add environment variables
 
