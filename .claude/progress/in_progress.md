@@ -33,7 +33,8 @@ The project is **live** and fully styled:
 
 ---
 
-## ⚠️ Known Issues
+## ⚠️ Known Issues / Gaps
 
 - N5 2019 July listening groups have no `audio_url` — placeholder only; `db:verify` will report audio_url FAIL until real files are uploaded
 - Signup trigger (`handle_new_user`) search_path fix is in migration 00009; if "Database error saving new user" still occurs, investigate RLS on profiles table in Supabase dashboard
+- **No `/reset-password` page** — `resetPasswordForEmail` redirects to `/reset-password` but that route does not exist yet; users clicking the email link will hit the 404 page. See todo.md → Medium Priority for implementation notes.

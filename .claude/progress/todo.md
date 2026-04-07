@@ -8,28 +8,37 @@ _Last updated: Session 8 (signup fix, auth UX, VITE_ADMIN_SECRET cleanup)_
 
 These require credentials or file uploads — no code changes needed.
 
-1. **Upload N5 audio files to Supabase Storage**
-   - Upload `q1.mp3`–`q4.mp3` to `audio/n5/2017/december/`
-   - Update `supabase/seed/n5_2017_december.json` `audio_url` fields with public Storage URLs
-   - Re-run `npm run db:seed` and `npm run db:verify` (should get 13/13)
-
-2. **Upload listening scene images to Supabase Storage**
-   - Upload scene images to `images/n5/2017/december/`
-   - Update seed JSON with Storage URLs
-
-3. **Promote a user to admin**
-   - Run in Supabase SQL editor: `UPDATE profiles SET role = 'admin' WHERE id = '...'`
-   - Then verify admin panel AuthGuard works (non-admin gets "Access Denied")
-
-4. **Test signup end-to-end on live app**
-   - Code changes are deployed; verify signup works with a real attempt
+1. **Test signup end-to-end on live app**
+   - Verify signup works with a real attempt on https://jlpt-simulator-theta.vercel.app
    - If "Database error saving new user" still appears, check Supabase Auth → Settings:
      - Is email confirmation enabled? Code now handles both states correctly
      - Check trigger exists: `select * from pg_trigger where tgname = 'on_auth_user_created';`
 
+2. **Upload N5 audio files to Supabase Storage**
+   - Upload `q1.mp3`–`q4.mp3` to `audio/n5/2017/december/`
+   - Update `supabase/seed/n5_2017_december.json` `audio_url` fields with public Storage URLs
+   - Re-run `npm run db:seed` and `npm run db:verify` (should get 13/13)
+
+3. **Upload listening scene images to Supabase Storage**
+   - Upload scene images to `images/n5/2017/december/`
+   - Update seed JSON with Storage URLs
+
+4. **Promote a user to admin**
+   - Run in Supabase SQL editor: `UPDATE profiles SET role = 'admin' WHERE id = '...'`
+   - Then verify admin panel AuthGuard works (non-admin gets "Access Denied")
+
 ---
 
 ## 🟡 Medium Priority
+
+### Password Reset Page (`/reset-password`)
+- `supabase.auth.resetPasswordForEmail` sends a link but there is no page to handle the token
+- Need `packages/web/src/pages/ResetPassword.tsx` that:
+  - Reads the token from the URL hash (Supabase appends `#access_token=...&type=recovery`)
+  - Calls `supabase.auth.updateUser({ password: newPassword })` to set the new password
+  - Shows success + redirects to `/dashboard`, or shows an error if the token is expired
+- Add the route `/reset-password` to `packages/web/src/router/index.tsx`
+- The `redirectTo` in `resetPasswordForEmail` is already set to `${window.location.origin}/reset-password`
 
 ### Lighthouse Audit
 - Run Lighthouse on https://jlpt-simulator-theta.vercel.app now that CSS is fully loading
