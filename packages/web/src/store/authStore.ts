@@ -8,7 +8,7 @@ interface AuthStore {
 
   initialize: () => Promise<void>
   signIn: (email: string, password: string) => Promise<void>
-  signUp: (email: string, password: string, displayName: string) => Promise<void>
+  signUp: (email: string, password: string, displayName: string) => Promise<{ needsConfirmation: boolean }>
   signOut: () => Promise<void>
 }
 
@@ -67,7 +67,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
   },
 
   signUp: async (email, password, displayName) => {
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -75,6 +75,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
       },
     })
     if (error) throw new Error(error.message)
+    return { needsConfirmation: !data.session }
   },
 
   signOut: async () => {

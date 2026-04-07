@@ -1,6 +1,16 @@
 # Completed Work
 
-_Last updated: Session 7 (CSS fix, dark mode, mobile, performance)_
+_Last updated: Session 8 (signup fix, auth UX, VITE_ADMIN_SECRET cleanup)_
+
+---
+
+## ✅ Session 8 — Signup fix, auth UX improvements, VITE_ADMIN_SECRET cleanup
+
+- [x] **Signup email confirmation handling** — `authStore.signUp` now returns `{ needsConfirmation: boolean }` by checking `data.session`. `Register.tsx` shows "Check your email" screen instead of navigating to dashboard when confirmation is required; navigates to `/dashboard` directly when email confirmation is disabled
+- [x] **Register.tsx logged-in redirect** — if user is already authenticated, renders `<Navigate to="/" replace />` immediately
+- [x] **Login.tsx logged-in redirect** — same pattern; skips auth form for authenticated users
+- [x] **Forgot password** — "Forgot password?" button inline next to Password label; calls `supabase.auth.resetPasswordForEmail`; shows "Check your email" success screen; validates email field is filled before submitting
+- [x] **VITE_ADMIN_SECRET removed** — was never used in code (admin uses Supabase auth + `profiles.role = 'admin'`); removed from `.env.example`; notes removed from progress files
 
 ---
 

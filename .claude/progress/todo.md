@@ -1,6 +1,6 @@
 # Todo
 
-_Last updated: Session 7 (CSS fix, dark mode, mobile, performance)_
+_Last updated: Session 8 (signup fix, auth UX, VITE_ADMIN_SECRET cleanup)_
 
 ---
 
@@ -21,11 +21,11 @@ These require credentials or file uploads — no code changes needed.
    - Run in Supabase SQL editor: `UPDATE profiles SET role = 'admin' WHERE id = '...'`
    - Then verify admin panel AuthGuard works (non-admin gets "Access Denied")
 
-4. **Fix signup "Database error saving new user"**
-   - Migration 00009 applied (SET search_path = public on trigger)
-   - Retest with a real signup attempt — may still need investigation
-
-5. **Update `VITE_ADMIN_SECRET`** in Vercel admin project to a real secret value
+4. **Test signup end-to-end on live app**
+   - Code changes are deployed; verify signup works with a real attempt
+   - If "Database error saving new user" still appears, check Supabase Auth → Settings:
+     - Is email confirmation enabled? Code now handles both states correctly
+     - Check trigger exists: `select * from pg_trigger where tgname = 'on_auth_user_created';`
 
 ---
 
