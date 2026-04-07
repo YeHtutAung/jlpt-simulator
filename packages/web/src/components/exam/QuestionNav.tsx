@@ -35,8 +35,7 @@ export const QuestionNav = memo(function QuestionNav({
   const isFirstEver      = isAtSectionStart && position.sectionIndex === 0
   const isPrevDisabled   = isFirstEver || (mode === 'full_exam' && isAtSectionStart)
 
-  // Show group labels only for listening section (question numbers reset per group)
-  const isListening   = section.type === 'listening'
+  // Section number (1-indexed) for group labels
   const sectionNumber = position.sectionIndex + 1
 
   return (
@@ -45,12 +44,10 @@ export const QuestionNav = memo(function QuestionNav({
       <div className="flex flex-wrap items-center gap-x-2 gap-y-2">
         {section.question_groups.map((g, gIdx) => (
           <div key={g.id} className="contents">
-            {/* Group label — only for listening where question numbers reset per group */}
-            {isListening && (
-              <span className="text-xs font-semibold text-accent font-sans tabular-nums w-7 text-right shrink-0">
-                {sectionNumber}.{gIdx + 1}
-              </span>
-            )}
+            {/* Group label (もんだい number) */}
+            <span className="text-xs font-semibold text-accent font-sans tabular-nums w-7 text-right shrink-0">
+              {sectionNumber}.{gIdx + 1}
+            </span>
 
             {/* Questions in this group */}
             {g.questions.map((q, qIdx) => {
