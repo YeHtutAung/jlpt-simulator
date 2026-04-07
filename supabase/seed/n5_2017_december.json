@@ -2007,19 +2007,16 @@
             {
               "number": 1,
               "text": "ご飯を食べました。何と言いますか。",
+              "image": {
+                "source": "storage",
+                "storage_url": "https://cmlxfddegfzwisuaiokh.supabase.co/storage/v1/object/public/images/n5/2017/december/l3-q1.png",
+                "alt_text": "ご飯を食べた後のシーン"
+              },
+              "image_position": "above",
               "options": [
-                {
-                  "number": 1,
-                  "text": "ごちそうさまでした。"
-                },
-                {
-                  "number": 2,
-                  "text": "いただきます。"
-                },
-                {
-                  "number": 3,
-                  "text": "どういたしまして。"
-                }
+                { "number": 1, "text": "ごちそうさまでした。" },
+                { "number": 2, "text": "いただきます。" },
+                { "number": 3, "text": "どういたしまして。" }
               ],
               "correct_answer": 1,
               "order_index": 0
@@ -2027,19 +2024,16 @@
             {
               "number": 2,
               "text": "電車の中です。女の人が来ました。何と言いますか。",
+              "image": {
+                "source": "storage",
+                "storage_url": "https://cmlxfddegfzwisuaiokh.supabase.co/storage/v1/object/public/images/n5/2017/december/l3-q2.png",
+                "alt_text": "電車の中で女の人が来たシーン"
+              },
+              "image_position": "above",
               "options": [
-                {
-                  "number": 1,
-                  "text": "どうもありがとう。"
-                },
-                {
-                  "number": 2,
-                  "text": "初めまして。"
-                },
-                {
-                  "number": 3,
-                  "text": "ここ、どうぞ。"
-                }
+                { "number": 1, "text": "どうもありがとう。" },
+                { "number": 2, "text": "初めまして。" },
+                { "number": 3, "text": "ここ、どうぞ。" }
               ],
               "correct_answer": 3,
               "order_index": 1
@@ -2047,19 +2041,16 @@
             {
               "number": 3,
               "text": "家へ帰ります。友達に何と言いますか。",
+              "image": {
+                "source": "storage",
+                "storage_url": "https://cmlxfddegfzwisuaiokh.supabase.co/storage/v1/object/public/images/n5/2017/december/l3-q3.png",
+                "alt_text": "家へ帰る前に友達に別れを告げるシーン"
+              },
+              "image_position": "above",
               "options": [
-                {
-                  "number": 1,
-                  "text": "いってきます。"
-                },
-                {
-                  "number": 2,
-                  "text": "じゃ、また。"
-                },
-                {
-                  "number": 3,
-                  "text": "ただいま。"
-                }
+                { "number": 1, "text": "いってきます。" },
+                { "number": 2, "text": "じゃ、また。" },
+                { "number": 3, "text": "ただいま。" }
               ],
               "correct_answer": 2,
               "order_index": 2
@@ -2067,19 +2058,16 @@
             {
               "number": 4,
               "text": "郵便局で切手を買います。何と言いますか。",
+              "image": {
+                "source": "storage",
+                "storage_url": "https://cmlxfddegfzwisuaiokh.supabase.co/storage/v1/object/public/images/n5/2017/december/l3-q4.png",
+                "alt_text": "郵便局の窓口で切手を買うシーン"
+              },
+              "image_position": "above",
               "options": [
-                {
-                  "number": 1,
-                  "text": "切手を買いませんか。"
-                },
-                {
-                  "number": 2,
-                  "text": "切手をどうぞ。"
-                },
-                {
-                  "number": 3,
-                  "text": "切手を下さい。"
-                }
+                { "number": 1, "text": "切手を買いませんか。" },
+                { "number": 2, "text": "切手をどうぞ。" },
+                { "number": 3, "text": "切手を下さい。" }
               ],
               "correct_answer": 3,
               "order_index": 3
@@ -2087,19 +2075,16 @@
             {
               "number": 5,
               "text": "友達は鉛筆がありません。友達に何と言いますか。",
+              "image": {
+                "source": "storage",
+                "storage_url": "https://cmlxfddegfzwisuaiokh.supabase.co/storage/v1/object/public/images/n5/2017/december/l3-q5.png",
+                "alt_text": "友達が鉛筆を持っていないシーン"
+              },
+              "image_position": "above",
               "options": [
-                {
-                  "number": 1,
-                  "text": "鉛筆、借りましょうか。"
-                },
-                {
-                  "number": 2,
-                  "text": "鉛筆、使いますか。"
-                },
-                {
-                  "number": 3,
-                  "text": "鉛筆、貸してください。"
-                }
+                { "number": 1, "text": "鉛筆、借りましょうか。" },
+                { "number": 2, "text": "鉛筆、使いますか。" },
+                { "number": 3, "text": "鉛筆、貸してください。" }
               ],
               "correct_answer": 2,
               "order_index": 4
