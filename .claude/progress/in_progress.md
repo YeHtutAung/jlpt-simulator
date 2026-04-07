@@ -6,7 +6,7 @@ _Last updated: Session 9 (password reset page)_
 
 ## 🔨 Active Task
 
-Nothing in progress. Session 8 complete.
+Nothing in progress. Session 9 complete.
 
 ---
 
@@ -28,6 +28,7 @@ The project is **live** and fully styled:
 - ✅ `/reset-password` page handles PASSWORD_RECOVERY token, form to set new password, success screen
 
 ### Remaining blockers — all require manual action, no code needed:
+- **Configure Supabase Auth redirect URLs** — add `/reset-password` to Auth → URL Configuration → Redirect URLs (see DEPLOYMENT.md §1.5)
 - **Upload N5 audio files** to Supabase Storage (`audio/n5/2017/december/`) — then update seed JSON URLs and re-run `npm run db:seed`
 - **Upload listening scene images** to Supabase Storage (`images/n5/2017/december/`)
 - **Promote a user to admin** via SQL: `UPDATE profiles SET role = 'admin' WHERE id = '...'`
