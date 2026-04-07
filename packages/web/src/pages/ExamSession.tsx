@@ -186,7 +186,12 @@ export function ExamSession() {
       </header>
 
       {/* Question area */}
-      <main className="flex-1 max-w-3xl mx-auto w-full px-4 py-8">
+      <main className="flex-1 max-w-3xl mx-auto w-full px-4 py-8 space-y-5">
+        {/* もんだい header */}
+        <h2 className="font-japanese text-lg font-semibold text-text">
+          もんだい{position.groupIndex + 1}
+        </h2>
+
         <QuestionCard
           group={group}
           question={question}
