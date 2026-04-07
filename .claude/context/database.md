@@ -1,186 +1,61 @@
 # Database Context
 
----
+## Clients
+`packages/web/src/lib/supabase.ts` | `packages/admin/src/lib/supabase.ts`
+Generated types: `supabase/types.ts` — regenerate after every migration: `npm run db:types`
 
-## Connection
-
-- **Client file:** `packages/web/src/lib/supabase.ts`
-- **Admin client:** `packages/admin/src/lib/supabase.ts`
-- **Generated types:** `supabase/types.ts`
-  - Regenerate after every migration: `npm run db:types`
-
----
-
-## Schema Overview
-
+## Schema
 ```
-exams
-  └── sections (1:many)
-        └── question_groups (1:many)
-              └── questions (1:many)
-
-auth.users
-  └── profiles (1:1)
-        └── attempts (1:many)
-              └── user_answers (1:many)
-                    └── questions (many:1)
+exams → sections → question_groups → questions
+auth.users → profiles → attempts → user_answers → questions
 ```
 
----
-
-## Table Details
+## Tables
 
 ### exams
-| Column | Type | Notes |
+| col | type | notes |
 |---|---|---|
-| id | uuid | PK |
-| level | text | N1/N2/N3/N4/N5 |
-| year | integer | 2010–2030 |
+| id | uuid PK | |
+| level | text | N1–N5 |
+| year | int | 2010–2030 |
 | month | text | july/december |
 | status | text | draft/published/archived |
-| source_json | jsonb | Full exam JSON backup |
-| created_at | timestamptz | |
-| updated_at | timestamptz | auto-updated |
-
-Unique constraint: (level, year, month)
+| source_json | jsonb | full exam JSON backup |
+| created_at/updated_at | timestamptz | |
+Unique: (level, year, month)
 
 ### sections
-| Column | Type | Notes |
-|---|---|---|
-| id | uuid | PK |
-| exam_id | uuid | FK → exams |
-| type | text | vocabulary/grammar_reading/listening |
-| time_limit | integer | minutes |
-| instructions | text | nullable |
-| order_index | integer | display order |
+id uuid PK | exam_id FK | type text (vocabulary/grammar_reading/listening) | time_limit int (minutes) | instructions text? | order_index int
 
 ### question_groups
-| Column | Type | Notes |
-|---|---|---|
-| id | uuid | PK |
-| section_id | uuid | FK → sections |
-| group_key | text | e.g. "n5-2017-v-g1" |
-| group_type | text | see QuestionGroupType |
-| instructions | text | nullable |
-| passage_text | text | nullable, reading passages |
-| image_type | text | svg/storage/none |
-| image_data | text | SVG string OR storage URL |
-| image_alt | text | accessibility |
-| audio_url | text | Supabase storage URL |
-| order_index | integer | |
+id uuid PK | section_id FK | group_key text (e.g. n5-2017-v-g1) | group_type text | instructions text? | passage_text text? | image_type text (svg/storage/none) | image_data text | image_alt text | audio_url text | order_index int
 
 ### questions
-| Column | Type | Notes |
-|---|---|---|
-| id | uuid | PK |
-| group_id | uuid | FK → question_groups |
-| question_number | integer | official question number |
-| question_text | text | |
-| underline_word | text | nullable, for vocab section |
-| options | jsonb | [{number:1, text:"..."}, ...] |
-| correct_answer | integer | 1–4 |
-| explanation | text | nullable, for review mode |
-| order_index | integer | |
+id uuid PK | group_id FK | question_number int | question_text text | underline_word text? | options jsonb ([{number:1,text:"…"}]) | correct_answer int (1–4) | explanation text? | order_index int | image_type text? | image_data text? | image_alt text? | image_position text? DEFAULT 'above' (above/below/side_by_side)
 
 ### profiles
-| Column | Type | Notes |
-|---|---|---|
-| id | uuid | PK, FK → auth.users |
-| display_name | text | |
-| role | text | user/admin |
-| avatar_url | text | nullable |
-
-Auto-created on signup via trigger `on_auth_user_created`
+id uuid PK→auth.users | display_name text | role text (user/admin) | avatar_url text?
+Auto-created on signup via trigger `handle_new_user`
 
 ### attempts
-| Column | Type | Notes |
-|---|---|---|
-| id | uuid | PK |
-| user_id | uuid | FK → profiles |
-| exam_id | uuid | FK → exams |
-| mode | text | full_exam/practice |
-| status | text | in_progress/completed/abandoned |
-| started_at | timestamptz | |
-| completed_at | timestamptz | nullable |
-| score_json | jsonb | nullable until completed |
+id uuid PK | user_id FK→profiles | exam_id FK→exams | mode text (full_exam/practice) | status text (in_progress/completed/abandoned) | started_at timestamptz | completed_at timestamptz? | score_json jsonb?
 
-score_json structure:
-```json
-{
-  "total_correct": 25,
-  "total_questions": 33,
-  "total_percentage": 76,
-  "sections": [
-    {
-      "section_type": "vocabulary",
-      "correct": 10,
-      "total": 13,
-      "percentage": 77,
-      "time_spent": 890
-    }
-  ],
-  "completed_at": "2024-01-15T10:30:00Z"
-}
-```
+score_json: `{total_correct, total_questions, total_percentage, sections:[{section_type, correct, total, percentage, time_spent}], completed_at}`
 
 ### user_answers
-| Column | Type | Notes |
-|---|---|---|
-| id | uuid | PK |
-| attempt_id | uuid | FK → attempts |
-| question_id | uuid | FK → questions |
-| selected_option | integer | 1–4, nullable if skipped |
-| is_correct | boolean | |
-| time_spent | integer | seconds on this question |
-| flagged | boolean | user flagged for review |
+id uuid PK | attempt_id FK | question_id FK | selected_option int? (1–4, null=skipped) | is_correct bool | time_spent int (seconds) | flagged bool
+Unique: (attempt_id, question_id)
 
-Unique constraint: (attempt_id, question_id)
+## ⚠️ correct_answer never exposed to client during active exam — Edge Function scores server-side
 
----
+## RLS
+exams/sections/question_groups/questions: SELECT all (published), INSERT/UPDATE/DELETE admin
+questions: correct_answer hidden from users during exam
+profiles: SELECT/UPDATE own row; admin sees all
+attempts/user_answers: SELECT/INSERT/UPDATE own rows only
 
-## RLS Policies (00006 migration — not yet applied)
+## Storage
+`audio/{level}/{year}/{month}/*.mp3` | `images/{level}/{year}/{month}/*.png`
 
-```
-exams:          SELECT for all (published only), INSERT/UPDATE/DELETE for admin
-sections:       SELECT for all, INSERT/UPDATE/DELETE for admin
-question_groups: SELECT for all, INSERT/UPDATE/DELETE for admin
-questions:      SELECT for all (no correct_answer exposed to users!), admin sees all
-profiles:       SELECT/UPDATE own row only, admin sees all
-attempts:       SELECT/INSERT/UPDATE own rows only
-user_answers:   SELECT/INSERT/UPDATE own rows only
-```
-
-⚠️ IMPORTANT: `correct_answer` in questions table must NOT be
-exposed in the public API during an active exam.
-Use an Edge Function for scoring instead.
-
----
-
-## Storage Buckets (00007 migration — not yet applied)
-
-```
-audio/
-  └── {level}/{year}/{month}/{filename}.mp3
-      e.g. audio/n5/2017/december/listening_q1.mp3
-
-images/
-  └── {level}/{year}/{month}/{filename}.png
-      e.g. images/n5/2017/december/scene_q5.png
-```
-
----
-
-## Migration State
-
-| Migration | Status |
-|---|---|
-| 00001_create_exams | ✅ Written |
-| 00002_create_sections | ✅ Written |
-| 00003_create_question_groups | ✅ Written |
-| 00004_create_questions | ✅ Written |
-| 00005_create_user_tables | ✅ Written |
-| 00006_rls_policies | ⏳ TODO |
-| 00007_storage_buckets | ⏳ TODO |
-
-Applied to local: ❌ Not yet (Supabase not initialized)
-Applied to production: ❌ Not yet
+## Migrations (all applied ✅)
+00001 create_exams | 00002 create_sections | 00003 create_question_groups | 00004 create_questions | 00005 create_user_tables | 00006 rls_policies | 00007 storage_buckets | 00008 fix_profiles_insert | 00009 fix_trigger_search_path | 00008 questions_image (applied via db query --linked)

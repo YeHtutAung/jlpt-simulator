@@ -1,44 +1,24 @@
-# Currently In Progress
+# In Progress — S11 complete, nothing active
 
-_Last updated: Session 11 (section-by-section exam flow, question-level image support)_
+## Live URLs
+Web: https://jlpt-simulator-theta.vercel.app
+Admin: https://jlpt-simulator-admin.vercel.app
+DB: Supabase `cmlxfddegfzwisuaiokh` — 2 exams seeded, migrations 00001–00009+00008_questions_image ✅
 
----
+## ✅ Working
+- Both apps live, CSS loading, dark mode, mobile 375px
+- Auth: signup (email confirm handling), login, logout, forgot password, `/reset-password`
+- Exam: section-by-section flow (timer resets per section, section-complete modal, no cross-section back in full_exam)
+- Exam submission: correct answer keys, CORS on all Edge Function responses, score calculated correctly
+- Results: 3-way render (score/calculating/not found)
+- Q27 apple-box SVG + Q28 desk SVG render in vocab section
 
-## 🔨 Active Task
+## ⚠️ Blockers (manual actions — no code needed)
+- Configure Supabase Auth redirect URLs (Auth→URL Config→add `/reset-password` prod+localhost) — see DEPLOYMENT.md §1.5
+- Upload N5 audio files to Storage (`audio/n5/2017/december/q1–q4.mp3`) → update seed JSON → re-seed
+- Upload listening scene images to Storage (`images/n5/2017/december/`)
+- Promote user to admin: `UPDATE profiles SET role='admin' WHERE id='...'`
 
-Nothing in progress. Session 11 complete.
-
----
-
-## 📍 Project State
-
-The project is **live** and fully styled:
-- Web app: https://jlpt-simulator-theta.vercel.app
-- Admin panel: https://jlpt-simulator-admin.vercel.app
-- Database: Supabase project `cmlxfddegfzwisuaiokh` — 2 exams seeded, migration 00008 applied
-
-### What is working:
-- ✅ Both apps live on Vercel with CSS loading correctly
-- ✅ Dark mode toggle in Navbar, persisted to localStorage
-- ✅ Mobile responsive at 375px
-- ✅ React.lazy + Suspense on all routes, performance optimised
-- ✅ Full auth flow: signup, login, forgot password, `/reset-password` page
-- ✅ Section-by-section exam flow (full_exam mode): timer resets per section, section-complete modal before advancing, cannot go back across sections
-- ✅ Exam submission fixed: correct answer keys, CORS headers on all Edge Function responses
-- ✅ Results page handles null `score_json`
-- ✅ Q27 and Q28 (apple box, desk scene) render inline SVG images with `image_position: above`
-- ✅ `QuestionCard` supports `above`, `below`, `side_by_side` image positions
-
-### Remaining blockers — manual actions required:
-- **Configure Supabase Auth redirect URLs** — add `/reset-password` to Auth → URL Configuration → Redirect URLs (see DEPLOYMENT.md §1.5)
-- **Upload N5 audio files** to Supabase Storage (`audio/n5/2017/december/`) — then re-run `npm run db:seed`
-- **Upload listening scene images** to Supabase Storage (`images/n5/2017/december/`)
-- **Promote a user to admin** via SQL: `UPDATE profiles SET role = 'admin' WHERE id = '...'`
-
----
-
-## ⚠️ Known Issues / Gaps
-
-- N5 2019 July has no audio files yet — `db:verify` will report audio_url FAIL until uploaded
-- Multiple question rows exist in DB for Q27/Q28 from previous seed runs — pre-existing issue; `source_json` in `exams` table is authoritative and correct
-- **Supabase Auth redirect URLs not yet configured** — must add reset-password URL to Auth dashboard (manual step)
+## ⚠️ Known gaps
+- N5 2019 Jul: no audio yet → db:verify audio_url FAIL expected
+- Multiple Q27/Q28 rows in DB from prior seed runs (pre-existing); `source_json` is authoritative ✅
