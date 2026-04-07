@@ -23,20 +23,21 @@ interface ExamStore {
   visitedQuestions: Set<string>   // "sIdx-gIdx-qIdx"
 
   // ── Answers ───────────────────────────────
-  answers: Record<string, number>        // questionId → option (1-4)
-  flagged: Set<string>                   // questionIds
-  timeSpent: Record<string, number>      // questionId → seconds
+  answers: Record<string, number>        // question.number (string) → option (1-4)
+  flagged: Set<string>                   // question.number strings
+  timeSpent: Record<string, number>      // question.number (string) → seconds
   questionStartTime: number | null       // Date.now() when question shown
 
   // ── Timer ─────────────────────────────────
-  timeRemaining: number                  // seconds
+  timeRemaining: number                  // seconds for current section
   timerActive: boolean
 
   // ── Status ────────────────────────────────
   isSubmitting: boolean
-  isComplete: boolean   // reached end of questions (shows submit prompt)
-  isSubmitted: boolean  // submit-exam Edge Function call succeeded
-  showWarning: boolean  // timer < 5 min
+  isSectionComplete: boolean  // end of current section — pending advance to next
+  isComplete: boolean         // end of last section — pending exam submit
+  isSubmitted: boolean        // submit-exam Edge Function call succeeded
+  showWarning: boolean        // timer < 5 min
 
   // ── Actions ───────────────────────────────
   initExam: (exam: Exam, mode: ExamMode, attemptId: string) => void
@@ -45,6 +46,7 @@ interface ExamStore {
   nextQuestion: () => void
   prevQuestion: () => void
   jumpTo: (position: ExamPosition) => void
+  advanceSection: () => void
   tickTimer: () => void
   submitExam: () => Promise<void>
   resetExam: () => void
@@ -54,12 +56,13 @@ interface ExamStore {
 // Helpers
 // ================================
 
+// questionId = String(question.number) — globally unique per exam, matches Edge Function
 function getQuestionId(exam: Exam, pos: ExamPosition): string | null {
   try {
     const section = exam.sections[pos.sectionIndex]
     const group = section.question_groups[pos.groupIndex]
     const question = group.questions[pos.questionIndex]
-    return `${pos.sectionIndex}-${pos.groupIndex}-${pos.questionIndex}-${question.number}`
+    return String(question.number)
   } catch {
     return null
   }
@@ -84,7 +87,7 @@ function getNextPosition(exam: Exam, pos: ExamPosition): ExamPosition | null {
     return { sectionIndex: pos.sectionIndex + 1, groupIndex: 0, questionIndex: 0 }
   }
 
-  return null // exam complete
+  return null // exam complete (past last question of last section)
 }
 
 function getPrevPosition(exam: Exam, pos: ExamPosition): ExamPosition | null {
@@ -142,6 +145,7 @@ export const useExamStore = create<ExamStore>((set, get) => ({
   timeRemaining: 0,
   timerActive: false,
   isSubmitting: false,
+  isSectionComplete: false,
   isComplete: false,
   isSubmitted: false,
   showWarning: false,
@@ -159,9 +163,11 @@ export const useExamStore = create<ExamStore>((set, get) => ({
       visitedQuestions: new Set(['0-0-0']),
       timeRemaining: firstSection.time_limit * 60,
       timerActive: true,
+      isSectionComplete: false,
       isComplete: false,
       isSubmitted: false,
       isSubmitting: false,
+      showWarning: false,
       questionStartTime: Date.now(),
     })
   },
@@ -185,7 +191,7 @@ export const useExamStore = create<ExamStore>((set, get) => ({
   },
 
   nextQuestion: () => {
-    const { exam, position, questionStartTime, timeSpent } = get()
+    const { exam, position, mode, questionStartTime, timeSpent } = get()
     if (!exam) return
 
     const questionId = getQuestionId(exam, position)
@@ -201,13 +207,19 @@ export const useExamStore = create<ExamStore>((set, get) => ({
       : timeSpent
 
     if (!nextPos) {
-      // No next question = exam complete
+      // Past the last question of the last section → submit prompt
       set({ timeSpent: newTimeSpent, isComplete: true })
       return
     }
 
-    const posKey = `${nextPos.sectionIndex}-${nextPos.groupIndex}-${nextPos.questionIndex}`
+    // Section boundary in full_exam mode → pause and show section-complete modal
+    if (nextPos.sectionIndex !== position.sectionIndex && mode === 'full_exam') {
+      set({ timeSpent: newTimeSpent, isSectionComplete: true })
+      return
+    }
 
+    // Normal navigation (within section, or cross-section in practice mode)
+    const posKey = `${nextPos.sectionIndex}-${nextPos.groupIndex}-${nextPos.questionIndex}`
     set(state => ({
       position: nextPos,
       timeSpent: newTimeSpent,
@@ -217,8 +229,13 @@ export const useExamStore = create<ExamStore>((set, get) => ({
   },
 
   prevQuestion: () => {
-    const { exam, position } = get()
+    const { exam, position, mode } = get()
     if (!exam) return
+
+    // In full_exam mode, cannot navigate back to a previous section
+    const isAtSectionStart = position.questionIndex === 0 && position.groupIndex === 0
+    if (mode === 'full_exam' && isAtSectionStart && position.sectionIndex > 0) return
+
     const prevPos = getPrevPosition(exam, position)
     if (prevPos) {
       set({ position: prevPos, questionStartTime: Date.now() })
@@ -234,19 +251,45 @@ export const useExamStore = create<ExamStore>((set, get) => ({
     }))
   },
 
-  tickTimer: () => {
-    set(state => {
-      const newTime = state.timeRemaining - 1
-      const showWarning = newTime <= 300 // 5 minutes
-      const shouldAutoSubmit = newTime <= 0 && state.mode === 'full_exam'
-
-      if (shouldAutoSubmit) {
-        get().submitExam().catch(err => console.error('Auto-submit failed:', err))
-        return { timeRemaining: 0, timerActive: false, showWarning: true }
-      }
-
-      return { timeRemaining: newTime, showWarning }
+  advanceSection: () => {
+    const { exam, position } = get()
+    if (!exam) return
+    const nextSectionIndex = position.sectionIndex + 1
+    if (nextSectionIndex >= exam.sections.length) return
+    const nextSection = exam.sections[nextSectionIndex]
+    set({
+      position: { sectionIndex: nextSectionIndex, groupIndex: 0, questionIndex: 0 },
+      timeRemaining: nextSection.time_limit * 60,
+      timerActive: true,
+      isSectionComplete: false,
+      questionStartTime: Date.now(),
+      visitedQuestions: new Set([`${nextSectionIndex}-0-0`]),
+      showWarning: false,
     })
+  },
+
+  tickTimer: () => {
+    const state = get()
+    const newTime = state.timeRemaining - 1
+    const showWarning = newTime <= 300 // 5 minutes
+
+    if (newTime <= 0 && state.mode === 'full_exam') {
+      const { exam, position } = state
+      if (exam) {
+        const isLastSection = position.sectionIndex >= exam.sections.length - 1
+        if (isLastSection) {
+          // Last section timer expired → submit exam
+          set({ timeRemaining: 0, timerActive: false, showWarning: true })
+          get().submitExam().catch(err => console.error('Auto-submit failed:', err))
+        } else {
+          // Non-last section timer expired → auto-advance to next section
+          get().advanceSection()
+        }
+        return
+      }
+    }
+
+    set({ timeRemaining: newTime, showWarning })
   },
 
   submitExam: async () => {
@@ -256,7 +299,6 @@ export const useExamStore = create<ExamStore>((set, get) => ({
     set({ isSubmitting: true })
 
     try {
-      // Get the user's JWT so the Edge Function can authenticate the request
       const { data: { session } } = await supabase.auth.getSession()
 
       const response = await fetch(
@@ -284,7 +326,7 @@ export const useExamStore = create<ExamStore>((set, get) => ({
       set({ isComplete: true, isSubmitted: true, timerActive: false, isSubmitting: false })
     } catch (err) {
       set({ isSubmitting: false })
-      throw err  // re-throw so callers can show error UI
+      throw err
     }
   },
 
@@ -299,6 +341,7 @@ export const useExamStore = create<ExamStore>((set, get) => ({
       visitedQuestions: new Set(),
       timeRemaining: 0,
       timerActive: false,
+      isSectionComplete: false,
       isComplete: false,
       isSubmitted: false,
       isSubmitting: false,

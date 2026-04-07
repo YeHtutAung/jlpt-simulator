@@ -19,29 +19,31 @@ export function ExamSession() {
   const { examId } = useParams<{ examId: string }>()
   const navigate   = useNavigate()
 
-  const exam         = useExamStore(s => s.exam)
-  const position     = useExamStore(s => s.position)
-  const answers      = useExamStore(s => s.answers)
-  const flagged      = useExamStore(s => s.flagged)
-  const mode         = useExamStore(s => s.mode)
-  const attemptId    = useExamStore(s => s.attemptId)
-  const isComplete   = useExamStore(s => s.isComplete)
-  const isSubmitted  = useExamStore(s => s.isSubmitted)
-  const isSubmitting = useExamStore(s => s.isSubmitting)
-  const selectAnswer = useExamStore(s => s.selectAnswer)
-  const toggleFlag   = useExamStore(s => s.toggleFlag)
-  const nextQuestion = useExamStore(s => s.nextQuestion)
-  const prevQuestion = useExamStore(s => s.prevQuestion)
-  const submitExam   = useExamStore(s => s.submitExam)
-  const resetExam    = useExamStore(s => s.resetExam)
+  const exam              = useExamStore(s => s.exam)
+  const position          = useExamStore(s => s.position)
+  const answers           = useExamStore(s => s.answers)
+  const flagged           = useExamStore(s => s.flagged)
+  const mode              = useExamStore(s => s.mode)
+  const attemptId         = useExamStore(s => s.attemptId)
+  const isSectionComplete = useExamStore(s => s.isSectionComplete)
+  const isComplete        = useExamStore(s => s.isComplete)
+  const isSubmitted       = useExamStore(s => s.isSubmitted)
+  const isSubmitting      = useExamStore(s => s.isSubmitting)
+  const selectAnswer      = useExamStore(s => s.selectAnswer)
+  const toggleFlag        = useExamStore(s => s.toggleFlag)
+  const nextQuestion      = useExamStore(s => s.nextQuestion)
+  const prevQuestion      = useExamStore(s => s.prevQuestion)
+  const advanceSection    = useExamStore(s => s.advanceSection)
+  const submitExam        = useExamStore(s => s.submitExam)
+  const resetExam         = useExamStore(s => s.resetExam)
 
-  const [showSubmitModal, setShowSubmitModal] = useState(false)
+  const [showSectionModal, setShowSectionModal] = useState(false)
+  const [showSubmitModal, setShowSubmitModal]   = useState(false)
   const toast = useToast()
 
   // ── Keyboard navigation ──────────────────────────────────
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    // Don't fire when typing in an input or modal is open
-    if (showSubmitModal) return
+    if (showSubmitModal || showSectionModal) return
     if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return
 
     switch (e.key) {
@@ -51,7 +53,7 @@ export function ExamSession() {
         const s = exam.sections[position.sectionIndex]
         const g = s.question_groups[position.groupIndex]
         const q = g.questions[position.questionIndex]
-        const qId = `${position.sectionIndex}-${position.groupIndex}-${position.questionIndex}-${q.number}`
+        const qId = String(q.number)
         if (option <= q.options.length) {
           selectAnswer(qId, option)
           toast.info(`Answer ${option} selected`, 1200)
@@ -69,19 +71,25 @@ export function ExamSession() {
         const s = exam.sections[position.sectionIndex]
         const g = s.question_groups[position.groupIndex]
         const q = g.questions[position.questionIndex]
-        const qId = `${position.sectionIndex}-${position.groupIndex}-${position.questionIndex}-${q.number}`
-        toggleFlag(qId)
+        toggleFlag(String(q.number))
         break
       }
     }
-  }, [showSubmitModal, exam, position, mode, selectAnswer, nextQuestion, prevQuestion, toggleFlag, toast])
+  }, [showSubmitModal, showSectionModal, exam, position, mode, selectAnswer, nextQuestion, prevQuestion, toggleFlag, toast])
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [handleKeyDown])
 
-  // User navigated through all questions without pressing Submit — open the modal
+  // Section complete (non-last section) → show section advance modal
+  useEffect(() => {
+    if (isSectionComplete) {
+      setShowSectionModal(true)
+    }
+  }, [isSectionComplete])
+
+  // Last section complete → show submit modal
   useEffect(() => {
     if (isComplete && !isSubmitted) {
       setShowSubmitModal(true)
@@ -113,7 +121,10 @@ export function ExamSession() {
   const group    = section.question_groups[position.groupIndex]
   const question = group.questions[position.questionIndex]
 
-  const questionId = `${position.sectionIndex}-${position.groupIndex}-${position.questionIndex}-${question.number}`
+  const questionId = String(question.number)
+
+  const isLastSection = position.sectionIndex === exam.sections.length - 1
+  const nextSection   = !isLastSection ? exam.sections[position.sectionIndex + 1] : null
 
   // Count total questions in section
   const totalInSection = section.question_groups
@@ -126,8 +137,11 @@ export function ExamSession() {
   }
   currentPos += position.questionIndex + 1
 
-  const answeredCount = Object.keys(answers).length
-  const flaggedCount  = flagged.size
+  // Count answered questions in current section only
+  const sectionQuestionNumbers = section.question_groups
+    .flatMap(g => g.questions.map(q => String(q.number)))
+  const answeredInSection = sectionQuestionNumbers.filter(id => id in answers).length
+  const flaggedInSection  = sectionQuestionNumbers.filter(id => flagged.has(id)).length
 
   async function handleConfirmSubmit() {
     setShowSubmitModal(false)
@@ -137,6 +151,11 @@ export function ExamSession() {
     } catch {
       toast.error('Failed to submit exam. Please try again.')
     }
+  }
+
+  function handleConfirmAdvance() {
+    setShowSectionModal(false)
+    advanceSection()
   }
 
   return (
@@ -149,6 +168,7 @@ export function ExamSession() {
             <div>
               <span className="text-xs text-text-muted font-sans uppercase tracking-wider">
                 {exam.meta.level} · {exam.meta.year}
+                {' · '}Section {position.sectionIndex + 1}/{exam.sections.length}
               </span>
               <h1 className="font-serif text-base font-semibold text-text">
                 {SECTION_LABELS[section.type] ?? section.type}
@@ -159,8 +179,8 @@ export function ExamSession() {
           <ProgressBar
             current={currentPos}
             total={totalInSection}
-            answered={answeredCount}
-            flagged={flaggedCount}
+            answered={answeredInSection}
+            flagged={flaggedInSection}
           />
         </div>
       </header>
@@ -183,6 +203,8 @@ export function ExamSession() {
         <div className="max-w-3xl mx-auto px-4 py-4">
           <QuestionNav
             exam={exam}
+            isLastSection={isLastSection}
+            onFinishSection={() => setShowSectionModal(true)}
             onSubmit={() => setShowSubmitModal(true)}
           />
         </div>
@@ -198,27 +220,55 @@ export function ExamSession() {
         </div>
       </div>
 
-      {/* Submit confirmation modal */}
+      {/* Section complete modal */}
+      <Modal
+        open={showSectionModal}
+        title={`${SECTION_LABELS[section.type] ?? 'Section'} Complete`}
+        confirmLabel={nextSection ? `Proceed to ${SECTION_LABELS[nextSection.type] ?? 'Next Section'} →` : 'Submit Exam'}
+        cancelLabel={mode === 'practice' ? 'Keep reviewing' : undefined}
+        onConfirm={handleConfirmAdvance}
+        onCancel={mode === 'practice' ? () => setShowSectionModal(false) : undefined}
+      >
+        <div className="space-y-2 text-sm">
+          <p>You have answered <strong>{answeredInSection}</strong> of{' '}
+            <strong>{totalInSection}</strong> questions in this section.</p>
+          {totalInSection - answeredInSection > 0 && (
+            <p className="text-warning">
+              ⚠ {totalInSection - answeredInSection} questions unanswered.
+            </p>
+          )}
+          {flaggedInSection > 0 && (
+            <p className="text-warning">⚑ {flaggedInSection} questions flagged for review.</p>
+          )}
+          {mode === 'full_exam' && (
+            <p className="text-text-muted">
+              Once you proceed, you cannot return to this section.
+            </p>
+          )}
+        </div>
+      </Modal>
+
+      {/* Submit exam modal */}
       <Modal
         open={showSubmitModal}
         title="Submit Exam?"
         confirmLabel="Submit"
         confirmVariant="danger"
-        cancelLabel="Keep going"
+        cancelLabel="Keep reviewing"
         onConfirm={handleConfirmSubmit}
         onCancel={() => setShowSubmitModal(false)}
         loading={isSubmitting}
       >
         <div className="space-y-2 text-sm">
-          <p>You have answered <strong>{answeredCount}</strong> of{' '}
-            <strong>{totalInSection}</strong> questions.</p>
-          {totalInSection - answeredCount > 0 && (
+          <p>You have answered <strong>{answeredInSection}</strong> of{' '}
+            <strong>{totalInSection}</strong> questions in this section.</p>
+          {totalInSection - answeredInSection > 0 && (
             <p className="text-warning">
-              ⚠ {totalInSection - answeredCount} questions unanswered.
+              ⚠ {totalInSection - answeredInSection} questions unanswered.
             </p>
           )}
-          {flaggedCount > 0 && (
-            <p className="text-warning">⚑ {flaggedCount} questions flagged for review.</p>
+          {flaggedInSection > 0 && (
+            <p className="text-warning">⚑ {flaggedInSection} questions flagged for review.</p>
           )}
           <p className="text-text-muted">This action cannot be undone.</p>
         </div>

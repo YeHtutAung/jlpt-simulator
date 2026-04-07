@@ -1,21 +1,28 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
+const CORS = {
+  'Access-Control-Allow-Origin':  '*',
+  'Access-Control-Allow-Methods': 'POST',
+  'Access-Control-Allow-Headers': 'authorization, content-type',
+}
+
 interface SubmitPayload {
   attemptId: string
-  answers: Record<string, number>      // questionId → selected option
-  flagged: string[]
-  timeSpent: Record<string, number>    // questionId → seconds
+  answers: Record<string, number>      // question.number (string) → selected option
+  flagged: string[]                    // question.number strings
+  timeSpent: Record<string, number>    // question.number (string) → seconds
+}
+
+function json(body: unknown, status: number): Response {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { 'Content-Type': 'application/json', ...CORS },
+  })
 }
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
-    return new Response(null, {
-      headers: {
-        'Access-Control-Allow-Origin':  '*',
-        'Access-Control-Allow-Methods': 'POST',
-        'Access-Control-Allow-Headers': 'authorization, content-type',
-      },
-    })
+    return new Response(null, { headers: CORS })
   }
 
   try {
@@ -27,20 +34,14 @@ Deno.serve(async (req) => {
     // Auth check
     const authHeader = req.headers.get('Authorization')
     if (!authHeader) {
-      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-        status: 401,
-        headers: { 'Content-Type': 'application/json' },
-      })
+      return json({ error: 'Unauthorized' }, 401)
     }
 
     const { data: { user }, error: authError } = await supabase.auth.getUser(
       authHeader.replace('Bearer ', '')
     )
     if (authError || !user) {
-      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-        status: 401,
-        headers: { 'Content-Type': 'application/json' },
-      })
+      return json({ error: 'Unauthorized' }, 401)
     }
 
     const payload: SubmitPayload = await req.json()
@@ -55,17 +56,11 @@ Deno.serve(async (req) => {
       .single()
 
     if (attemptError || !attempt) {
-      return new Response(JSON.stringify({ error: 'Attempt not found' }), {
-        status: 404,
-        headers: { 'Content-Type': 'application/json' },
-      })
+      return json({ error: 'Attempt not found' }, 404)
     }
 
     if (attempt.status === 'completed') {
-      return new Response(JSON.stringify({ error: 'Already submitted' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      })
+      return json({ error: 'Already submitted' }, 400)
     }
 
     // Fetch all questions for this exam with correct answers
@@ -80,10 +75,7 @@ Deno.serve(async (req) => {
       .eq('exam_id', attempt.exam_id)
 
     if (!sections) {
-      return new Response(JSON.stringify({ error: 'Questions not found' }), {
-        status: 404,
-        headers: { 'Content-Type': 'application/json' },
-      })
+      return json({ error: 'Questions not found' }, 404)
     }
 
     // Build answer records and calculate scores
@@ -96,13 +88,15 @@ Deno.serve(async (req) => {
         sectionScores[sType] = { correct: 0, total: 0, time: 0 }
       }
 
-      for (const group of (section.question_groups as any[]) ?? []) {
-        for (const question of (group.questions as any[]) ?? []) {
-          const qId          = question.id as string
-          const selectedOpt  = answers[qId] ?? null
-          const isCorrect    = selectedOpt === question.correct_answer
-          const spent        = timeSpent[qId] ?? 0
-          const isFlagged    = flagged.includes(qId)
+      for (const group of (section.question_groups as unknown[]) ?? []) {
+        for (const question of ((group as { questions: unknown[] }).questions) ?? []) {
+          const q            = question as { id: string; question_number: number; correct_answer: number }
+          // Client keys answers by question_number (as string) — same as question.number on the frontend
+          const qKey         = String(q.question_number)
+          const selectedOpt  = answers[qKey] ?? null
+          const isCorrect    = selectedOpt === q.correct_answer
+          const spent        = timeSpent[qKey] ?? 0
+          const isFlagged    = flagged.includes(qKey)
 
           sectionScores[sType].total++
           sectionScores[sType].time += spent
@@ -110,7 +104,7 @@ Deno.serve(async (req) => {
 
           userAnswerRows.push({
             attempt_id:      attemptId,
-            question_id:     qId,
+            question_id:     q.id,
             selected_option: selectedOpt,
             is_correct:      isCorrect,
             time_spent:      spent,
@@ -155,18 +149,9 @@ Deno.serve(async (req) => {
       })
       .eq('id', attemptId)
 
-    return new Response(JSON.stringify({ success: true, score: scoreJson }), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
-    })
+    return json({ success: true, score: scoreJson }, 200)
 
   } catch (err) {
-    return new Response(
-      JSON.stringify({ error: err instanceof Error ? err.message : 'Server error' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    )
+    return json({ error: err instanceof Error ? err.message : 'Server error' }, 500)
   }
 })

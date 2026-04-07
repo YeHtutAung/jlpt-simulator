@@ -5,10 +5,17 @@ import { Button } from '@/components/ui/Button'
 
 interface QuestionNavProps {
   exam: Exam
+  isLastSection: boolean
+  onFinishSection: () => void
   onSubmit: () => void
 }
 
-export const QuestionNav = memo(function QuestionNav({ exam, onSubmit }: QuestionNavProps) {
+export const QuestionNav = memo(function QuestionNav({
+  exam,
+  isLastSection,
+  onFinishSection,
+  onSubmit,
+}: QuestionNavProps) {
   const position     = useExamStore(s => s.position)
   const answers      = useExamStore(s => s.answers)
   const flagged      = useExamStore(s => s.flagged)
@@ -21,29 +28,30 @@ export const QuestionNav = memo(function QuestionNav({ exam, onSubmit }: Questio
   const section  = exam.sections[position.sectionIndex]
   const group    = section.question_groups[position.groupIndex]
   const question = group.questions[position.questionIndex]
-  const questionId = `${position.sectionIndex}-${position.groupIndex}-${position.questionIndex}-${question.number}`
+  const questionId = String(question.number)
 
-  // Flatten all questions for grid display
+  // Flatten questions for current section only
   const allQuestions = section.question_groups.flatMap((g, gIdx) =>
     g.questions.map((q, qIdx) => ({
       sectionIndex: position.sectionIndex,
       groupIndex: gIdx,
       questionIndex: qIdx,
-      questionId: `${position.sectionIndex}-${gIdx}-${qIdx}-${q.number}`,
+      questionId: String(q.number),
       number: q.number,
     }))
   )
 
-  const isFirst = position.sectionIndex === 0
-    && position.groupIndex === 0
-    && position.questionIndex === 0
+  // Previous is disabled at the very start, or when crossing section boundary in full_exam
+  const isAtSectionStart = position.questionIndex === 0 && position.groupIndex === 0
+  const isFirstEver      = isAtSectionStart && position.sectionIndex === 0
+  const isPrevDisabled   = isFirstEver || (mode === 'full_exam' && isAtSectionStart)
 
   return (
     <div className="space-y-4">
       {/* Question grid */}
       <div className="flex flex-wrap gap-2">
         {allQuestions.map(q => {
-          const posKey = `${q.sectionIndex}-${q.groupIndex}-${q.questionIndex}`
+          const posKey     = `${q.sectionIndex}-${q.groupIndex}-${q.questionIndex}`
           const isAnswered = q.questionId in answers
           const isFlagged  = flagged.has(q.questionId)
           const isVisited  = visited.has(posKey)
@@ -96,24 +104,22 @@ export const QuestionNav = memo(function QuestionNav({ exam, onSubmit }: Questio
           variant="secondary"
           size="md"
           onClick={prevQuestion}
-          disabled={isFirst || mode === 'full_exam'}
+          disabled={isPrevDisabled}
         >
           ← Previous
         </Button>
 
-        <Button
-          variant="danger"
-          size="md"
-          onClick={onSubmit}
-        >
-          Submit Exam
-        </Button>
+        {isLastSection ? (
+          <Button variant="danger" size="md" onClick={onSubmit}>
+            Submit Exam
+          </Button>
+        ) : (
+          <Button variant="secondary" size="md" onClick={onFinishSection}>
+            Finish Section →
+          </Button>
+        )}
 
-        <Button
-          variant="primary"
-          size="md"
-          onClick={nextQuestion}
-        >
+        <Button variant="primary" size="md" onClick={nextQuestion}>
           Next →
         </Button>
       </div>
