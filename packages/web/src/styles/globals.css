@@ -70,24 +70,31 @@
   }
 
   .option-btn-default {
-    @apply option-btn border-border bg-surface
-           hover:border-accent hover:bg-blue-50
-           dark:hover:bg-accent/10;
+    @apply option-btn border-border bg-surface hover:border-accent hover:bg-blue-50;
+  }
+  .dark .option-btn-default:hover {
+    background-color: color-mix(in srgb, var(--color-accent) 10%, transparent);
   }
 
   .option-btn-selected {
-    @apply option-btn border-accent bg-blue-50 text-accent
-           dark:bg-accent/15;
+    @apply option-btn border-accent bg-blue-50 text-accent;
+  }
+  .dark .option-btn-selected {
+    background-color: color-mix(in srgb, var(--color-accent) 15%, transparent);
   }
 
   .option-btn-correct {
-    @apply option-btn border-success bg-green-50 text-success
-           dark:bg-success/15;
+    @apply option-btn border-success bg-green-50 text-success;
+  }
+  .dark .option-btn-correct {
+    background-color: color-mix(in srgb, var(--color-success) 15%, transparent);
   }
 
   .option-btn-incorrect {
-    @apply option-btn border-error bg-red-50 text-error
-           dark:bg-error/15;
+    @apply option-btn border-error bg-red-50 text-error;
+  }
+  .dark .option-btn-incorrect {
+    background-color: color-mix(in srgb, var(--color-error) 15%, transparent);
   }
 
   /* Keyboard shortcut key hint */
