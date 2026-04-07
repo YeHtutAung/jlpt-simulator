@@ -1,12 +1,12 @@
 # Currently In Progress
 
-_Last updated: Session 9 (password reset page)_
+_Last updated: Session 10 (exam results blank, forgot password visibility)_
 
 ---
 
 ## 🔨 Active Task
 
-Nothing in progress. Session 9 complete.
+Nothing in progress. Session 10 complete.
 
 ---
 
@@ -26,6 +26,9 @@ The project is **live** and fully styled:
 - ✅ Login/Register redirect authenticated users away from auth forms
 - ✅ Forgot password flow on Login page
 - ✅ `/reset-password` page handles PASSWORD_RECOVERY token, form to set new password, success screen
+- ✅ Exam submission fixed: Authorization header sent, `isSubmitted` flag guards navigation, end-of-questions auto-prompts modal
+- ✅ Results page handles null `score_json` with "still calculating" + Refresh button
+- ✅ Forgot password link visible: right-aligned below password input + below Sign In button
 
 ### Remaining blockers — all require manual action, no code needed:
 - **Configure Supabase Auth redirect URLs** — add `/reset-password` to Auth → URL Configuration → Redirect URLs (see DEPLOYMENT.md §1.5)

@@ -103,19 +103,9 @@ export function Login() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <div className="flex items-center justify-between">
-                    <label className="text-sm font-sans font-medium text-text" htmlFor="password">
-                      Password
-                    </label>
-                    <button
-                      type="button"
-                      onClick={handleForgotPassword}
-                      disabled={loading}
-                      className="text-xs text-accent hover:underline font-sans disabled:opacity-50"
-                    >
-                      Forgot password?
-                    </button>
-                  </div>
+                  <label className="text-sm font-sans font-medium text-text" htmlFor="password">
+                    Password
+                  </label>
                   <input
                     id="password"
                     type="password"
@@ -128,6 +118,16 @@ export function Login() {
                                focus:outline-none focus:border-accent transition-colors"
                     placeholder="••••••••"
                   />
+                  <div className="flex justify-end">
+                    <button
+                      type="button"
+                      onClick={handleForgotPassword}
+                      disabled={loading}
+                      className="text-sm text-primary hover:underline font-sans disabled:opacity-50"
+                    >
+                      Forgot password?
+                    </button>
+                  </div>
                 </div>
 
                 {error && (
@@ -139,6 +139,17 @@ export function Login() {
                 <Button type="submit" loading={loading} className="w-full" size="lg">
                   Sign In
                 </Button>
+
+                <div className="text-center">
+                  <button
+                    type="button"
+                    onClick={handleForgotPassword}
+                    disabled={loading}
+                    className="text-sm text-text-muted hover:text-primary hover:underline font-sans disabled:opacity-50"
+                  >
+                    Forgot your password?
+                  </button>
+                </div>
               </form>
 
               <p className="text-center text-sm text-text-muted font-sans">

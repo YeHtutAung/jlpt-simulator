@@ -26,6 +26,7 @@ export function ExamSession() {
   const mode         = useExamStore(s => s.mode)
   const attemptId    = useExamStore(s => s.attemptId)
   const isComplete   = useExamStore(s => s.isComplete)
+  const isSubmitted  = useExamStore(s => s.isSubmitted)
   const isSubmitting = useExamStore(s => s.isSubmitting)
   const selectAnswer = useExamStore(s => s.selectAnswer)
   const toggleFlag   = useExamStore(s => s.toggleFlag)
@@ -80,6 +81,13 @@ export function ExamSession() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [handleKeyDown])
 
+  // User navigated through all questions without pressing Submit — open the modal
+  useEffect(() => {
+    if (isComplete && !isSubmitted) {
+      setShowSubmitModal(true)
+    }
+  }, [isComplete, isSubmitted])
+
   // Redirect if no exam loaded (e.g. page refresh)
   if (!exam) {
     return (
@@ -94,8 +102,8 @@ export function ExamSession() {
     )
   }
 
-  // Redirect when complete
-  if (isComplete && attemptId) {
+  // Navigate to results only after the Edge Function confirms submission
+  if (isSubmitted && attemptId) {
     resetExam()
     navigate(`/results/${attemptId}`)
     return null

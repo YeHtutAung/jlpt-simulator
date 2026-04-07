@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import type { Exam, ExamMode } from '@jlpt/shared'
+import { supabase } from '@/lib/supabase'
 
 // ================================
 // Types
@@ -33,8 +34,9 @@ interface ExamStore {
 
   // ── Status ────────────────────────────────
   isSubmitting: boolean
-  isComplete: boolean
-  showWarning: boolean                   // timer < 5 min
+  isComplete: boolean   // reached end of questions (shows submit prompt)
+  isSubmitted: boolean  // submit-exam Edge Function call succeeded
+  showWarning: boolean  // timer < 5 min
 
   // ── Actions ───────────────────────────────
   initExam: (exam: Exam, mode: ExamMode, attemptId: string) => void
@@ -141,6 +143,7 @@ export const useExamStore = create<ExamStore>((set, get) => ({
   timerActive: false,
   isSubmitting: false,
   isComplete: false,
+  isSubmitted: false,
   showWarning: false,
 
   initExam: (exam, mode, attemptId) => {
@@ -157,6 +160,7 @@ export const useExamStore = create<ExamStore>((set, get) => ({
       timeRemaining: firstSection.time_limit * 60,
       timerActive: true,
       isComplete: false,
+      isSubmitted: false,
       isSubmitting: false,
       questionStartTime: Date.now(),
     })
@@ -237,7 +241,7 @@ export const useExamStore = create<ExamStore>((set, get) => ({
       const shouldAutoSubmit = newTime <= 0 && state.mode === 'full_exam'
 
       if (shouldAutoSubmit) {
-        get().submitExam()
+        get().submitExam().catch(err => console.error('Auto-submit failed:', err))
         return { timeRemaining: 0, timerActive: false, showWarning: true }
       }
 
@@ -252,12 +256,17 @@ export const useExamStore = create<ExamStore>((set, get) => ({
     set({ isSubmitting: true })
 
     try {
-      // Submit to Supabase Edge Function
+      // Get the user's JWT so the Edge Function can authenticate the request
+      const { data: { session } } = await supabase.auth.getSession()
+
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/submit-exam`,
         {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${session?.access_token ?? ''}`,
+          },
           body: JSON.stringify({
             attemptId,
             answers,
@@ -267,12 +276,15 @@ export const useExamStore = create<ExamStore>((set, get) => ({
         }
       )
 
-      if (!response.ok) throw new Error('Submit failed')
+      if (!response.ok) {
+        const text = await response.text().catch(() => '')
+        throw new Error(`Submit failed (${response.status})${text ? `: ${text}` : ''}`)
+      }
 
-      set({ isComplete: true, timerActive: false, isSubmitting: false })
+      set({ isComplete: true, isSubmitted: true, timerActive: false, isSubmitting: false })
     } catch (err) {
-      console.error('submitExam error:', err)
       set({ isSubmitting: false })
+      throw err  // re-throw so callers can show error UI
     }
   },
 
@@ -288,6 +300,7 @@ export const useExamStore = create<ExamStore>((set, get) => ({
       timeRemaining: 0,
       timerActive: false,
       isComplete: false,
+      isSubmitted: false,
       isSubmitting: false,
       showWarning: false,
       questionStartTime: null,

@@ -1,6 +1,18 @@
 # Completed Work
 
-_Last updated: Session 9 (password reset page)_
+_Last updated: Session 10 (exam results blank, forgot password visibility)_
+
+---
+
+## ✅ Session 10 — Exam results blank + forgot password visibility
+
+- [x] **`examStore.ts` — Authorization header** — `submitExam()` now calls `supabase.auth.getSession()` and sends `Authorization: Bearer <token>` so the Edge Function can authenticate the request
+- [x] **`examStore.ts` — `isSubmitted` flag** — new boolean, set to `true` only when Edge Function returns 200. Separates "reached end of questions" (`isComplete`) from "server confirmed submission" (`isSubmitted`)
+- [x] **`examStore.ts` — error re-throw** — `submitExam()` now re-throws errors so `ExamSession` can show the error toast; `tickTimer` auto-submit uses `.catch` to handle re-thrown errors
+- [x] **`ExamSession.tsx` — navigate on `isSubmitted`** — navigation to `/results/:attemptId` now requires `isSubmitted` (Edge Function success), not just `isComplete`. Prevents blank Results page when user clicks Next through all questions
+- [x] **`ExamSession.tsx` — end-of-questions modal** — `useEffect` watches `isComplete && !isSubmitted`; opens submit modal automatically when user navigates through every question
+- [x] **`Results.tsx` — null `score_json` state** — three-way render: full results (score exists) / "⏳ Results still being calculated" + Refresh button (attempt exists, score null) / "Results not found" (no attempt)
+- [x] **`Login.tsx` — forgot password visibility** — moved from tiny inline label text to right-aligned link below the password input (`text-sm text-primary`); added second "Forgot your password?" link centered below the Sign In button for late-noticers
 
 ---
 

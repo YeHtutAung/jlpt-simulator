@@ -1,6 +1,6 @@
 # Todo
 
-_Last updated: Session 9 (password reset page)_
+_Last updated: Session 10 (exam results blank, forgot password visibility)_
 
 ---
 
@@ -14,9 +14,11 @@ These require credentials or file uploads — no code changes needed.
      - `http://localhost:5173/reset-password`
    - Without this, password reset email links are blocked by Supabase
 
-2. **Test auth flows end-to-end on live app**
-   - Signup → "Check your email" screen (email confirm on) or dashboard (off)
+2. **Test full exam flow end-to-end on live app**
+   - Start exam → answer questions → Submit → Results page shows score
+   - Navigate through all questions to end → submit modal auto-opens → Submit → Results
    - Forgot password → email → `/reset-password` → set new password → success
+   - Also requires: `supabase functions deploy submit-exam` if not already deployed
 
 3. **Upload N5 audio files to Supabase Storage**
    - Upload `q1.mp3`–`q4.mp3` to `audio/n5/2017/december/`

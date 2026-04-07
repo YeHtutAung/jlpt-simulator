@@ -114,6 +114,20 @@ export function Results() {
               </Link>
             </div>
           </div>
+        ) : data && !score ? (
+          // Attempt exists but score_json is null — Edge Function hasn't finished
+          <div className="text-center py-16 space-y-4">
+            <div className="text-4xl">⏳</div>
+            <p className="font-sans font-medium text-text">
+              Results are still being calculated.
+            </p>
+            <p className="text-sm text-text-muted font-sans">
+              This usually takes a few seconds. Please refresh the page.
+            </p>
+            <Button onClick={() => window.location.reload()} variant="secondary">
+              Refresh
+            </Button>
+          </div>
         ) : (
           <p className="text-center text-text-muted font-sans py-16">
             Results not found.
